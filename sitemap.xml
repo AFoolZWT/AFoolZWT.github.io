@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2022/01/20/%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA/</loc>
+    
+    <lastmod>2022-01-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2022/01/19/StarForce3/</loc>
     
     <lastmod>2022-01-19</lastmod>
@@ -31,7 +40,7 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2022-01-19</lastmod>
+    <lastmod>2022-01-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -39,14 +48,28 @@
   
   <url>
     <loc>http://example.com/tags/Unity/</loc>
-    <lastmod>2022-01-19</lastmod>
+    <lastmod>2022-01-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/GameFramework/</loc>
-    <lastmod>2022-01-19</lastmod>
+    <lastmod>2022-01-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/%E8%AF%BB%E4%B9%A6/</loc>
+    <lastmod>2022-01-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/%E3%80%8A%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA%E3%80%8B/</loc>
+    <lastmod>2022-01-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -55,14 +78,14 @@
   
   <url>
     <loc>http://example.com/categories/Unity/</loc>
-    <lastmod>2022-01-19</lastmod>
+    <lastmod>2022-01-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/categories/Unity/GameFramework/</loc>
-    <lastmod>2022-01-19</lastmod>
+    <lastmod>2022-01-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
