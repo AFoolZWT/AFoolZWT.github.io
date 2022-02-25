@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Unity零碎知识点 | 愚人のblog</title><meta name="keywords" content="Unity"><meta name="author" content="愚人"><meta name="copyright" content="愚人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.Unity协程的原理协程不是多线程，协程还是在主线程里面（注：在Unity中非主线程是不可以访问Unity资源的） 线程、进程和协程的区别进程有自己独立的堆和栈，即不共享堆也不共享栈，进程由操作系统调度 线程拥有自己独立的栈和共享的堆，共享堆不共享栈，线程亦由操作系统调度（标准线程是这样的） 协程和线程一样共享堆不共享栈，协程由程序员在协程的代码里面显示调度 一个应用程序一般对应一个进程，一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity零碎知识点">
+<meta property="og:url" content="https://afoolzwt.github.io/2022/02/25/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="愚人のblog">
+<meta property="og:description" content="1.Unity协程的原理协程不是多线程，协程还是在主线程里面（注：在Unity中非主线程是不可以访问Unity资源的） 线程、进程和协程的区别进程有自己独立的堆和栈，即不共享堆也不共享栈，进程由操作系统调度 线程拥有自己独立的栈和共享的堆，共享堆不共享栈，线程亦由操作系统调度（标准线程是这样的） 协程和线程一样共享堆不共享栈，协程由程序员在协程的代码里面显示调度 一个应用程序一般对应一个进程，一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://afoolzwt.github.io/img/cover2.jpg">
+<meta property="article:published_time" content="2022-02-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-25T10:23:15.926Z">
+<meta property="article:author" content="愚人">
+<meta property="article:tag" content="Unity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afoolzwt.github.io/img/cover2.jpg"><link rel="shortcut icon" href="/img/webicon.png"><link rel="canonical" href="https://afoolzwt.github.io/2022/02/25/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-HqA81hlzlz&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Unity零碎知识点',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-25 18:23:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="愚人のblog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/headicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: lightblue"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">愚人のblog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Unity零碎知识点</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-24T16:00:00.000Z" title="发表于 2022-02-25 00:00:00">2022-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-25T10:23:15.926Z" title="更新于 2022-02-25 18:23:15">2022-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Unity/">Unity</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Unity零碎知识点"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-Unity协程的原理"><a href="#1-Unity协程的原理" class="headerlink" title="1.Unity协程的原理"></a>1.Unity协程的原理</h1><p>协程不是多线程，协程还是在主线程里面（注：在Unity中非主线程是不可以访问Unity资源的）</p>
+<h2 id="线程、进程和协程的区别"><a href="#线程、进程和协程的区别" class="headerlink" title="线程、进程和协程的区别"></a>线程、进程和协程的区别</h2><p>进程有自己独立的堆和栈，即不共享堆也不共享栈，进程由操作系统调度</p>
+<p>线程拥有自己独立的栈和共享的堆，共享堆不共享栈，线程亦由操作系统调度（标准线程是这样的）</p>
+<p>协程和线程一样共享堆不共享栈，协程由程序员在协程的代码里面显示调度</p>
+<p>一个应用程序一般对应一个进程，一个进程一般有一个主线程，还有若干个辅助线程，线程之间是平行的，在线程里面可以开启协程，让程序在特定的时间内运行。</p>
+<p>协程和线程的区别是：协程避免了无意义的调度，由此可以提高性能，但也因此，程序员必须自己承担调度的责任，同时，协程也失了标准线程使用多CPU的能力。</p>
+<h2 id="Unity中协程执行的原理"><a href="#Unity中协程执行的原理" class="headerlink" title="Unity中协程执行的原理"></a>Unity中协程执行的原理</h2><p>Unity生命周期函数：<br><img src="/img/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/1.png" alt="1.png"></p>
+<p>在Unity运行时，调用协程就是开启了一个IEnumerator（迭代器），协程开始执行，在执行到yield return之前和其他的正常的程序没有差别，但是当遇到yield return之后会立刻返回，并将该函数暂时挂起。在下一帧遇到FixedUpdate或者Update之后判断yield return 后边的条件是否满足，如果满足向下执行。</p>
+<p>根据unity主线的框架运行图我们知道，协同程序主要是在update()方法之后，lateUpdate()方法之前调用。</p>
+<h3 id="Unity生命周期对协程的影响"><a href="#Unity生命周期对协程的影响" class="headerlink" title="Unity生命周期对协程的影响"></a>Unity生命周期对协程的影响</h3><p>通过设置MonoBehaviour脚本的enabled对协程是没有影响的，但如果gameObject.SetActive(false) 则已经启动的协程则完全停止了，即使在Inspector把gameObject 激活还是没有继续执行。也就说协程虽然是在MonoBehvaviour启动的（StartCoroutine）但是协程函数的地位完全是跟MonoBehaviour是一个层次的，不受MonoBehaviour的状态影响，但跟MonoBehaviour脚本一样受gameObject 控制，也应该是和MonoBehaviour脚本一样每帧“轮询” yield 的条件是否满足。</p>
+<p>注：WaitForSends()受Time.timeScale影响，当Time.timeScale = 0f时，yieldreturn new WaitForSecond(X)将不会满足。</p>
+<h2 id="协程的主要应用"><a href="#协程的主要应用" class="headerlink" title="协程的主要应用"></a>协程的主要应用</h2><p>协程不是只能做一些简单的延迟，如果只是单纯的暂停几秒然后在执行就完全没有必要开启一个线程。</p>
+<p>协程的真正作用是分步做一些比较耗时的事情，比如加载游戏里的资源。</p>
+<h1 id="2-C-中的虚方法、抽象方法、抽象类以及接口"><a href="#2-C-中的虚方法、抽象方法、抽象类以及接口" class="headerlink" title="2.C#中的虚方法、抽象方法、抽象类以及接口"></a>2.C#中的虚方法、抽象方法、抽象类以及接口</h1><h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>C# OOP（面向对象）的三大原则：封装、继承、多态。</p>
+<p>在面向对象语言中，接口的多种不同的实现方式即为多态。引用Charlie Calverts对多态的描述——多态性是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作（摘自“Delphi4编程技术内幕”）。简单的说，就是一句话：允许将子类类型的指针赋值给父类类型的指针。多态性在Object Pascal和C++中都是通过虚函数实现的。</p>
+<p>用我自己的理解来说：多态就是在继承的前提下，不同对象调用相同方法却表现出不同的行为，此为多态。<br>关键性的一句话：多态性在C++中是通过虚函数实现的，这在C#中同样适用。但是在C#中有三种方法来体现：虚方法，抽象类，接口。</p>
+<h2 id="虚方法-Virtual"><a href="#虚方法-Virtual" class="headerlink" title="虚方法 Virtual"></a>虚方法 Virtual</h2><p>虚方法存在于相对于需要实现多态的子类的父类中，同时也是最基本的实现多态的方法。</p>
+<p>具体的语法是在父类中用virtual修饰，然后在子类中使用override进行重写。</p>
+<h2 id="抽象方法以及抽象类-Abstract"><a href="#抽象方法以及抽象类-Abstract" class="headerlink" title="抽象方法以及抽象类 Abstract"></a>抽象方法以及抽象类 Abstract</h2><p>存在于父类中的虚方法是有自己的方法体的，而且这些方法体是必要的，少了他们就无法完成逻辑，这种情况需要使用虚方法。</p>
+<p>抽象方法必须存在于抽象类中，抽象类的具体语法是类名前加上abstract。</p>
+<p>抽象方法没有方法体，且所有继承了抽象类的子类必须重写所有的抽象方法。</p>
+<p>抽象类中可以包括普通方法，并且抽象类不能被实例化。</p>
+<p>抽象类的使用场景：</p>
+<p>1.父类方法不知道如何去实现；</p>
+<p>2.父类没有默认实现且不需要实例化</p>
+<h2 id="接口-Interface"><a href="#接口-Interface" class="headerlink" title="接口 Interface"></a>接口 Interface</h2><p>接口是指定一组函数成员而不实现他们的引用类型。所以只能类和结构来实现接口，在继承该接口的类里面要实现接口的所有方法。</p>
+<p>接口的作用就是实现某些类的特殊功能。</p>
+<p>1.接口声明不能包含以下成员：<br>数据成员、静态成员。<br>2.接口声明只能包含如下类型的非静态成员函数的声明：<br>方法、属性、事件、索引器。<br>3.这些函数成员的声明不能包含任何实现代码，而在每一个成员声明的主体后必须使用分号。</p>
+<p><img src="/img/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/2.png" alt="2.png"></p>
+<h1 id="3-C-中值类型与引用类型的区别"><a href="#3-C-中值类型与引用类型的区别" class="headerlink" title="3.C#中值类型与引用类型的区别"></a>3.C#中值类型与引用类型的区别</h1><p>在C#中值类型的变量直接存储数据，而引用类型的变量持有的是数据的引用，数据存储在数据堆中。</p>
+<p>值类型（value type）：byte，short，int，long，float，double，decimal，char，bool 和 struct 统称为值类型。值类型变量声明后，不管是否已经赋值，编译器为其分配内存。<br>引用类型（reference type）：string 和 class 统称为引用类型。当声明一个类时，只在栈中分配一小片内存用于容纳一个地址，而此时并没有为其分配堆上的内存空间。当使用 new 创建一个类的实例时，分配堆上的空间，并把堆上空间的地址保存到栈上分配的小片空间中。</p>
+<p>值类型的实例通常是在线程栈上分配的（静态分配），但是在某些情形下可以存储在堆中。引用类型的对象总是在进程堆中分配（动态分配）。</p>
+<ul>
+<li>数据在哪里声明，就存储在哪里。<br>方法中声明：值类型数据存储在栈中，引用类型的引用存储在栈中，数据存储在堆中；方法在栈中执行，在方法内声明的变量都是在栈中存储，方法执行完毕后将这些数据清除，方法内部的值类型将直接被清除，引用类型将被清除引用，而存储在堆中的数据则等待GC自动回收。<br>类中：值类型数据存储在堆中，引用类型的引用和数据都存储在堆中。</li>
+<li>内存区域上的区别<br>值类型：数据存储在栈上，超出作用域就自动清理<br>引用类型：数据存储在托管堆上，引用地址在线程栈上，地址指向数据存放的堆上<br>托管堆会由GC来自动释放 ，线程栈数据在作用域结束后会被清理。</li>
+<li>拷贝策略：值类型是拷贝数据，引用类型是拷贝引用地址<br>如果值类型为传值参数，传值参数会在栈上新开辟一个副本，原先的值类型数据不会改变<br>如果引用类型是传值参数，传值参数会创建一个新的引用地址，两个引用地址会指向同一个对象实例的数据，实例数据会随着改变进行改变。（这种行为被称为副作用，一般实际项目不会这么操作，要么return返回参数，要么使用ref或者out修饰符）<br>【扩展Ref引用参数，Out输出参数可以利用这一副作用机制】<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Parameters</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Dowork();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Dowork</span>(<span class="params"></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> i = <span class="number">0</span>;  <span class="comment">// int 是值类型</span></span><br><span class="line">            Console.WriteLine(i);   <span class="comment">// i = 0</span></span><br><span class="line">            Pass.<span class="keyword">value</span>(i);          <span class="comment">// 值类型使用的是 i 的副本，i不变</span></span><br><span class="line">            Console.WriteLine(i);   <span class="comment">// i = 0</span></span><br><span class="line"> </span><br><span class="line">            WrappendInt wi = <span class="keyword">new</span> WrappendInt(); <span class="comment">// 创建类 WrappendInt 的另外一个实例</span></span><br><span class="line">            Console.WriteLine(wi.Number);   <span class="comment">// 0 // 被默认构造器初始化为 0</span></span><br><span class="line">            Pass.Reference(wi);     <span class="comment">// 调用方法，wi 和 param 将引用同一个对象</span></span><br><span class="line">            Console.WriteLine(wi.Number);   <span class="comment">// 42</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">class</span> <span class="title">Pass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">value</span>(<span class="params"><span class="built_in">int</span> param</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            param = <span class="number">42</span>; <span class="comment">// 赋值操作使用的是值类型参数的一个副本，原始参数不受影响</span></span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Reference</span>(<span class="params">WrappendInt param</span>) <span class="comment">// 创建类 WrappendInt 的一个实例</span></span></span><br><span class="line">        &#123;</span><br><span class="line">            param.Number = <span class="number">42</span>;  <span class="comment">// 此参数是引用类型的参数</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">class</span> <span class="title">WrappendInt</span>   <span class="comment">// 类是引用类型</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> Number;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*输出结果</span></span><br><span class="line"><span class="comment">*	0</span></span><br><span class="line"><span class="comment">*	0</span></span><br><span class="line"><span class="comment">*	0</span></span><br><span class="line"><span class="comment">*	42</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+值类型：包含了所有简单类型（整数、浮点、bool、char）、struct、enum。<br>继承自System.ValueTyoe<br>引用类型包含了string，object，class，interface，delegate，array<br>继承自System.Object</li>
+</ul>
+<h1 id="4-值类型和引用类型互相转换：拆箱和装箱"><a href="#4-值类型和引用类型互相转换：拆箱和装箱" class="headerlink" title="4.值类型和引用类型互相转换：拆箱和装箱"></a>4.值类型和引用类型互相转换：拆箱和装箱</h1><p>装箱：值类型====》引用类型object<br>1.分配内存堆<br>2.值类型数据拷贝到新的内存堆中<br>3.栈中分配一个新的引用地址指向内存堆</p>
+<p>拆箱：引用类型object====》值类型<br>1.检查确保对象是给定值类型的一个装箱值<br>2.将该值数据复制到栈中的值类型</p>
+<p>string是特殊的引用类型，如果传入参数是string，在方法里修改，原string数值不变。<br>原因是string的不变性，系统内部做了特殊处理。</p>
+<h1 id="5-Foreach遍历原理"><a href="#5-Foreach遍历原理" class="headerlink" title="5.Foreach遍历原理"></a>5.Foreach遍历原理</h1><p>任何集合类（Array）对象都有一个GetEnumerator()方法，该方法可以返回一个实现了 IEnumerator接口的对象。<br>这个返回的IEnumerator对象既不是集合类对象，也不是集合的元素类对象，它是一个独立的类对象。<br>通过这个实现了 IEnumerator接口对象A，可以遍历访问集合类对象中的每一个元素对象<br>对象A访问MoveNext方法，方法为真，就可以访问Current方法，读取到集合的元素。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  List&lt;<span class="built_in">string</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;() &#123; <span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;3&quot;</span>, <span class="string">&quot;4&quot;</span> &#125;;</span><br><span class="line">IEnumerator listEnumerator = list.GetEnumerator();</span><br><span class="line">     <span class="keyword">while</span> (listEnumerator.MoveNext())</span><br><span class="line">     &#123;</span><br><span class="line">         Console.WriteLine(listEnumerator.Current);</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="6-反射的实现原理"><a href="#6-反射的实现原理" class="headerlink" title="6.反射的实现原理"></a>6.反射的实现原理</h1><p>定义：运行时，动态获取类型信息,动态创建对象,动态访问成员的过程。<br>另一种定义：审查元数据并收集元数据的信息。<br>元数据：编译后的最基本数据单元，就是一堆表，反射就是解析这些元数据。<br>反射是在运行期间获取到类、对象、方法、数据的一种手段<br>主要使用类库System.Reflection<br>反射要点：如何获取类型，根据类型来动态创建对象，反射获取方法以及动态调用方法，动态创建委托<br>一、动态获取类型信息<br>1.System.Reflection.Assembly.Load(“XXXX.dll”) 动态加载程序集<br>2.System.Type.GetType(“XXXX类名”); //动态获取某程序集中某类信息<br>3.obj.GetType(); //已知对象获取类信息 ——或者——typeof(类型) //已知类类型<br>二、动态创建对象实例（上一步操作后获得类对象）<br>System.Activator.CreateInstance(Type type);<br>三、动态访问成员调用方法（上一步操作后已获取实例对象）<br>System.Reflection.MethodInfo method = type.GetMethod(“方法名”);//获得方法<br>System.Reflection.MethodInfo.Invoke(object , new object[]{参数}) //调用的类实例和实例参数</p>
+<p>核心类<br>System.Reflection.Assembly 描述程序集<br>System.Type 描述类<br>System.Reflection.FieldInfo 描述了类的字段<br>System.Reflection.ConstructorInfo 描述构造函数<br>System.Reflection.MethodInfo 描述类的方法<br>System.Reflection.PropertyInfo 描述类的属性</p>
+<p>反射耗性能，lua是动态语言，一种小巧的脚本语言，会使用反射机制。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">愚人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://afoolzwt.github.io/2022/02/25/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/">https://afoolzwt.github.io/2022/02/25/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://afoolzwt.github.io" target="_blank">愚人のblog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unity/">Unity</a></div><div class="post_share"><div class="social-share" data-image="/img/cover2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/25/Unity%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><img class="prev-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Unity性能优化</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/25/shader%E5%85%A5%E9%97%A8/"><img class="next-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">shader入门</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/07/ECS1/" title="ECS学习笔记（1）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（1）</div></div></a></div><div><a href="/2022/02/07/ECS2/" title="ECS学习笔记（2）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（2）</div></div></a></div><div><a href="/2022/02/07/ECS3/" title="ECS学习笔记（3）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（3）</div></div></a></div><div><a href="/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/" title="Game Framework 模块汇总"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-25</div><div class="title">Game Framework 模块汇总</div></div></a></div><div><a href="/2022/01/25/HQGXLua/" title="XLua项目使用-HQG"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">XLua项目使用-HQG</div></div></a></div><div><a href="/2022/01/25/ILR1/" title="ILRuntime学习笔记(1)"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">ILRuntime学习笔记(1)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/headicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">愚人</div><div class="author-info__description">为做出理想游戏而不懈努力。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AFoolZWT"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Unity%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">1.Unity协程的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E3%80%81%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">线程、进程和协程的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unity%E4%B8%AD%E5%8D%8F%E7%A8%8B%E6%89%A7%E8%A1%8C%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">Unity中协程执行的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%AF%B9%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">Unity生命周期对协程的影响</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E4%B8%BB%E8%A6%81%E5%BA%94%E7%94%A8"><span class="toc-text">协程的主要应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-C-%E4%B8%AD%E7%9A%84%E8%99%9A%E6%96%B9%E6%B3%95%E3%80%81%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95%E3%80%81%E6%8A%BD%E8%B1%A1%E7%B1%BB%E4%BB%A5%E5%8F%8A%E6%8E%A5%E5%8F%A3"><span class="toc-text">2.C#中的虚方法、抽象方法、抽象类以及接口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-text">多态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%96%B9%E6%B3%95-Virtual"><span class="toc-text">虚方法 Virtual</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E6%8A%BD%E8%B1%A1%E7%B1%BB-Abstract"><span class="toc-text">抽象方法以及抽象类 Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3-Interface"><span class="toc-text">接口 Interface</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-C-%E4%B8%AD%E5%80%BC%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">3.C#中值类型与引用类型的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2%EF%BC%9A%E6%8B%86%E7%AE%B1%E5%92%8C%E8%A3%85%E7%AE%B1"><span class="toc-text">4.值类型和引用类型互相转换：拆箱和装箱</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Foreach%E9%81%8D%E5%8E%86%E5%8E%9F%E7%90%86"><span class="toc-text">5.Foreach遍历原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">6.反射的实现原理</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/02/25/CSharp%E8%BF%9B%E9%98%B6/" title="CSharp进阶"><img src="/img/cover2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSharp进阶"/></a><div class="content"><a class="title" href="/2022/02/25/CSharp%E8%BF%9B%E9%98%B6/" title="CSharp进阶">CSharp进阶</a><time datetime="2022-02-24T16:00:00.000Z" title="发表于 2022-02-25 00:00:00">2022-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/25/CSharp%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/" title="CSharp零碎知识点"><img src="/img/cover2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSharp零碎知识点"/></a><div class="content"><a class="title" href="/2022/02/25/CSharp%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/" title="CSharp零碎知识点">CSharp零碎知识点</a><time datetime="2022-02-24T16:00:00.000Z" title="发表于 2022-02-25 00:00:00">2022-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/" title="Game Framework 模块汇总"><img src="/img/cover2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Game Framework 模块汇总"/></a><div class="content"><a class="title" href="/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/" title="Game Framework 模块汇总">Game Framework 模块汇总</a><time datetime="2022-02-24T16:00:00.000Z" title="发表于 2022-02-25 00:00:00">2022-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/25/Socket/" title="Socket知识点"><img src="/img/cover2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Socket知识点"/></a><div class="content"><a class="title" href="/2022/02/25/Socket/" title="Socket知识点">Socket知识点</a><time datetime="2022-02-24T16:00:00.000Z" title="发表于 2022-02-25 00:00:00">2022-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/25/Unity%E7%BC%96%E8%BE%91%E5%99%A8%E6%8B%93%E5%B1%95/" title="Unity编辑器拓展"><img src="/img/cover2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Unity编辑器拓展"/></a><div class="content"><a class="title" href="/2022/02/25/Unity%E7%BC%96%E8%BE%91%E5%99%A8%E6%8B%93%E5%B1%95/" title="Unity编辑器拓展">Unity编辑器拓展</a><time datetime="2022-02-24T16:00:00.000Z" title="发表于 2022-02-25 00:00:00">2022-02-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 愚人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '2L5WFGGosqmMsQkoWAORAVz8-gzGzoHsz',
+      appKey: 'Aw2OnjzWeYL9LYdqwpwuVuXI',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
