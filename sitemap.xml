@@ -232,13 +232,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/ILRuntime/</loc>
-    <lastmod>2022-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/tags/XLua/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -246,7 +239,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/lua/</loc>
+    <loc>http://example.com/tags/ILRuntime/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -267,7 +260,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E6%B8%B8%E6%88%8F/</loc>
+    <loc>http://example.com/tags/lua/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -288,6 +281,20 @@
   </url>
   
   <url>
+    <loc>http://example.com/tags/%E9%98%85%E8%AF%BB/</loc>
+    <lastmod>2022-02-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2022-02-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/tags/Windows/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -296,13 +303,6 @@
   
   <url>
     <loc>http://example.com/tags/bat/</loc>
-    <lastmod>2022-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/%E9%98%85%E8%AF%BB/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -318,13 +318,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/Unity/ECS/</loc>
-    <lastmod>2022-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/categories/Unity/XLua/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -332,14 +325,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/Unity/ILRuntime/</loc>
+    <loc>http://example.com/categories/Unity/ECS/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/Unity/lua/</loc>
+    <loc>http://example.com/categories/Unity/ILRuntime/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -360,7 +353,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/%E6%B8%B8%E6%88%8F/</loc>
+    <loc>http://example.com/categories/Unity/lua/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -374,6 +367,20 @@
   </url>
   
   <url>
+    <loc>http://example.com/categories/%E9%98%85%E8%AF%BB/</loc>
+    <lastmod>2022-02-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2022-02-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/categories/Windows/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -381,7 +388,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/%E9%98%85%E8%AF%BB/</loc>
+    <loc>http://example.com/categories/%E9%98%85%E8%AF%BB/%E3%80%8A%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA%E3%80%8B/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -403,13 +410,6 @@
   
   <url>
     <loc>http://example.com/categories/%E9%98%85%E8%AF%BB/%E3%80%8A%E7%8C%8E%E5%A4%B4%E6%B8%B8%E6%88%8F%E3%80%8B/</loc>
-    <lastmod>2022-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/categories/%E9%98%85%E8%AF%BB/%E3%80%8A%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA%E3%80%8B/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
