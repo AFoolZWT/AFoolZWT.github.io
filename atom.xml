@@ -3,11 +3,11 @@
   <title>愚人のblog</title>
   
   <subtitle>你好啊</subtitle>
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://afoolzwt.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="https://afoolzwt.github.io/"/>
   <updated>2022-02-24T09:27:11.500Z</updated>
-  <id>http://example.com/</id>
+  <id>https://afoolzwt.github.io/</id>
   
   <author>
     <name>愚人</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Lua手册</title>
-    <link href="http://example.com/2022/02/24/Lua%E6%89%8B%E5%86%8C/"/>
-    <id>http://example.com/2022/02/24/Lua%E6%89%8B%E5%86%8C/</id>
+    <link href="https://afoolzwt.github.io/2022/02/24/Lua%E6%89%8B%E5%86%8C/"/>
+    <id>https://afoolzwt.github.io/2022/02/24/Lua%E6%89%8B%E5%86%8C/</id>
     <published>2022-02-23T16:00:00.000Z</published>
     <updated>2022-02-24T09:27:11.500Z</updated>
     
@@ -33,75 +33,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="lua" scheme="http://example.com/categories/Unity/lua/"/>
-    
-    
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
-    
-    <category term="lua" scheme="http://example.com/tags/lua/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《底特律：变人》</title>
-    <link href="http://example.com/2022/02/24/%E5%BA%95%E7%89%B9%E5%BE%8B%E5%8F%98%E4%BA%BA/"/>
-    <id>http://example.com/2022/02/24/%E5%BA%95%E7%89%B9%E5%BE%8B%E5%8F%98%E4%BA%BA/</id>
-    <published>2022-02-23T16:00:00.000Z</published>
-    <updated>2022-02-24T09:23:53.018Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="玩后感"><a href="#玩后感" class="headerlink" title="玩后感"></a>玩后感</h1><p>《底特律：变人》（个人觉得很多本地化翻译问题很大）无疑是至今为止我玩过此类型的游戏中最棒的，从一个游戏上升到哲学，到人类哲学。我完全沉浸在游戏的世界里，震惊于它的建模、剧情、场景方方面面。像这样的游戏，也是我最最最想做出来的游戏。抛出问题，让自己的玩家去思考。这是我觉得最有意义的Game。<br>底特律对我来说印象最深刻的两个词是“矛盾”与“拯救”。OX选择的矛盾、背叛与坚守的矛盾、自由与枷锁的矛盾，都充斥在游戏内外。世界本身就是矛盾的，难以做出选择就只会寸步难行。很多时候我们能做的事情可能也只有“做出选择”。作为卡拉，我想拯救爱丽丝；作为康纳，我想拯救汉克；而作为马库斯，我想拯救所有仿生人。可能因为我不是一个果断的人，犹豫不前导致我的三个主线都是BAD ENDING。爱丽丝死在了渡河后，康纳因为犹疑自杀而被控制，马库斯因为不愿牺牲而导致革命失败。网上看了其他的结局，但还是觉得自己经历的来的最深刻。总而言之这是一个很棒的游戏，也坚定了我买PS5的决心，希望有朝一日我也能做出这样的游戏带给全人类。</p>]]></content>
+    <category term="lua" scheme="https://afoolzwt.github.io/categories/Unity/lua/"/>
     
     
-      
-      
-    <summary type="html">&lt;h1 id=&quot;玩后感&quot;&gt;&lt;a href=&quot;#玩后感&quot; class=&quot;headerlink&quot; title=&quot;玩后感&quot;&gt;&lt;/a&gt;玩后感&lt;/h1&gt;&lt;p&gt;《底特律：变人》（个人觉得很多本地化翻译问题很大）无疑是至今为止我玩过此类型的游戏中最棒的，从一个游戏上升到哲学，到人类哲学。我完全</summary>
-      
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    
-    
-    <category term="游戏" scheme="http://example.com/categories/%E6%B8%B8%E6%88%8F/"/>
-    
-    <category term="《底特律：变人》" scheme="http://example.com/categories/%E6%B8%B8%E6%88%8F/%E3%80%8A%E5%BA%95%E7%89%B9%E5%BE%8B%EF%BC%9A%E5%8F%98%E4%BA%BA%E3%80%8B/"/>
-    
-    
-    <category term="游戏" scheme="http://example.com/tags/%E6%B8%B8%E6%88%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>bat命令总结</title>
-    <link href="http://example.com/2022/02/24/bat%E7%AC%94%E8%AE%B0/"/>
-    <id>http://example.com/2022/02/24/bat%E7%AC%94%E8%AE%B0/</id>
-    <published>2022-02-23T16:00:00.000Z</published>
-    <updated>2022-02-24T09:48:12.445Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Winodws命令行"><a href="#Winodws命令行" class="headerlink" title="Winodws命令行"></a>Winodws命令行</h1><h2 id="1，echo-显示内容"><a href="#1，echo-显示内容" class="headerlink" title="1，echo 显示内容"></a>1，echo 显示内容</h2><p>echo 内容（类似log）<br>echo on/off  （关闭或开启回显）<br>@echo off  内容  pause（暂停）</p><p>@  符号  表示@后面的命令不显示</p><h2 id="2，cd-进入目录"><a href="#2，cd-进入目录" class="headerlink" title="2，cd  进入目录"></a>2，cd  进入目录</h2><p>cd 内容（path路径，进入到对应的文件夹下面，如果不是在当前盘符，需要执行 盘符：（e:））<br>cd .. (进入父目录)<br>cd /d d:\ (进入盘符根目录)<br>cd e: (显示之前盘符所在目录)<br>d:  (盘符：表示进入某个盘（记录上次进入这个盘的目录，直接进入到对应目录）)  ==  cd /d d:</p><h2 id="3，-dir-显示目录中的内容"><a href="#3，-dir-显示目录中的内容" class="headerlink" title="3， dir  显示目录中的内容"></a>3， dir  显示目录中的内容</h2><p>dir (显示当前目录中字文件夹和文件  包含文件信息)<br>dir /b (只显示当前目录中的子文件夹与文件的文件名)<br>dir /p （分页显示当前目录中的子文件夹与文件）<br>dir /ad (显示当前目录中的子文件夹)<br>dir /ad (显示当前目录中的文件)<br>dir ttt.txt  (显示ttt.txt文件的信息)<br>dir 文件夹 （显示该文件夹下面子文件夹和文件  包含文件信息）</p><h2 id="4-，tree-显示目录结构"><a href="#4-，tree-显示目录结构" class="headerlink" title="4 ，tree  显示目录结构"></a>4 ，tree  显示目录结构</h2><p>tree 路径 （显示对应文件夹里面的目录结构）</p><h2 id="5，-ren-文件夹或文件改名"><a href="#5，-ren-文件夹或文件改名" class="headerlink" title="5， ren  文件夹或文件改名"></a>5， ren  文件夹或文件改名</h2><p>ren ttt.txt 测试.txt   (将当前目录下的ttt.txt改名为测试.txt)<br>ren e:\Work\测试.txt 测试2.txt  (直接改对应目录下面的文件夹名)</p><h2 id="6，-md-创建目录"><a href="#6，-md-创建目录" class="headerlink" title="6， md  创建目录"></a>6， md  创建目录</h2><p>md 文件夹名   （在当前目录中创建文件夹）<br>md e:\work\测试123  （直接在对应目录创建文件夹）</p><h2 id="7，-rd-删除目录"><a href="#7，-rd-删除目录" class="headerlink" title="7， rd 删除目录"></a>7， rd 删除目录</h2><p>rd 文件夹名  （在当前目录中删除文件夹）<br>rd e:\work\测试123 （直接在对应目录删除文件夹）<br>rd 测试 /s /q  (删除当前目录中的文件夹，包括子文件夹和子文件  /s表示删除子文件夹与子文件  /q表示不需要删除请求，安静模式)</p><h2 id="8，copy-拷贝文件"><a href="#8，copy-拷贝文件" class="headerlink" title="8，copy 拷贝文件"></a>8，copy 拷贝文件</h2><p>copy 测试2.txt  e:\  （将测试2文件拷贝到e盘目录下）<br>copy 测试2.txt 路径+文件名  （将文件拷贝到对应路径下，并且重命名）<br>copy /y 测试2.txt  e:(不需要询问是否覆盖)<br>copy /y  文件夹 e:\ (拷贝文件夹下面所有文件到对应目录，不包括子目录)<br>copy 测试2.txt + (复制文件到自己，实际修改了文件日期)<br>copy /y 测试2.txt+新建文本文档.txt 新.txt  （将当前目录下的测试2.txt与新建文本文档.txt合并写入新.txt ）</p><h2 id="9，xcopy-更强大的复制命令"><a href="#9，xcopy-更强大的复制命令" class="headerlink" title="9，xcopy 更强大的复制命令"></a>9，xcopy 更强大的复制命令</h2><p>xcopy 文件夹路径  目标文件夹 （将文件夹里面的所有内容拷贝到目标文件夹里面 直接执行不包含子目录）<br>xcopy 文件夹路径  目标文件夹  /s  (将文件夹里面的所有内容拷贝到目标文件夹里面,包含子目录)<br>xcopy 文件夹路径  目标文件夹  /d:月-日-年  /s  /y (将文件夹里面这个时间改变之后的文件拷贝到目标文件夹里面,包含子目录)</p><h2 id="10-move-移动文件"><a href="#10-move-移动文件" class="headerlink" title="10,move 移动文件"></a>10,move 移动文件</h2><p>move 测试2.txt e:\  （移动测试2.txt到e盘）  /y<br>move *.txt e:\  （移动所有后缀为txt到e盘）  /y<br>move 测试文件夹 e:\new  (移动文件夹到new文件夹，如果存在new文件夹，那么直接移到到该目录下面，如果不存在，则将移动的文件夹移动到对应目录后，改名为new)</p><h2 id="11-del-删除文件-不会删除目录及子目录"><a href="#11-del-删除文件-不会删除目录及子目录" class="headerlink" title="11,del 删除文件  不会删除目录及子目录"></a>11,del 删除文件  不会删除目录及子目录</h2><p>del 文件夹 （删除当前目录下的文件夹中所有非只读文件，子目录下的文件不删除，并且还会进行删除前确认 ==  del new* ）<br>del /f 文件夹 （含只读文件，子目录下的文件不删除，并且还会进行删除前确认 ==  del /f new* ）<br>del /f /s /q 文件夹 （含只读文件，含子目录下的文件）<br>del /ar <em>.</em> (删除当前目录下所有只读文件)<br>del /a-s <em>.</em> (删除当前目录下除系统文件以外的所有文件)</p><h2 id="12，replace-替换文件"><a href="#12，replace-替换文件" class="headerlink" title="12，replace 替换文件"></a>12，replace 替换文件</h2><p>replace e:\work\测试2.txt e:\q  （使用e:\work\测试2.txt 去替换 e盘下面q文件夹下面的测试2.txt）</p><h2 id="13，bat窗口"><a href="#13，bat窗口" class="headerlink" title="13，bat窗口"></a>13，bat窗口</h2><p>@echo off<br>title 测试bat<br>color 03<br>mode con cols=50 lines=100<br>pause</p><hr><pre><code> 0 = 黑色                     8 = 灰色 1 = 蓝色                     9 = 淡蓝色 2 = 绿色                     A = 淡绿色 3 = 湖蓝色                  B = 淡浅绿色 4 = 红色                     C = 淡红色 5 = 紫色                     D = 淡紫色 6 = 黄色                     E = 淡黄色 7 = 白色                     F = 亮白色</code></pre><hr><h2 id="14，文件写入内容"><a href="#14，文件写入内容" class="headerlink" title="14，文件写入内容"></a>14，文件写入内容</h2><p>e:<br>cd e:\Work<br>echo bat测试命令 &gt;&gt; 测试2.txt   （&gt;&gt;直接写入到原来的尾部）  （&gt; 表示覆盖写入）</p><h2 id="15，type-显示文本内容"><a href="#15，type-显示文本内容" class="headerlink" title="15，type 显示文本内容"></a>15，type 显示文本内容</h2><p>type 测试2.txt</p><h2 id="16，find-文件中搜索字符-findstr"><a href="#16，find-文件中搜索字符-findstr" class="headerlink" title="16，find 文件中搜索字符(findstr)"></a>16，find 文件中搜索字符(findstr)</h2><p>find /n /i “测试” 测试2.txt  （/n 显示行号  /i忽略大小写）</p><h2 id="17-参数-1-9"><a href="#17-参数-1-9" class="headerlink" title="17,参数 %1 - %9"></a>17,参数 %1 - %9</h2><h2 id="18，rem-注释"><a href="#18，rem-注释" class="headerlink" title="18，rem 注释"></a>18，rem 注释</h2><h2 id="19，if语句-goto语句"><a href="#19，if语句-goto语句" class="headerlink" title="19，if语句  goto语句"></a>19，if语句  goto语句</h2><p>if “%1” == “qwer”  （”参数” == “参数”）<br>goto 名称  （查找是根据 :名称 进行匹配）</p><p>@echo off<br>if “%1” == “qwer” (<br> echo 包含qwer<br> echo 111<br>) else (<br> echo 不包含qwer<br>)<br>pause<br>（注意 1，括号所在位置  2，括号与关键字中间的空格）</p><p>if “%1” == “qwer”   正常的字符串判断<br>if </p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Winodws命令行&quot;&gt;&lt;a href=&quot;#Winodws命令行&quot; class=&quot;headerlink&quot; title=&quot;Winodws命令行&quot;&gt;&lt;/a&gt;Winodws命令行&lt;/h1&gt;&lt;h2 id=&quot;1，echo-显示内容&quot;&gt;&lt;a href=&quot;#1，echo-显示内</summary>
-      
-    
-    
-    
-    <category term="Windows" scheme="http://example.com/categories/Windows/"/>
-    
-    <category term="bat" scheme="http://example.com/categories/Windows/bat/"/>
-    
-    
-    <category term="Windows" scheme="http://example.com/tags/Windows/"/>
-    
-    <category term="bat" scheme="http://example.com/tags/bat/"/>
+    <category term="lua" scheme="https://afoolzwt.github.io/tags/lua/"/>
     
   </entry>
   
   <entry>
     <title>Unity实现战争迷雾</title>
-    <link href="http://example.com/2022/02/24/Unity%E5%AE%9E%E7%8E%B0%E6%88%98%E4%BA%89%E8%BF%B7%E9%9B%BE/"/>
-    <id>http://example.com/2022/02/24/Unity%E5%AE%9E%E7%8E%B0%E6%88%98%E4%BA%89%E8%BF%B7%E9%9B%BE/</id>
+    <link href="https://afoolzwt.github.io/2022/02/24/Unity%E5%AE%9E%E7%8E%B0%E6%88%98%E4%BA%89%E8%BF%B7%E9%9B%BE/"/>
+    <id>https://afoolzwt.github.io/2022/02/24/Unity%E5%AE%9E%E7%8E%B0%E6%88%98%E4%BA%89%E8%BF%B7%E9%9B%BE/</id>
     <published>2022-02-23T16:00:00.000Z</published>
     <updated>2022-02-24T09:26:25.333Z</updated>
     
@@ -115,23 +61,77 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="shader" scheme="http://example.com/categories/Unity/shader/"/>
+    <category term="shader" scheme="https://afoolzwt.github.io/categories/Unity/shader/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="shader" scheme="http://example.com/tags/shader/"/>
+    <category term="shader" scheme="https://afoolzwt.github.io/tags/shader/"/>
     
-    <category term="RawImage" scheme="http://example.com/tags/RawImage/"/>
+    <category term="RawImage" scheme="https://afoolzwt.github.io/tags/RawImage/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>bat命令总结</title>
+    <link href="https://afoolzwt.github.io/2022/02/24/bat%E7%AC%94%E8%AE%B0/"/>
+    <id>https://afoolzwt.github.io/2022/02/24/bat%E7%AC%94%E8%AE%B0/</id>
+    <published>2022-02-23T16:00:00.000Z</published>
+    <updated>2022-02-24T09:48:12.445Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Winodws命令行"><a href="#Winodws命令行" class="headerlink" title="Winodws命令行"></a>Winodws命令行</h1><h2 id="1，echo-显示内容"><a href="#1，echo-显示内容" class="headerlink" title="1，echo 显示内容"></a>1，echo 显示内容</h2><p>echo 内容（类似log）<br>echo on/off  （关闭或开启回显）<br>@echo off  内容  pause（暂停）</p><p>@  符号  表示@后面的命令不显示</p><h2 id="2，cd-进入目录"><a href="#2，cd-进入目录" class="headerlink" title="2，cd  进入目录"></a>2，cd  进入目录</h2><p>cd 内容（path路径，进入到对应的文件夹下面，如果不是在当前盘符，需要执行 盘符：（e:））<br>cd .. (进入父目录)<br>cd /d d:\ (进入盘符根目录)<br>cd e: (显示之前盘符所在目录)<br>d:  (盘符：表示进入某个盘（记录上次进入这个盘的目录，直接进入到对应目录）)  ==  cd /d d:</p><h2 id="3，-dir-显示目录中的内容"><a href="#3，-dir-显示目录中的内容" class="headerlink" title="3， dir  显示目录中的内容"></a>3， dir  显示目录中的内容</h2><p>dir (显示当前目录中字文件夹和文件  包含文件信息)<br>dir /b (只显示当前目录中的子文件夹与文件的文件名)<br>dir /p （分页显示当前目录中的子文件夹与文件）<br>dir /ad (显示当前目录中的子文件夹)<br>dir /ad (显示当前目录中的文件)<br>dir ttt.txt  (显示ttt.txt文件的信息)<br>dir 文件夹 （显示该文件夹下面子文件夹和文件  包含文件信息）</p><h2 id="4-，tree-显示目录结构"><a href="#4-，tree-显示目录结构" class="headerlink" title="4 ，tree  显示目录结构"></a>4 ，tree  显示目录结构</h2><p>tree 路径 （显示对应文件夹里面的目录结构）</p><h2 id="5，-ren-文件夹或文件改名"><a href="#5，-ren-文件夹或文件改名" class="headerlink" title="5， ren  文件夹或文件改名"></a>5， ren  文件夹或文件改名</h2><p>ren ttt.txt 测试.txt   (将当前目录下的ttt.txt改名为测试.txt)<br>ren e:\Work\测试.txt 测试2.txt  (直接改对应目录下面的文件夹名)</p><h2 id="6，-md-创建目录"><a href="#6，-md-创建目录" class="headerlink" title="6， md  创建目录"></a>6， md  创建目录</h2><p>md 文件夹名   （在当前目录中创建文件夹）<br>md e:\work\测试123  （直接在对应目录创建文件夹）</p><h2 id="7，-rd-删除目录"><a href="#7，-rd-删除目录" class="headerlink" title="7， rd 删除目录"></a>7， rd 删除目录</h2><p>rd 文件夹名  （在当前目录中删除文件夹）<br>rd e:\work\测试123 （直接在对应目录删除文件夹）<br>rd 测试 /s /q  (删除当前目录中的文件夹，包括子文件夹和子文件  /s表示删除子文件夹与子文件  /q表示不需要删除请求，安静模式)</p><h2 id="8，copy-拷贝文件"><a href="#8，copy-拷贝文件" class="headerlink" title="8，copy 拷贝文件"></a>8，copy 拷贝文件</h2><p>copy 测试2.txt  e:\  （将测试2文件拷贝到e盘目录下）<br>copy 测试2.txt 路径+文件名  （将文件拷贝到对应路径下，并且重命名）<br>copy /y 测试2.txt  e:(不需要询问是否覆盖)<br>copy /y  文件夹 e:\ (拷贝文件夹下面所有文件到对应目录，不包括子目录)<br>copy 测试2.txt + (复制文件到自己，实际修改了文件日期)<br>copy /y 测试2.txt+新建文本文档.txt 新.txt  （将当前目录下的测试2.txt与新建文本文档.txt合并写入新.txt ）</p><h2 id="9，xcopy-更强大的复制命令"><a href="#9，xcopy-更强大的复制命令" class="headerlink" title="9，xcopy 更强大的复制命令"></a>9，xcopy 更强大的复制命令</h2><p>xcopy 文件夹路径  目标文件夹 （将文件夹里面的所有内容拷贝到目标文件夹里面 直接执行不包含子目录）<br>xcopy 文件夹路径  目标文件夹  /s  (将文件夹里面的所有内容拷贝到目标文件夹里面,包含子目录)<br>xcopy 文件夹路径  目标文件夹  /d:月-日-年  /s  /y (将文件夹里面这个时间改变之后的文件拷贝到目标文件夹里面,包含子目录)</p><h2 id="10-move-移动文件"><a href="#10-move-移动文件" class="headerlink" title="10,move 移动文件"></a>10,move 移动文件</h2><p>move 测试2.txt e:\  （移动测试2.txt到e盘）  /y<br>move *.txt e:\  （移动所有后缀为txt到e盘）  /y<br>move 测试文件夹 e:\new  (移动文件夹到new文件夹，如果存在new文件夹，那么直接移到到该目录下面，如果不存在，则将移动的文件夹移动到对应目录后，改名为new)</p><h2 id="11-del-删除文件-不会删除目录及子目录"><a href="#11-del-删除文件-不会删除目录及子目录" class="headerlink" title="11,del 删除文件  不会删除目录及子目录"></a>11,del 删除文件  不会删除目录及子目录</h2><p>del 文件夹 （删除当前目录下的文件夹中所有非只读文件，子目录下的文件不删除，并且还会进行删除前确认 ==  del new* ）<br>del /f 文件夹 （含只读文件，子目录下的文件不删除，并且还会进行删除前确认 ==  del /f new* ）<br>del /f /s /q 文件夹 （含只读文件，含子目录下的文件）<br>del /ar <em>.</em> (删除当前目录下所有只读文件)<br>del /a-s <em>.</em> (删除当前目录下除系统文件以外的所有文件)</p><h2 id="12，replace-替换文件"><a href="#12，replace-替换文件" class="headerlink" title="12，replace 替换文件"></a>12，replace 替换文件</h2><p>replace e:\work\测试2.txt e:\q  （使用e:\work\测试2.txt 去替换 e盘下面q文件夹下面的测试2.txt）</p><h2 id="13，bat窗口"><a href="#13，bat窗口" class="headerlink" title="13，bat窗口"></a>13，bat窗口</h2><p>@echo off<br>title 测试bat<br>color 03<br>mode con cols=50 lines=100<br>pause</p><hr><pre><code> 0 = 黑色                     8 = 灰色 1 = 蓝色                     9 = 淡蓝色 2 = 绿色                     A = 淡绿色 3 = 湖蓝色                  B = 淡浅绿色 4 = 红色                     C = 淡红色 5 = 紫色                     D = 淡紫色 6 = 黄色                     E = 淡黄色 7 = 白色                     F = 亮白色</code></pre><hr><h2 id="14，文件写入内容"><a href="#14，文件写入内容" class="headerlink" title="14，文件写入内容"></a>14，文件写入内容</h2><p>e:<br>cd e:\Work<br>echo bat测试命令 &gt;&gt; 测试2.txt   （&gt;&gt;直接写入到原来的尾部）  （&gt; 表示覆盖写入）</p><h2 id="15，type-显示文本内容"><a href="#15，type-显示文本内容" class="headerlink" title="15，type 显示文本内容"></a>15，type 显示文本内容</h2><p>type 测试2.txt</p><h2 id="16，find-文件中搜索字符-findstr"><a href="#16，find-文件中搜索字符-findstr" class="headerlink" title="16，find 文件中搜索字符(findstr)"></a>16，find 文件中搜索字符(findstr)</h2><p>find /n /i “测试” 测试2.txt  （/n 显示行号  /i忽略大小写）</p><h2 id="17-参数-1-9"><a href="#17-参数-1-9" class="headerlink" title="17,参数 %1 - %9"></a>17,参数 %1 - %9</h2><h2 id="18，rem-注释"><a href="#18，rem-注释" class="headerlink" title="18，rem 注释"></a>18，rem 注释</h2><h2 id="19，if语句-goto语句"><a href="#19，if语句-goto语句" class="headerlink" title="19，if语句  goto语句"></a>19，if语句  goto语句</h2><p>if “%1” == “qwer”  （”参数” == “参数”）<br>goto 名称  （查找是根据 :名称 进行匹配）</p><p>@echo off<br>if “%1” == “qwer” (<br> echo 包含qwer<br> echo 111<br>) else (<br> echo 不包含qwer<br>)<br>pause<br>（注意 1，括号所在位置  2，括号与关键字中间的空格）</p><p>if “%1” == “qwer”   正常的字符串判断<br>if </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Winodws命令行&quot;&gt;&lt;a href=&quot;#Winodws命令行&quot; class=&quot;headerlink&quot; title=&quot;Winodws命令行&quot;&gt;&lt;/a&gt;Winodws命令行&lt;/h1&gt;&lt;h2 id=&quot;1，echo-显示内容&quot;&gt;&lt;a href=&quot;#1，echo-显示内</summary>
+      
+    
+    
+    
+    <category term="Windows" scheme="https://afoolzwt.github.io/categories/Windows/"/>
+    
+    <category term="bat" scheme="https://afoolzwt.github.io/categories/Windows/bat/"/>
+    
+    
+    <category term="Windows" scheme="https://afoolzwt.github.io/tags/Windows/"/>
+    
+    <category term="bat" scheme="https://afoolzwt.github.io/tags/bat/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《底特律：变人》</title>
+    <link href="https://afoolzwt.github.io/2022/02/24/%E5%BA%95%E7%89%B9%E5%BE%8B%E5%8F%98%E4%BA%BA/"/>
+    <id>https://afoolzwt.github.io/2022/02/24/%E5%BA%95%E7%89%B9%E5%BE%8B%E5%8F%98%E4%BA%BA/</id>
+    <published>2022-02-23T16:00:00.000Z</published>
+    <updated>2022-02-24T09:23:53.018Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="玩后感"><a href="#玩后感" class="headerlink" title="玩后感"></a>玩后感</h1><p>《底特律：变人》（个人觉得很多本地化翻译问题很大）无疑是至今为止我玩过此类型的游戏中最棒的，从一个游戏上升到哲学，到人类哲学。我完全沉浸在游戏的世界里，震惊于它的建模、剧情、场景方方面面。像这样的游戏，也是我最最最想做出来的游戏。抛出问题，让自己的玩家去思考。这是我觉得最有意义的Game。<br>底特律对我来说印象最深刻的两个词是“矛盾”与“拯救”。OX选择的矛盾、背叛与坚守的矛盾、自由与枷锁的矛盾，都充斥在游戏内外。世界本身就是矛盾的，难以做出选择就只会寸步难行。很多时候我们能做的事情可能也只有“做出选择”。作为卡拉，我想拯救爱丽丝；作为康纳，我想拯救汉克；而作为马库斯，我想拯救所有仿生人。可能因为我不是一个果断的人，犹豫不前导致我的三个主线都是BAD ENDING。爱丽丝死在了渡河后，康纳因为犹疑自杀而被控制，马库斯因为不愿牺牲而导致革命失败。网上看了其他的结局，但还是觉得自己经历的来的最深刻。总而言之这是一个很棒的游戏，也坚定了我买PS5的决心，希望有朝一日我也能做出这样的游戏带给全人类。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;玩后感&quot;&gt;&lt;a href=&quot;#玩后感&quot; class=&quot;headerlink&quot; title=&quot;玩后感&quot;&gt;&lt;/a&gt;玩后感&lt;/h1&gt;&lt;p&gt;《底特律：变人》（个人觉得很多本地化翻译问题很大）无疑是至今为止我玩过此类型的游戏中最棒的，从一个游戏上升到哲学，到人类哲学。我完全</summary>
+      
+    
+    
+    
+    <category term="游戏" scheme="https://afoolzwt.github.io/categories/%E6%B8%B8%E6%88%8F/"/>
+    
+    <category term="《底特律：变人》" scheme="https://afoolzwt.github.io/categories/%E6%B8%B8%E6%88%8F/%E3%80%8A%E5%BA%95%E7%89%B9%E5%BE%8B%EF%BC%9A%E5%8F%98%E4%BA%BA%E3%80%8B/"/>
+    
+    
+    <category term="游戏" scheme="https://afoolzwt.github.io/tags/%E6%B8%B8%E6%88%8F/"/>
     
   </entry>
   
   <entry>
     <title>基于前缀树的红点系统</title>
-    <link href="http://example.com/2022/02/21/Reddot/"/>
-    <id>http://example.com/2022/02/21/Reddot/</id>
+    <link href="https://afoolzwt.github.io/2022/02/21/Reddot/"/>
+    <id>https://afoolzwt.github.io/2022/02/21/Reddot/</id>
     <published>2022-02-20T16:00:00.000Z</published>
     <updated>2022-02-21T07:38:06.288Z</updated>
     
@@ -145,21 +145,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="Reddot" scheme="http://example.com/categories/Unity/Reddot/"/>
+    <category term="Reddot" scheme="https://afoolzwt.github.io/categories/Unity/Reddot/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="Reddot" scheme="http://example.com/tags/Reddot/"/>
+    <category term="Reddot" scheme="https://afoolzwt.github.io/tags/Reddot/"/>
     
   </entry>
   
   <entry>
     <title>《猎头游戏》</title>
-    <link href="http://example.com/2022/02/21/%E7%8C%8E%E5%A4%B4%E6%B8%B8%E6%88%8F/"/>
-    <id>http://example.com/2022/02/21/%E7%8C%8E%E5%A4%B4%E6%B8%B8%E6%88%8F/</id>
+    <link href="https://afoolzwt.github.io/2022/02/21/%E7%8C%8E%E5%A4%B4%E6%B8%B8%E6%88%8F/"/>
+    <id>https://afoolzwt.github.io/2022/02/21/%E7%8C%8E%E5%A4%B4%E6%B8%B8%E6%88%8F/</id>
     <published>2022-02-20T16:00:00.000Z</published>
     <updated>2022-02-21T07:35:08.245Z</updated>
     
@@ -173,19 +173,19 @@
     
     
     
-    <category term="阅读" scheme="http://example.com/categories/%E9%98%85%E8%AF%BB/"/>
+    <category term="阅读" scheme="https://afoolzwt.github.io/categories/%E9%98%85%E8%AF%BB/"/>
     
-    <category term="《猎头游戏》" scheme="http://example.com/categories/%E9%98%85%E8%AF%BB/%E3%80%8A%E7%8C%8E%E5%A4%B4%E6%B8%B8%E6%88%8F%E3%80%8B/"/>
+    <category term="《猎头游戏》" scheme="https://afoolzwt.github.io/categories/%E9%98%85%E8%AF%BB/%E3%80%8A%E7%8C%8E%E5%A4%B4%E6%B8%B8%E6%88%8F%E3%80%8B/"/>
     
     
-    <category term="阅读" scheme="http://example.com/tags/%E9%98%85%E8%AF%BB/"/>
+    <category term="阅读" scheme="https://afoolzwt.github.io/tags/%E9%98%85%E8%AF%BB/"/>
     
   </entry>
   
   <entry>
     <title>ECS学习笔记（1）</title>
-    <link href="http://example.com/2022/02/07/ECS1/"/>
-    <id>http://example.com/2022/02/07/ECS1/</id>
+    <link href="https://afoolzwt.github.io/2022/02/07/ECS1/"/>
+    <id>https://afoolzwt.github.io/2022/02/07/ECS1/</id>
     <published>2022-02-06T16:00:00.000Z</published>
     <updated>2022-02-24T09:48:00.923Z</updated>
     
@@ -199,21 +199,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="ECS" scheme="http://example.com/categories/Unity/ECS/"/>
+    <category term="ECS" scheme="https://afoolzwt.github.io/categories/Unity/ECS/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="ECS" scheme="http://example.com/tags/ECS/"/>
+    <category term="ECS" scheme="https://afoolzwt.github.io/tags/ECS/"/>
     
   </entry>
   
   <entry>
     <title>ECS学习笔记（2）</title>
-    <link href="http://example.com/2022/02/07/ECS2/"/>
-    <id>http://example.com/2022/02/07/ECS2/</id>
+    <link href="https://afoolzwt.github.io/2022/02/07/ECS2/"/>
+    <id>https://afoolzwt.github.io/2022/02/07/ECS2/</id>
     <published>2022-02-06T16:00:00.000Z</published>
     <updated>2022-02-07T05:34:02.938Z</updated>
     
@@ -227,21 +227,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="ECS" scheme="http://example.com/categories/Unity/ECS/"/>
+    <category term="ECS" scheme="https://afoolzwt.github.io/categories/Unity/ECS/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="ECS" scheme="http://example.com/tags/ECS/"/>
+    <category term="ECS" scheme="https://afoolzwt.github.io/tags/ECS/"/>
     
   </entry>
   
   <entry>
     <title>ECS学习笔记（3）</title>
-    <link href="http://example.com/2022/02/07/ECS3/"/>
-    <id>http://example.com/2022/02/07/ECS3/</id>
+    <link href="https://afoolzwt.github.io/2022/02/07/ECS3/"/>
+    <id>https://afoolzwt.github.io/2022/02/07/ECS3/</id>
     <published>2022-02-06T16:00:00.000Z</published>
     <updated>2022-02-07T05:34:10.088Z</updated>
     
@@ -255,21 +255,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="ECS" scheme="http://example.com/categories/Unity/ECS/"/>
+    <category term="ECS" scheme="https://afoolzwt.github.io/categories/Unity/ECS/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="ECS" scheme="http://example.com/tags/ECS/"/>
+    <category term="ECS" scheme="https://afoolzwt.github.io/tags/ECS/"/>
     
   </entry>
   
   <entry>
     <title>XLua项目使用-HQG</title>
-    <link href="http://example.com/2022/01/25/HQGXLua/"/>
-    <id>http://example.com/2022/01/25/HQGXLua/</id>
+    <link href="https://afoolzwt.github.io/2022/01/25/HQGXLua/"/>
+    <id>https://afoolzwt.github.io/2022/01/25/HQGXLua/</id>
     <published>2022-01-24T16:00:00.000Z</published>
     <updated>2022-01-25T09:34:37.351Z</updated>
     
@@ -283,21 +283,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="XLua" scheme="http://example.com/categories/Unity/XLua/"/>
+    <category term="XLua" scheme="https://afoolzwt.github.io/categories/Unity/XLua/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="XLua" scheme="http://example.com/tags/XLua/"/>
+    <category term="XLua" scheme="https://afoolzwt.github.io/tags/XLua/"/>
     
   </entry>
   
   <entry>
     <title>ILRuntime学习笔记(1)</title>
-    <link href="http://example.com/2022/01/25/ILR1/"/>
-    <id>http://example.com/2022/01/25/ILR1/</id>
+    <link href="https://afoolzwt.github.io/2022/01/25/ILR1/"/>
+    <id>https://afoolzwt.github.io/2022/01/25/ILR1/</id>
     <published>2022-01-24T16:00:00.000Z</published>
     <updated>2022-01-25T01:43:46.703Z</updated>
     
@@ -311,21 +311,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/categories/Unity/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/categories/Unity/ILRuntime/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/tags/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/tags/ILRuntime/"/>
     
   </entry>
   
   <entry>
     <title>ILRuntime学习笔记(2)</title>
-    <link href="http://example.com/2022/01/25/ILR2/"/>
-    <id>http://example.com/2022/01/25/ILR2/</id>
+    <link href="https://afoolzwt.github.io/2022/01/25/ILR2/"/>
+    <id>https://afoolzwt.github.io/2022/01/25/ILR2/</id>
     <published>2022-01-24T16:00:00.000Z</published>
     <updated>2022-01-25T01:44:39.430Z</updated>
     
@@ -339,21 +339,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/categories/Unity/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/categories/Unity/ILRuntime/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/tags/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/tags/ILRuntime/"/>
     
   </entry>
   
   <entry>
     <title>ILRuntime学习笔记(3)</title>
-    <link href="http://example.com/2022/01/25/ILR3/"/>
-    <id>http://example.com/2022/01/25/ILR3/</id>
+    <link href="https://afoolzwt.github.io/2022/01/25/ILR3/"/>
+    <id>https://afoolzwt.github.io/2022/01/25/ILR3/</id>
     <published>2022-01-24T16:00:00.000Z</published>
     <updated>2022-01-25T01:43:28.041Z</updated>
     
@@ -367,21 +367,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/categories/Unity/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/categories/Unity/ILRuntime/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/tags/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/tags/ILRuntime/"/>
     
   </entry>
   
   <entry>
     <title>ILRuntime学习笔记(4)</title>
-    <link href="http://example.com/2022/01/25/ILR4/"/>
-    <id>http://example.com/2022/01/25/ILR4/</id>
+    <link href="https://afoolzwt.github.io/2022/01/25/ILR4/"/>
+    <id>https://afoolzwt.github.io/2022/01/25/ILR4/</id>
     <published>2022-01-24T16:00:00.000Z</published>
     <updated>2022-01-25T01:43:19.993Z</updated>
     
@@ -395,21 +395,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/categories/Unity/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/categories/Unity/ILRuntime/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/tags/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/tags/ILRuntime/"/>
     
   </entry>
   
   <entry>
     <title>ILRuntime学习笔记(5)</title>
-    <link href="http://example.com/2022/01/25/ILR5/"/>
-    <id>http://example.com/2022/01/25/ILR5/</id>
+    <link href="https://afoolzwt.github.io/2022/01/25/ILR5/"/>
+    <id>https://afoolzwt.github.io/2022/01/25/ILR5/</id>
     <published>2022-01-24T16:00:00.000Z</published>
     <updated>2022-01-25T01:43:02.881Z</updated>
     
@@ -423,21 +423,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/categories/Unity/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/categories/Unity/ILRuntime/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/tags/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/tags/ILRuntime/"/>
     
   </entry>
   
   <entry>
     <title>ILRuntime学习笔记(6)</title>
-    <link href="http://example.com/2022/01/25/ILR6/"/>
-    <id>http://example.com/2022/01/25/ILR6/</id>
+    <link href="https://afoolzwt.github.io/2022/01/25/ILR6/"/>
+    <id>https://afoolzwt.github.io/2022/01/25/ILR6/</id>
     <published>2022-01-24T16:00:00.000Z</published>
     <updated>2022-01-25T01:43:04.361Z</updated>
     
@@ -451,21 +451,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/categories/Unity/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/categories/Unity/ILRuntime/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="ILRuntime" scheme="http://example.com/tags/ILRuntime/"/>
+    <category term="ILRuntime" scheme="https://afoolzwt.github.io/tags/ILRuntime/"/>
     
   </entry>
   
   <entry>
     <title>XLua学习笔记</title>
-    <link href="http://example.com/2022/01/25/XLua1/"/>
-    <id>http://example.com/2022/01/25/XLua1/</id>
+    <link href="https://afoolzwt.github.io/2022/01/25/XLua1/"/>
+    <id>https://afoolzwt.github.io/2022/01/25/XLua1/</id>
     <published>2022-01-24T16:00:00.000Z</published>
     <updated>2022-01-25T09:33:11.869Z</updated>
     
@@ -479,21 +479,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="XLua" scheme="http://example.com/categories/Unity/XLua/"/>
+    <category term="XLua" scheme="https://afoolzwt.github.io/categories/Unity/XLua/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="XLua" scheme="http://example.com/tags/XLua/"/>
+    <category term="XLua" scheme="https://afoolzwt.github.io/tags/XLua/"/>
     
   </entry>
   
   <entry>
     <title>《我请求有罪》</title>
-    <link href="http://example.com/2022/01/20/%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA/"/>
-    <id>http://example.com/2022/01/20/%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA/</id>
+    <link href="https://afoolzwt.github.io/2022/01/20/%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA/"/>
+    <id>https://afoolzwt.github.io/2022/01/20/%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA/</id>
     <published>2022-01-19T16:00:00.000Z</published>
     <updated>2022-01-20T02:12:39.289Z</updated>
     
@@ -507,19 +507,19 @@
     
     
     
-    <category term="阅读" scheme="http://example.com/categories/%E9%98%85%E8%AF%BB/"/>
+    <category term="阅读" scheme="https://afoolzwt.github.io/categories/%E9%98%85%E8%AF%BB/"/>
     
-    <category term="《我请求有罪》" scheme="http://example.com/categories/%E9%98%85%E8%AF%BB/%E3%80%8A%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA%E3%80%8B/"/>
+    <category term="《我请求有罪》" scheme="https://afoolzwt.github.io/categories/%E9%98%85%E8%AF%BB/%E3%80%8A%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA%E3%80%8B/"/>
     
     
-    <category term="阅读" scheme="http://example.com/tags/%E9%98%85%E8%AF%BB/"/>
+    <category term="阅读" scheme="https://afoolzwt.github.io/tags/%E9%98%85%E8%AF%BB/"/>
     
   </entry>
   
   <entry>
     <title>GameFramework Demo StarForce详细解析(3)</title>
-    <link href="http://example.com/2022/01/19/StarForce3/"/>
-    <id>http://example.com/2022/01/19/StarForce3/</id>
+    <link href="https://afoolzwt.github.io/2022/01/19/StarForce3/"/>
+    <id>https://afoolzwt.github.io/2022/01/19/StarForce3/</id>
     <published>2022-01-18T16:00:00.000Z</published>
     <updated>2022-01-19T06:39:22.175Z</updated>
     
@@ -533,21 +533,21 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="GameFramework" scheme="http://example.com/categories/Unity/GameFramework/"/>
+    <category term="GameFramework" scheme="https://afoolzwt.github.io/categories/Unity/GameFramework/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="GameFramework" scheme="http://example.com/tags/GameFramework/"/>
+    <category term="GameFramework" scheme="https://afoolzwt.github.io/tags/GameFramework/"/>
     
   </entry>
   
   <entry>
     <title>GameFramework Demo StarForce详细解析(1)</title>
-    <link href="http://example.com/2022/01/18/StarForce1/"/>
-    <id>http://example.com/2022/01/18/StarForce1/</id>
+    <link href="https://afoolzwt.github.io/2022/01/18/StarForce1/"/>
+    <id>https://afoolzwt.github.io/2022/01/18/StarForce1/</id>
     <published>2022-01-17T16:00:00.000Z</published>
     <updated>2022-01-19T06:38:15.666Z</updated>
     
@@ -561,14 +561,14 @@
     
     
     
-    <category term="Unity" scheme="http://example.com/categories/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/categories/Unity/"/>
     
-    <category term="GameFramework" scheme="http://example.com/categories/Unity/GameFramework/"/>
+    <category term="GameFramework" scheme="https://afoolzwt.github.io/categories/Unity/GameFramework/"/>
     
     
-    <category term="Unity" scheme="http://example.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://afoolzwt.github.io/tags/Unity/"/>
     
-    <category term="GameFramework" scheme="http://example.com/tags/GameFramework/"/>
+    <category term="GameFramework" scheme="https://afoolzwt.github.io/tags/GameFramework/"/>
     
   </entry>
   
