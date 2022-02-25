@@ -232,14 +232,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/XLua/</loc>
+    <loc>http://example.com/tags/ILRuntime/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/ILRuntime/</loc>
+    <loc>http://example.com/tags/XLua/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -295,14 +295,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E6%B8%B8%E6%88%8F/</loc>
+    <loc>http://example.com/tags/%E9%98%85%E8%AF%BB/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E9%98%85%E8%AF%BB/</loc>
+    <loc>http://example.com/tags/%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -318,7 +318,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/Unity/XLua/</loc>
+    <loc>http://example.com/categories/Unity/ILRuntime/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -332,7 +332,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/Unity/ILRuntime/</loc>
+    <loc>http://example.com/categories/Unity/XLua/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -374,14 +374,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/%E6%B8%B8%E6%88%8F/</loc>
+    <loc>http://example.com/categories/%E9%98%85%E8%AF%BB/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/%E9%98%85%E8%AF%BB/</loc>
+    <loc>http://example.com/categories/%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -395,14 +395,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/%E6%B8%B8%E6%88%8F/%E3%80%8A%E5%BA%95%E7%89%B9%E5%BE%8B%EF%BC%9A%E5%8F%98%E4%BA%BA%E3%80%8B/</loc>
+    <loc>http://example.com/categories/%E9%98%85%E8%AF%BB/%E3%80%8A%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA%E3%80%8B/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/%E9%98%85%E8%AF%BB/%E3%80%8A%E6%88%91%E8%AF%B7%E6%B1%82%E6%9C%89%E7%BD%AA%E3%80%8B/</loc>
+    <loc>http://example.com/categories/%E6%B8%B8%E6%88%8F/%E3%80%8A%E5%BA%95%E7%89%B9%E5%BE%8B%EF%BC%9A%E5%8F%98%E4%BA%BA%E3%80%8B/</loc>
     <lastmod>2022-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
