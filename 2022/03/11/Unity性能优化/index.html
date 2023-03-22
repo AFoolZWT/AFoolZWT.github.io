@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Unity性能优化 | 愚人のblog</title><meta name="keywords" content="Unity,性能优化"><meta name="author" content="愚人"><meta name="copyright" content="愚人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="LOD层级细节技术LOD通过不同的距离 显示不同精细程度的模型 OcclusionCulling 遮挡剔除只显示视野内的物体 光照贴图LightMapping手动烘焙 将光照的Mode设置为Baked 合并Mesh  资源优化标准资源优化标准    Mesh        动态模型：面片数&lt;3000        材质数&lt;3        骨骼数&lt;50    静态模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity性能优化">
+<meta property="og:url" content="https://afoolzwt.github.io/2022/03/11/Unity%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="愚人のblog">
+<meta property="og:description" content="LOD层级细节技术LOD通过不同的距离 显示不同精细程度的模型 OcclusionCulling 遮挡剔除只显示视野内的物体 光照贴图LightMapping手动烘焙 将光照的Mode设置为Baked 合并Mesh  资源优化标准资源优化标准    Mesh        动态模型：面片数&lt;3000        材质数&lt;3        骨骼数&lt;50    静态模型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://afoolzwt.github.io/img/cover2.jpg">
+<meta property="article:published_time" content="2022-03-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-11T06:37:17.471Z">
+<meta property="article:author" content="愚人">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afoolzwt.github.io/img/cover2.jpg"><link rel="shortcut icon" href="/img/webicon.png"><link rel="canonical" href="https://afoolzwt.github.io/2022/03/11/Unity%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-HqA81hlzlz&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Unity性能优化',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-11 14:37:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="愚人のblog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/headicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: lightblue"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">愚人のblog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Unity性能优化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-10T16:00:00.000Z" title="发表于 2022-03-11 00:00:00">2022-03-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-11T06:37:17.471Z" title="更新于 2022-03-11 14:37:17">2022-03-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Unity/">Unity</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Unity/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Unity性能优化"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="LOD层级细节技术"><a href="#LOD层级细节技术" class="headerlink" title="LOD层级细节技术"></a>LOD层级细节技术</h1><h2 id="LOD"><a href="#LOD" class="headerlink" title="LOD"></a>LOD</h2><p><img src="/img/UnityImgs/4.jpg"><br>通过不同的距离 显示不同精细程度的模型</p>
+<h2 id="OcclusionCulling-遮挡剔除"><a href="#OcclusionCulling-遮挡剔除" class="headerlink" title="OcclusionCulling 遮挡剔除"></a>OcclusionCulling 遮挡剔除</h2><p><img src="/img/UnityImgs/5.jpg"><br><img src="/img/UnityImgs/6.jpg"><br><img src="/img/UnityImgs/7.jpg"><br>只显示视野内的物体</p>
+<h2 id="光照贴图LightMapping"><a href="#光照贴图LightMapping" class="headerlink" title="光照贴图LightMapping"></a>光照贴图LightMapping</h2><p><img src="/img/UnityImgs/8.jpg"><br><img src="/img/UnityImgs/9.png"><br>手动烘焙 将光照的Mode设置为Baked</p>
+<h2 id="合并Mesh"><a href="#合并Mesh" class="headerlink" title="合并Mesh"></a>合并Mesh</h2><p><img src="/img/UnityImgs/10.jpg"></p>
+<hr>
+<h1 id="资源优化标准"><a href="#资源优化标准" class="headerlink" title="资源优化标准"></a>资源优化标准</h1><p>资源优化标准<br>    Mesh<br>        动态模型：面片数&lt;3000<br>        材质数&lt;3<br>        骨骼数&lt;50<br>    静态模型<br>        顶点数&lt;500<br>    Audio<br>        长时间音乐（背景音乐）压缩格式 mp3<br>        短时间音乐（音效）非压缩格式 wav<br>        <a target="_blank" rel="noopener" href="http://blog.csdn.net/u012565990/article/details/51794486">http://blog.csdn.net/u012565990/article/details/51794486</a><br>    Texture<br>        贴图长宽&lt;1024<br>    Shader<br>        尽量减少复杂数学运算<br>        减少discard操作<br>    模型优化<br>    贴图优化<br>    如何减少冗余资源和重复资源<br>        A、Resources目录下的资源不管是否被引用，都会打包进安装包，不使用的资源不要放在Resources目录下<br>        B、不同目录下的相同资源文件，如果都被引用，那么都会打包进资源包，造成冗余，保证同一个资源文件在项目中只存放在一个目录位置</p>
+<hr>
+<h1 id="Unity-Statistics统计面板"><a href="#Unity-Statistics统计面板" class="headerlink" title="Unity Statistics统计面板"></a>Unity Statistics统计面板</h1><p><img src="/img/UnityImgs/11.jpg"></p>
+<ul>
+<li>FPS帧数    当前一秒钟能渲染81.6帧  渲染一帧需要12.2ms（大于30帧人肉眼不会觉得卡顿）</li>
+<li>CPU:main 计算每一帧需要耗费的时间</li>
+<li>render thread 渲染线程</li>
+<li>Batches：批处理次数</li>
+<li>Verts : 顶点个数（相机视野内）</li>
+<li>Tris : 三角面个数（相机视野内）<br><img src="/img/UnityImgs/12.jpg"></li>
+<li>Batched DrawCall 合并前的DrawCall数量 Batches 合并后的DrawCall数量</li>
+<li>SetPass Calls：shader里面的Pass块</li>
+</ul>
+<hr>
+<h1 id="什么是DrawCall"><a href="#什么是DrawCall" class="headerlink" title="什么是DrawCall"></a>什么是DrawCall</h1><h2 id="Unity安装包大-运行卡的原因"><a href="#Unity安装包大-运行卡的原因" class="headerlink" title="Unity安装包大/运行卡的原因"></a>Unity安装包大/运行卡的原因</h2><p>Unity内置Mono虚拟机让代码可以跨平台运行。</p>
+<h2 id="什么是DrawCall-1"><a href="#什么是DrawCall-1" class="headerlink" title="什么是DrawCall"></a>什么是DrawCall</h2><p>DrawCall很简单，就是cpu对图形绘制接口的调用，CPU通过调用图形库（directx/opengl）接口，命令GPU进行渲染操作。</p>
+<h3 id="CPU和GPU是如何进行并行工作和交互的？"><a href="#CPU和GPU是如何进行并行工作和交互的？" class="headerlink" title="CPU和GPU是如何进行并行工作和交互的？"></a>CPU和GPU是如何进行并行工作和交互的？</h3><p>试想，渲染流程没用采用流水线的工作方式：CPU发送一个渲染命令之后，GPU立即执行渲染命令绘制图形，等到渲染任务结束之后，CPU才可以继续发送下一个渲染命令，这样显然影响工作效率。<br>采用渲染流水线后，CPU与GPU并行工作，独立而不相互依赖。这是通过命令缓冲区来实现的：命令缓冲区维护一个命令队列，CPU向其中发送命令，GPU从中取出命令并执行。命令有很多种，DrawCall是一种，其他命令还有改变渲染状态、设置渲染数据流等。<br>这种方式就类似于游戏开发的网络通信：维持一个消息队列，网络线程接收解析消息并将之添加到消息队列，游戏主线程更新时从中取出消息并做派发处理。</p>
+<h3 id="DrawCall是如何影响性能的？"><a href="#DrawCall是如何影响性能的？" class="headerlink" title="DrawCall是如何影响性能的？"></a>DrawCall是如何影响性能的？</h3><p>每一次绘制CPU都要调用DrawCall，而在调动DrawCall前，CPU还要进行很多准备工作：检测渲染状态、提交渲染所需要的数据、提交渲染所需要的状态。<br>而GPU本身具有很强大的计算能力，可以很快就处理完渲染任务。<br>当DrawCall过多，CPU就会很多额外开销用于准备工作，CPU本身负载，而这时GPU可能闲置了。</p>
+<h3 id="DrawCall优化：减少DrawCall"><a href="#DrawCall优化：减少DrawCall" class="headerlink" title="DrawCall优化：减少DrawCall"></a>DrawCall优化：减少DrawCall</h3><p>既然，我们已经知道DrawCall导致的性能问题在于DrawCall数量过多，那么我们优化的思路就是减少DrawCall。这里我们只讨论批处理（Batching）。<br>过多的DrawCall会造成CPU的性能瓶颈：大量时间消耗在DrawCall准备工作上。很显然的一个优化方向就是：尽量把小的DrawCall合并到一个大的DrawCall中，这就是批处理的思想。<br>使用批处理我们需要在CPU和RAM中合并网格，而合并网格本身是需要计算消耗，而且创建新网格也会占用内存。因此批处理的频次不宜太高，不然造成的消耗可能得不偿失。<br>使用批处理的注意事项：</p>
+<ul>
+<li>合并的网格会在一次渲染任务中进行绘制，他们的渲染数据，渲染状态和shader都是一样的，因此合并的条件至少是：同材质、同贴图、同shader。最好网格顶点格式也一致。</li>
+<li>尽量避免使用大量小的网格，当确实需要时，考虑是否要合并。</li>
+<li>避免使用过多的材质，尽量共享材质。</li>
+<li>网格合并的顶点数量有上限（Unity中好像是65535）</li>
+<li>合并本身有消耗，因此尽量在编辑器下进行合并</li>
+<li>确实需要在运行时合并的，将静态的物体和动态的物体分开合并：静态的合并一次就可以，动态的只要有物体发生变换就要重新合并。<br><img src="/img/UnityImgs/13.jpg"></li>
+</ul>
+<hr>
+<h1 id="解决UI卡顿问题"><a href="#解决UI卡顿问题" class="headerlink" title="解决UI卡顿问题"></a>解决UI卡顿问题</h1><h2 id="Canvas优化要点"><a href="#Canvas优化要点" class="headerlink" title="Canvas优化要点"></a>Canvas优化要点</h2><p>1.Unity为了性能优化会合并Canvas下所有元素。<br>2.如果把所有面板都放入一个Canvas下，会造成重绘。</p>
+<ul>
+<li>   一个Canvas下的所有UI元素都是合在一个Mesh中的，过大的Mesh在更新时开销很大。</li>
+<li>   一般建议每个较复杂的UI界面，都自成一个Canvas（可以是子Canvas），在UI界面很复杂时，甚至要划分更多的子Canvas。</li>
+<li>   动静分离</li>
+<li>   Canvas又不能细分的太多，因为会导致DrawCall的上升</li>
+<li>   把一个面板的UI资源放到一个图集里（背景大图不要和小图放在一个图集里）</li>
+</ul>
+<p>Overdraw(GPU)<br>造成GPU性能瓶颈的主要原因：</p>
+<ul>
+<li>   复杂的vertext或pixel shader计算</li>
+<li>   Overdraw:<br>光栅化阶段的填充像素过多<br>在UGUI中使用Alpha=0的不可见image参与Raycast,比如在屏幕空白处点击的响应，然而这些元素虽然在屏幕上不可见、但依然参与了绘制！<br>解决方案举例：</li>
+<li>   禁用不可见的UI<br>比如当打开一个系统时如果完全挡住了另外一个系统，则可以将被遮挡住的系统禁用。</li>
+<li>   不要使用空的image<br>在unity中，RayCast使用Graphic作为基本元素来检测touch，使用空的image并将alpha设置为0来接收touch事件会产生不必要的overdraw</li>
+</ul>
+<h1 id="【内存优化】图集整理策略"><a href="#【内存优化】图集整理策略" class="headerlink" title="【内存优化】图集整理策略"></a>【内存优化】图集整理策略</h1><p>游戏开发，肯定会有一堆的图片，游戏运行时，unity会把小图整合到1张大图上，方便渲染合批，降低渲染消耗。<br>但是，随着游戏开发的进行，图片越来越多，我们总不能所有的图片都塞进这张大图里，那加载的时候，更新的时候，这张大图的加载速度就会超级慢，严重影响游戏体验。这就涉及到图集的整理问题。<br>优化的本质就是不渲染或少渲染或用更省的方法渲染。</p>
+<h2 id="1-Sprite-Packer介绍"><a href="#1-Sprite-Packer介绍" class="headerlink" title="1.Sprite Packer介绍"></a>1.Sprite Packer介绍</h2><p><img src="/img/UnityImgs/41.png"><br>Sprite Packer会把相同Packing Tag以及相同压缩格式的资源打到相同的图集里面。<br>所以影响图集大小主要集中在2个方面:</p>
+<ul>
+<li>Packing Tag：图集名称</li>
+<li>资源的压缩格式(format)：安卓使用ETC1压缩，IOS默认使用PVRTC,选用不用压缩模式的2张图，即使是同一个Packing Tag，也会被打到2张不同的图集里面。<h2 id="2-图集整理策略"><a href="#2-图集整理策略" class="headerlink" title="2. 图集整理策略"></a>2. 图集整理策略</h2>知道了Sprite Packer怎么打包图集的，我们就要根据项目实际情况，去合理安排和整理图片资源，图集太大不行，太空也不行，然后又要关心业务，很多注意事项。</li>
+</ul>
+<p>所以整理以下几个我们平时整理图集时候会关注的几个点：</p>
+<ol>
+<li>尽量紧凑，没有太多空白。比如一个图集512x512刚好塞满，现在额外加一张小图进去，就被迫变成512x1024，浪费的空间就很多了，而且在有的平台，该图集会被强制变成1024*1024，内存消耗从1M变成4M。</li>
+<li>Draw Call尽量少，同一个界面的小图尽量在一个图集里。</li>
+<li>内存管理方便，加载性能好，打开一个界面时只加载必要的图集，关闭时可以方便地释放图集。</li>
+<li>AssetBundle打包\热更粒度合理，不能出现“热更一个新界面，大量图集都需要热更”的情况。</li>
+<li>维护方便，当界面变化时，调整方便，包括生成图集、调整引用、新图集尺寸变化的影响、新图集AssetBundle变化的影响等等。</li>
+<li>图集间隙尽量少，主要靠图集工具，常见的比如更紧凑的多边形Mesh替代Rect Mesh、旋转、切割等等。【TP比Unity的 Spirte Packer算法更好，这里我们不讨论】    <h2 id="3-我们现在项目的图集整理策略："><a href="#3-我们现在项目的图集整理策略：" class="headerlink" title="3. 我们现在项目的图集整理策略："></a>3. 我们现在项目的图集整理策略：</h2></li>
+<li>【脚本】按业务功能的预制，寻找依赖，收集所有预制引用的图片，</li>
+<li>【脚本】将依赖的图片分别移动到对应业务命名的文件夹下【没有就创建】，如果有多个预制使用了同一张图片，我们就把它扔到common文件夹；</li>
+<li>【人工】打开Spirte Packer，查看图集情况是否合理，合并零碎文件夹，让图集尽量紧凑，没有太多空白，尽量让图集处于2的n次方大小。</li>
+<li> 细碎图片扔进common。</li>
+<li> 程序来管理图集，就导致出包前，老是要要求美术缩小图片啊，调整目录啊，美术也不高兴，我觉得应该将这件事交给美术去做，拉美术一个人负责这件事，这样，他们上传的时候就会注意图片的通道RGBA啊，然后图集分配是否合理这些事，这样我们检查后的反馈就会少很多，大家合作也更舒服。<h2 id="4-Unity上手动查看这些打包的大图方式："><a href="#4-Unity上手动查看这些打包的大图方式：" class="headerlink" title="4.Unity上手动查看这些打包的大图方式："></a>4.Unity上手动查看这些打包的大图方式：</h2></li>
+<li>打开 Sprite Packer界面【Window-Sprite Packer(2018版本:Window-2D-Sprite Packer)】</li>
+<li>点击pack按钮【前提是已经设置了图片的Tag】</li>
+<li>但是由于unity内置的查看图集很不友好，提供一个工具Altas Looker，可以按上下键看图集，挺方便的。（<a target="_blank" rel="noopener" href="https://github.com/Aver58/Tools/tree/master/UnityProject/Assets/Editor/AtlasLooker%EF%BC%89">https://github.com/Aver58/Tools/tree/master/UnityProject/Assets/Editor/AtlasLooker）</a></li>
+</ol>
+<h2 id="5-资源优化"><a href="#5-资源优化" class="headerlink" title="5. 资源优化"></a>5. 资源优化</h2><h3 id="纹理优化"><a href="#纹理优化" class="headerlink" title="纹理优化"></a>纹理优化</h3><p>纹理优化的目的是让它们占用的内存尽量的小，那么纹理加载进内存后，大小计算公式如下：</p>
+<blockquote>
+<p>纹理内存大小（字节） = 纹理宽度 x 纹理高度 x 像素字节<br>像素字节 = 像素通道数（R/G/B/A） x 通道大小（1字节/半字节）</p>
+</blockquote>
+<h3 id="纹理尺寸"><a href="#纹理尺寸" class="headerlink" title="纹理尺寸"></a>纹理尺寸</h3><p>根据项目实际情况将贴图都缩小至合适的大小。这里的合适大小是指渲染对象在画面中大多数情况下不可能达到的最大尺寸，这个尺寸最好保持2的N次方。</p>
+<h3 id="纹理通道"><a href="#纹理通道" class="headerlink" title="纹理通道"></a>纹理通道</h3><p>通道优化的目的是降低像素所占的大小，可以通过以下方法达到目的:</p>
+<ul>
+<li>去除Alpha通道。可以减少通道数量，适用于不需要Alpha混合或Alpha Test的角色和物件</li>
+<li>应用单通道图。也可以减少通道数量，比如灰度图、地形高度图，掩码图，Shader掩码图等</li>
+<li>使用16位代替32位图。例如RGB444/RGBA4444就可以减少像素通道大小。<h3 id="提高纹理复用率"><a href="#提高纹理复用率" class="headerlink" title="提高纹理复用率"></a>提高纹理复用率</h3></li>
+<li>建立共享图库。将通用的元素放至共享库，例如按钮/进度条/背景/UI通用元素等。</li>
+<li>用九宫格图代替大块背景图。九宫格在游戏开发中是比较常见的UI组件。</li>
+<li>纹理元素通过变换可组合成复合纹理。例下图，上下左右对称的背景图可以用4张相同贴图实例通过旋转/翻转后获得。【mirror】<h3 id="UI图集"><a href="#UI图集" class="headerlink" title="UI图集"></a>UI图集</h3>界面A引用界面A图集和共享图集是允许的，但尽量不要引用界面B等其它图集。<br>但实际在游戏开发过程中，很难保证美术做到这一点，通常存在以下问题：</li>
+</ul>
+<ol>
+<li><p>如果界面A确实要用到界面B图集的某个元素，怎么办？</p>
+<blockquote>
+<p>参考解决方法：要看被引用元素的通用度，如果只是界面A和B在用，可以将被引用元素拷贝到界面A图集下；如果其它界面也会引用到，就可以将它移到共享图库。</p>
+</blockquote>
+</li>
+<li><p>有些UI纹理很大且很多界面都有用到，如果放在共享图库会导致共享图库急剧膨胀，怎么办?</p>
+<blockquote>
+<p>参考解决方法：大尺寸纹理建议用九宫格+细节图，或通过组合的方式来代替。</p>
+</blockquote>
+</li>
+<li><p>如何保证美术制作的UI只引用到自身图集和共享图集？</p>
+<blockquote>
+<p>参考解决方法：实现批处理检查工具，找出每个UI界面引用到的图集列表，引用的图集超过2个便是不合格。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>几种主流贴图压缩算法的实现原理详解</p>
+<ul>
+<li>ETC<blockquote>
+<p>ETC压缩算法采用将图像中的chromatic和luminance分开存储的方式，而在解码时使用luminance对chromatic进行调制进而重现原始图像信息。<br>ETC也主要有两种方法：ETC1和改进后的ETC2。</p>
+</blockquote>
+</li>
+</ul>
+<p>ETC1：<br>采用4x2的block进行分割（原始为4*2*24=192，压缩后为32，压缩率为6）。<br>ETC2：<br>根据ETC1的实现方式，如果其块内的颜色分布不均匀的话，则其存储的两个basecolor会较远的分布于插值趋线的较远的两侧，进行解压后会得到较低的压缩质量，因而ETC2就是解决如何针对这些较为特殊的颜色分布来选择更加优化的压缩策略。</p>
+<ul>
+<li>PVRTC</li>
+</ul>
+<p>PVRTC的不是基于block的方式生成的，但是却也可以理解为以block方式组织的。</p>
+<ul>
+<li>ASTC</li>
+</ul>
+<p>ASTC中ARM研发的一种较新的贴图压缩格式，相对于上述几种方法具有较多的优势，其应该会慢慢成为之后移动设备上贴图压缩的主要标准和主流。其主要具有如下的特性：</p>
+<ol>
+<li>较高的灵活性；</li>
+<li>可变的压缩率；</li>
+<li>支持2d/3d贴图；</li>
+<li>适用于移动平台；</li>
+<li>支持LDR/HDR贴图内容；<br>ASTC同样是基于block的压缩方式，但块的大小却较支持多种尺寸，比如从基本的4x4到12x12，而且块的宽高也不限于pot，比如6x5；每个块内的内容用128bits来进行存储，因而不同的块就对应着不同的压缩率。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">愚人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://afoolzwt.github.io/2022/03/11/Unity%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">https://afoolzwt.github.io/2022/03/11/Unity%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://afoolzwt.github.io" target="_blank">愚人のblog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unity/">Unity</a><a class="post-meta__tags" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></div><div class="post_share"><div class="social-share" data-image="/img/cover2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/03/11/Unity%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/"><img class="prev-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Unity面试题汇总</div></div></a></div><div class="next-post pull-right"><a href="/2022/03/11/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/"><img class="next-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Unity零碎知识点</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/07/ECS3/" title="ECS学习笔记（3）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（3）</div></div></a></div><div><a href="/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/" title="Game Framework 模块汇总"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-25</div><div class="title">Game Framework 模块汇总</div></div></a></div><div><a href="/2022/02/07/ECS1/" title="ECS学习笔记（1）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（1）</div></div></a></div><div><a href="/2022/02/07/ECS2/" title="ECS学习笔记（2）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（2）</div></div></a></div><div><a href="/2022/01/25/HQGXLua/" title="XLua项目使用-HQG"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">XLua项目使用-HQG</div></div></a></div><div><a href="/2022/01/25/ILR1/" title="ILRuntime学习笔记(1)"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">ILRuntime学习笔记(1)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/headicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">愚人</div><div class="author-info__description">为做出理想游戏而不懈努力。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AFoolZWT"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LOD%E5%B1%82%E7%BA%A7%E7%BB%86%E8%8A%82%E6%8A%80%E6%9C%AF"><span class="toc-text">LOD层级细节技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LOD"><span class="toc-text">LOD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OcclusionCulling-%E9%81%AE%E6%8C%A1%E5%89%94%E9%99%A4"><span class="toc-text">OcclusionCulling 遮挡剔除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%89%E7%85%A7%E8%B4%B4%E5%9B%BELightMapping"><span class="toc-text">光照贴图LightMapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E5%B9%B6Mesh"><span class="toc-text">合并Mesh</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96%E6%A0%87%E5%87%86"><span class="toc-text">资源优化标准</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unity-Statistics%E7%BB%9F%E8%AE%A1%E9%9D%A2%E6%9D%BF"><span class="toc-text">Unity Statistics统计面板</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFDrawCall"><span class="toc-text">什么是DrawCall</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Unity%E5%AE%89%E8%A3%85%E5%8C%85%E5%A4%A7-%E8%BF%90%E8%A1%8C%E5%8D%A1%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">Unity安装包大&#x2F;运行卡的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFDrawCall-1"><span class="toc-text">什么是DrawCall</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU%E5%92%8CGPU%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%B9%B6%E8%A1%8C%E5%B7%A5%E4%BD%9C%E5%92%8C%E4%BA%A4%E4%BA%92%E7%9A%84%EF%BC%9F"><span class="toc-text">CPU和GPU是如何进行并行工作和交互的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DrawCall%E6%98%AF%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E6%80%A7%E8%83%BD%E7%9A%84%EF%BC%9F"><span class="toc-text">DrawCall是如何影响性能的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DrawCall%E4%BC%98%E5%8C%96%EF%BC%9A%E5%87%8F%E5%B0%91DrawCall"><span class="toc-text">DrawCall优化：减少DrawCall</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3UI%E5%8D%A1%E9%A1%BF%E9%97%AE%E9%A2%98"><span class="toc-text">解决UI卡顿问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Canvas%E4%BC%98%E5%8C%96%E8%A6%81%E7%82%B9"><span class="toc-text">Canvas优化要点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96%E3%80%91%E5%9B%BE%E9%9B%86%E6%95%B4%E7%90%86%E7%AD%96%E7%95%A5"><span class="toc-text">【内存优化】图集整理策略</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Sprite-Packer%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.Sprite Packer介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9B%BE%E9%9B%86%E6%95%B4%E7%90%86%E7%AD%96%E7%95%A5"><span class="toc-text">2. 图集整理策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%88%91%E4%BB%AC%E7%8E%B0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BE%E9%9B%86%E6%95%B4%E7%90%86%E7%AD%96%E7%95%A5%EF%BC%9A"><span class="toc-text">3. 我们现在项目的图集整理策略：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Unity%E4%B8%8A%E6%89%8B%E5%8A%A8%E6%9F%A5%E7%9C%8B%E8%BF%99%E4%BA%9B%E6%89%93%E5%8C%85%E7%9A%84%E5%A4%A7%E5%9B%BE%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-text">4.Unity上手动查看这些打包的大图方式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96"><span class="toc-text">5. 资源优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96"><span class="toc-text">纹理优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E5%B0%BA%E5%AF%B8"><span class="toc-text">纹理尺寸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E9%80%9A%E9%81%93"><span class="toc-text">纹理通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%AB%98%E7%BA%B9%E7%90%86%E5%A4%8D%E7%94%A8%E7%8E%87"><span class="toc-text">提高纹理复用率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UI%E5%9B%BE%E9%9B%86"><span class="toc-text">UI图集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95"><span class="toc-text">拓展</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》"><img src="/img/books/dhsjms.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话设计模式》"/></a><div class="content"><a class="title" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》">《大话设计模式》</a><time datetime="2023-03-21T16:00:00.000Z" title="发表于 2023-03-22 00:00:00">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（语言特性18-23）"/></a><div class="content"><a class="title" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）">Lua程序设计（语言特性18-23）</a><time datetime="2022-11-01T16:00:00.000Z" title="发表于 2022-11-02 00:00:00">2022-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（编程实操9-17）"/></a><div class="content"><a class="title" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）">Lua程序设计（编程实操9-17）</a><time datetime="2022-10-31T16:00:00.000Z" title="发表于 2022-11-01 00:00:00">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（Lua语言入门1-8）"/></a><div class="content"><a class="title" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）">Lua程序设计（Lua语言入门1-8）</a><time datetime="2022-10-30T16:00:00.000Z" title="发表于 2022-10-31 00:00:00">2022-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）"><img src="/img/books/DHSJJG.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话数据结构》（串）"/></a><div class="content"><a class="title" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）">《大话数据结构》（串）</a><time datetime="2022-07-20T16:00:00.000Z" title="发表于 2022-07-21 00:00:00">2022-07-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 愚人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '2L5WFGGosqmMsQkoWAORAVz8-gzGzoHsz',
+      appKey: 'Aw2OnjzWeYL9LYdqwpwuVuXI',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

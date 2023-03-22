@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>《两周自制脚本语言》 | 愚人のblog</title><meta name="keywords" content="学习读物"><meta name="author" content="愚人"><meta name="copyright" content="愚人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Chapter 4BNF中使用的元符号 { pat } 模式pat至少重复0次  [ pat ] 与重复出现0次或1次的模式pat匹配  pat1 | pat2 与pat1或pat2匹配  ( ) 将括号内视为一个完整的模式 BNF表达规则factor :            NUMBER | “(” expression “)”term :                 factor { (">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《两周自制脚本语言》">
+<meta property="og:url" content="https://afoolzwt.github.io/2022/05/14/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="愚人のblog">
+<meta property="og:description" content="Chapter 4BNF中使用的元符号 { pat } 模式pat至少重复0次  [ pat ] 与重复出现0次或1次的模式pat匹配  pat1 | pat2 与pat1或pat2匹配  ( ) 将括号内视为一个完整的模式 BNF表达规则factor :            NUMBER | “(” expression “)”term :                 factor { (">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://afoolzwt.github.io/img/books/ZZJBYY.jpg">
+<meta property="article:published_time" content="2022-05-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-14T08:17:44.809Z">
+<meta property="article:author" content="愚人">
+<meta property="article:tag" content="学习读物">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afoolzwt.github.io/img/books/ZZJBYY.jpg"><link rel="shortcut icon" href="/img/webicon.png"><link rel="canonical" href="https://afoolzwt.github.io/2022/05/14/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-HqA81hlzlz&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《两周自制脚本语言》',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-14 16:17:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="愚人のblog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/headicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: lightblue"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">愚人のblog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《两周自制脚本语言》</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-13T16:00:00.000Z" title="发表于 2022-05-14 00:00:00">2022-05-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-14T08:17:44.809Z" title="更新于 2022-05-14 16:17:44">2022-05-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%AF%BB%E7%89%A9/">学习读物</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%AF%BB%E7%89%A9/%E3%80%8A%E4%B8%A4%E5%91%A8%E8%87%AA%E5%88%B6%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E3%80%8B/">《两周自制脚本语言》</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《两周自制脚本语言》"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Chapter-4"><a href="#Chapter-4" class="headerlink" title="Chapter 4"></a>Chapter 4</h1><h2 id="BNF中使用的元符号"><a href="#BNF中使用的元符号" class="headerlink" title="BNF中使用的元符号"></a>BNF中使用的元符号</h2><ul>
+<li><p>{ pat } 模式pat至少重复0次</p>
+</li>
+<li><p>[ pat ] 与重复出现0次或1次的模式pat匹配</p>
+</li>
+<li><p>pat1 | pat2 与pat1或pat2匹配</p>
+</li>
+<li><p>( ) 将括号内视为一个完整的模式</p>
+<h2 id="BNF表达规则"><a href="#BNF表达规则" class="headerlink" title="BNF表达规则"></a>BNF表达规则</h2><p>factor :            NUMBER | “(” expression “)”<br>term :                 factor { (“*” | “/“) factor }<br>expression :     term { (“+” | “-“) term }</p>
+</li>
+<li><p>:左侧所写的内容能够用于表示与在:右侧所写的模式相匹配的单词序列。</p>
+</li>
+</ul>
+<p>factor :    NUMBER | “(” expression “)”<br>factor(因子)意指与右侧模式匹配的单词序列。:左侧出现的诸如factor这样的符号称为非终结符或元变量。</p>
+<ul>
+<li>:右侧的模式中也包含了若干个终结符或非终结符。</li>
+</ul>
+<p>与非终结符相对的是终结符，他们是一些事先规定好的符号，表示各种单词。<br>NUMBER这种由大写字母组成的名称，以及由双引号”括起的诸如”(“的符号就是终结符。<br>NUMBER表示任意一个整型字面量单词，”(“表示一个内容为左括号的单词。</p>
+<p>factor :    NUMBER | “(” expression “)”        规则对应的定义=&gt;    factor能表示NUMBER（1个整型字面量单词），或由左括号、expression（表达式）及右括号依次排列而成的单词序列。expression是一个非终结符，第3行对其下了定义。因此，由左括号、与expression匹配的单词序列，及右括号这些单词组成的单词序列能与factor模式匹配。</p>
+<p>如果：右侧的模式中仅含有终结符，BNF与正则表达式没有什么区别。此时，两者唯一的不同仅在于具体是以单词为单位检查匹配还是以字符为单位检查。<br>另一方面，如果右侧含有类似于expression这样的非终结符，与该部分匹配的单词序列必须与另外定义的expression模式匹配。非终结符可以理解为常用模式的别称，在定义其他模式时能够引用这些非终结符。模式中包含非终结符是BNF的特诊之一。</p>
+<ul>
+<li>term :                 factor { (“*” | “/“) factor }</li>
+</ul>
+<p>term（项）表示一种由factor与运算符*或/构成的序列，其中factor至少出现一次，运算符则必须夹在两个factor之间。由于{}括起来的模式将至少重复0次，因此，第2行的规则直译过来就是：与模式term匹配的内容，或是一个与factor相匹配的单词序列，或是在一个与factor相匹配的单词序列之后，由运算符 * 或 / 以及factor构成的组合再重复若干次得到的序列。</p>
+<ul>
+<li>expression :     term { (“+” | “-“) term }</li>
+</ul>
+<p>expression表示一种由term（对term对应的单词序列）与运算符+或-构成的序列，其中term至少出现一次，运算符则必须夹在两个term之间。<br>结合所有这些规则，可以发现与模式expression匹配的就是通常的四则运算表达式，只不过单词的排列顺序做了修改。也就是说，与该模式匹配的单词序列就是一个expression。反之，如果单词序列与模式expression不匹配，则会发生语法错误（syntax error）。</p>
+<h1 id="Chapter5"><a href="#Chapter5" class="headerlink" title="Chapter5"></a>Chapter5</h1><h2 id="自定义的语法规则"><a href="#自定义的语法规则" class="headerlink" title="自定义的语法规则"></a>自定义的语法规则</h2><p>NUMBER、IDENTIFIER、STRING、OP与EOL都是终结符，分别表示整型字面量、标识符、字符串字面量、双目运算符与换行符类型。</p>
+<p>非终结符expr（expression的缩写）用于表示表达式。</p>
+<ul>
+<li>primary : “(” expr “)” | NUMBER | IDENTIFIER | STRING</li>
+</ul>
+<p>非终结符primary（基本构成元素）用于表示括号括起的表达式、整型字面量、标识符（即变量名）或字符串字面量。这些是最基本的表达式构成元素。</p>
+<ul>
+<li>factor : “-“ primary | primary</li>
+</ul>
+<p>非终结符factor（因子）或表示一个primary，或表示primary之前再添加一个-号的组合。</p>
+<ul>
+<li>expr : factor { OP factor }</li>
+</ul>
+<p>expr（表达式）用于表示两个factor之间夹有一个双目运算符的组合。</p>
+<ul>
+<li>block : “{“ [ statement ] { (“;” | EOL) [ statement ] } “}”</li>
+</ul>
+<p>block（代码块）指的是由{}括起来的statement（语句）序列，statement之间需要用分号或换行符（EOL）分割。由于语法支持空语句，因此规则中的statement两侧写有中括号[]。<br>可以看到，它的结构大致与expr类似。它们都由其他的非终结符（statement或factor）与一些用于分隔的符号组合而成。</p>
+<ul>
+<li>simple : expr</li>
+</ul>
+<p>简单表达式语句是仅由（expr）构成的语句。</p>
+<ul>
+<li>statement : “if” expr block [ “else” block ]<br>| “while” expr block<br>| simple</li>
+</ul>
+<p>statement可以是if语句、while语句或仅仅是简单表达式语句（simple）。</p>
+<ul>
+<li>program : [ statement ] ( “;” | EOL )</li>
+</ul>
+<p>最后的program是一个非终结符，它可以包含分号或换行符，用于表示一句完整的语句。其中，statement可以省略，因此program还能用来表示空行。代码块中最后一句能够省略句尾分号与换行符，为此，分别设计了statement与program两种类型。program既可以是处于代码块之外的一条语句，也可以是一行完整的程序。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">愚人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://afoolzwt.github.io/2022/05/14/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1/">https://afoolzwt.github.io/2022/05/14/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://afoolzwt.github.io" target="_blank">愚人のblog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AF%BB%E7%89%A9/">学习读物</a></div><div class="post_share"><div class="social-share" data-image="/img/books/ZZJBYY.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/14/Leetcode%E6%97%A5%E8%AE%B0/"><img class="prev-cover" src="/img/CSharpBg.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">LeetCode日记</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/14/CSDataStructure/DataStructure1(%E7%BA%BF%E6%80%A7%E8%A1%A8)/"><img class="next-cover" src="/img/books/DHSJJG.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">《大话数据结构》（线性表）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/01/CSharp%E5%9B%BE%E8%A7%A3%E6%95%99%E7%A8%8B/" title="《C#图解教程》"><img class="cover" src="/img/books/csharpTJJC.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-01</div><div class="title">《C#图解教程》</div></div></a></div><div><a href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》"><img class="cover" src="/img/books/dhsjms.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-22</div><div class="title">《大话设计模式》</div></div></a></div><div><a href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）"><img class="cover" src="/img/books/DHSJJG.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-21</div><div class="title">《大话数据结构》（串）</div></div></a></div><div><a href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）"><img class="cover" src="/img/Lua.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-02</div><div class="title">Lua程序设计（语言特性18-23）</div></div></a></div><div><a href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）"><img class="cover" src="/img/Lua.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-31</div><div class="title">Lua程序设计（Lua语言入门1-8）</div></div></a></div><div><a href="/2022/05/14/CSDataStructure/DataStructure1(%E7%BA%BF%E6%80%A7%E8%A1%A8)/" title="《大话数据结构》（线性表）"><img class="cover" src="/img/books/DHSJJG.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-14</div><div class="title">《大话数据结构》（线性表）</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/headicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">愚人</div><div class="author-info__description">为做出理想游戏而不懈努力。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AFoolZWT"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-4"><span class="toc-text">Chapter 4</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BNF%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%85%83%E7%AC%A6%E5%8F%B7"><span class="toc-text">BNF中使用的元符号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BNF%E8%A1%A8%E8%BE%BE%E8%A7%84%E5%88%99"><span class="toc-text">BNF表达规则</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter5"><span class="toc-text">Chapter5</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="toc-text">自定义的语法规则</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》"><img src="/img/books/dhsjms.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话设计模式》"/></a><div class="content"><a class="title" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》">《大话设计模式》</a><time datetime="2023-03-21T16:00:00.000Z" title="发表于 2023-03-22 00:00:00">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（语言特性18-23）"/></a><div class="content"><a class="title" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）">Lua程序设计（语言特性18-23）</a><time datetime="2022-11-01T16:00:00.000Z" title="发表于 2022-11-02 00:00:00">2022-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（编程实操9-17）"/></a><div class="content"><a class="title" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）">Lua程序设计（编程实操9-17）</a><time datetime="2022-10-31T16:00:00.000Z" title="发表于 2022-11-01 00:00:00">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（Lua语言入门1-8）"/></a><div class="content"><a class="title" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）">Lua程序设计（Lua语言入门1-8）</a><time datetime="2022-10-30T16:00:00.000Z" title="发表于 2022-10-31 00:00:00">2022-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）"><img src="/img/books/DHSJJG.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话数据结构》（串）"/></a><div class="content"><a class="title" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）">《大话数据结构》（串）</a><time datetime="2022-07-20T16:00:00.000Z" title="发表于 2022-07-21 00:00:00">2022-07-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 愚人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '2L5WFGGosqmMsQkoWAORAVz8-gzGzoHsz',
+      appKey: 'Aw2OnjzWeYL9LYdqwpwuVuXI',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

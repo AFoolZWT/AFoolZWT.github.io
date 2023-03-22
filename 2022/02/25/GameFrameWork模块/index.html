@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Game Framework 模块汇总 | 愚人のblog</title><meta name="keywords" content="Unity,GameFramework"><meta name="author" content="愚人"><meta name="copyright" content="愚人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Game Framework 汇总Game Framework 是一个基于 Unity 引擎的游戏框架，主要对游戏开发过程中常用模块进行了封装，很大程度地规范开发过程、加快开发速度并保证产品质量。  基础和工具 (Base)- 关于日志、引用池、工具集的文档。 全局配置 (Config)- 存储一些全局的只读的游戏配置，如玩家初始速度、游戏初始音量等。 数据结点 (Data Node)- 将任意类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Game Framework 模块汇总">
+<meta property="og:url" content="https://afoolzwt.github.io/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="愚人のblog">
+<meta property="og:description" content="Game Framework 汇总Game Framework 是一个基于 Unity 引擎的游戏框架，主要对游戏开发过程中常用模块进行了封装，很大程度地规范开发过程、加快开发速度并保证产品质量。  基础和工具 (Base)- 关于日志、引用池、工具集的文档。 全局配置 (Config)- 存储一些全局的只读的游戏配置，如玩家初始速度、游戏初始音量等。 数据结点 (Data Node)- 将任意类">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://afoolzwt.github.io/img/cover2.jpg">
+<meta property="article:published_time" content="2022-02-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-25T10:17:20.831Z">
+<meta property="article:author" content="愚人">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="GameFramework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afoolzwt.github.io/img/cover2.jpg"><link rel="shortcut icon" href="/img/webicon.png"><link rel="canonical" href="https://afoolzwt.github.io/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-HqA81hlzlz&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Game Framework 模块汇总',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-25 18:17:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="愚人のblog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/headicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: lightblue"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">愚人のblog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Game Framework 模块汇总</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-24T16:00:00.000Z" title="发表于 2022-02-25 00:00:00">2022-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-25T10:17:20.831Z" title="更新于 2022-02-25 18:17:20">2022-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Unity/">Unity</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Unity/GameFramework/">GameFramework</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Game Framework 模块汇总"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Game-Framework-汇总"><a href="#Game-Framework-汇总" class="headerlink" title="Game Framework 汇总"></a>Game Framework 汇总</h1><p>Game Framework 是一个基于 Unity 引擎的游戏框架，主要对游戏开发过程中常用模块进行了封装，很大程度地规范开发过程、加快开发速度并保证产品质量。</p>
+<ul>
+<li>基础和工具 (Base)- 关于日志、引用池、工具集的文档。</li>
+<li>全局配置 (Config)- 存储一些全局的只读的游戏配置，如玩家初始速度、游戏初始音量等。</li>
+<li>数据结点 (Data Node)- 将任意类型的数据以树状结构的形式进行保存，用于管理游戏运行时的各种数据</li>
+<li>数据表 (Data Table)- 可以将游戏数据以表格（如 Microsoft Excel）的形式进行配置后，使用此模块使用这些数据表。数据表的格式是可以自定义的。</li>
+<li>调试器 (Debugger)- 当游戏在 Unity 编辑器中运行或者以 Development 方式发布运行时，将出现调试器窗口，便于查看运行时日志、调试信息等。用户还可以方便地将自己的功能注册到调试器窗口上并使用。</li>
+<li>下载 (Download)- 提供下载文件的功能，支持断点续传，并可指定允许几个下载器进行同时下载。更新资源时会主动调用此模块。</li>
+<li>实体 (Entity)- 我们将游戏场景中，动态创建的一切物体定义为实体。此模块提供管理实体和实体组的功能，如显示隐藏实体、挂接实体（如挂接武器、坐骑，或者抓起另一个实体）等。实体使用结束后可以不立刻销毁，从而等待下一次重新使用。</li>
+<li>事件 (Event)- 游戏逻辑监听、抛出事件的机制。Game Framework 中的很多模块在完成操作后都会抛出内置事件，监听这些事件将大大解除游戏逻辑之间的耦合。用户也可以定义自己的游戏逻辑事件。</li>
+<li>文件系统 (File System)- 虚拟文件系统使用类似磁盘的概念对零散文件进行集中管理，优化资源加载时产生的内存分配，甚至可以对资源进行局部片段加载，这些都将极大提升资源加载时的性能。</li>
+<li>有限状态机 (FSM)- 提供创建、使用和销毁有限状态机的功能，一些适用于有限状态机机制的游戏逻辑，使用此模块将是一个不错的选择。</li>
+<li>本地化 (Localization)- 提供本地化功能，也就是我们平时所说的多语言。Game Framework 在本地化方面，不但支持文本的本地化，还支持任意资源的本地化，比如游戏中释放烟花特效也可以做出几个多国语言的版本，使得中文版里是“新年好”字样的特效，而英文版里是“Happy New Year”字样的特效。</li>
+<li>网络 (Network)- 提供使用 Socket 长连接的功能，当前我们支持 TCP 协议，同时兼容 IPv4 和 IPv6 两个版本。用户可以同时建立多个连接与多个服务器同时进行通信，比如除了连接常规的游戏服务器，还可以连接语音聊天服务器。如果想接入 ProtoBuf 之类的协议库，只要派生自 Packet 类并实现自己的消息包类即可使用。</li>
+<li>对象池 (Object Pool)- 提供对象缓存池的功能，避免频繁地创建和销毁各种游戏对象，提高游戏性能。除了 Game Framework 自身使用了对象池，用户还可以很方便地创建和管理自己的对象池。</li>
+<li>流程 (Procedure)- 是贯穿游戏运行时整个生命周期的有限状态机。通过流程，将不同的游戏状态进行解耦将是一个非常好的习惯。对于网络游戏，你可能需要如检查资源流程、更新资源流程、检查服务器列表流程、选择服务器流程、登录服务器流程、创建角色流程等流程，而对于单机游戏，你可能需要在游戏选择菜单流程和游戏实际玩法流程之间做切换。如果想增加流程，只要派生自 ProcedureBase 类并实现自己的流程类即可使用。</li>
+<li>资源 (Resource)- 为了保证玩家的体验，我们不推荐再使用同步的方式加载资源，由于 Game Framework 自身使用了一套完整的异步加载资源体系，因此只提供了异步加载资源的接口。不论简单的数据表、本地化字典，还是复杂的实体、场景、界面，我们都将使用异步加载。同时，Game Framework 提供了默认的内存管理策略（当然，你也可以定义自己的内存管理策略）。多数情况下，在使用 GameObject 的过程中，你甚至可以不需要自行进行 Instantiate 或者是 Destroy 操作。</li>
+<li>场景 (Scene)- 提供场景管理的功能，可以同时加载多个场景，也可以随时卸载任何一个场景，从而很容易地实现场景的分部加载。</li>
+<li>游戏配置 (Setting)- 以键值对的形式存储玩家数据，对UnityEngine.PlayerPrefs 进行封装，也可以将这些数据直接存储在磁盘上。</li>
+<li>声音 (Sound)- 提供管理声音和声音组的功能，用户可以自定义一个声音的音量、是 2D 声音还是 3D 声音，甚至是直接绑定到某个实体上跟随实体移动。</li>
+<li>界面 (UI)- 提供管理界面和界面组的功能，如显示隐藏界面、激活界面、改变界面层级等。不论是 Unity 内置的 uGUI 还是其它类型的 UI 插件（如 NGUI），只要派生自 UIFormLogic 类并实现自己的界面类即可使用。界面使用结束后可以不立刻销毁，从而等待下一次重新使用。</li>
+<li>Web 请求 (Web Request)- 提供使用短连接的功能，可以用 Get 或者 Post 方法向服务器发送请求并获取响应数据，可指定允许几个 Web 请求器进行同时请求。</li>
+</ul>
+<p>完整的 Game Framework 包含三部分：</p>
+<ul>
+<li>GameFramework– 封装基础游戏逻辑，如数据管理、资源管理、文件系统、对象池、有限状态机、本地化、事件、实体、网络、界面、声音等，此部分逻辑实现不依赖于 Unity?引擎，以程序集的形式提供。</li>
+<li>UnityGameFramework.Runtime– 依赖 UnityEngine.dll 进行对 GameFramework.dll 的补充实现。为了方便兼容 Unity 的各个版本，此部分已经以代码的形式包含在 Unity 插件中。</li>
+<li>UnityGameFramework.Editor- 依赖 UnityEditor.dll 进行对工具、Inspector 的实现。为了方便兼容 Unity 的各个版本，此部分已经以代码的形式包含在 Unity 插件中。</li>
+</ul>
+<hr>
+<h1 id="文件系统-File-System"><a href="#文件系统-File-System" class="headerlink" title="文件系统 (File System)"></a>文件系统 (File System)</h1><p>*文件系统 (File System)-虚拟文件系统使用类似磁盘的概念对零散文件进行集中管理，优化资源加载时产生的内存分配，甚至可以对资源进行局部片段加载，这些都将极大提升资源加载时的性能。</p>
+<p><strong>创建文件系统</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 要创建的文件系统的完整路径</span></span><br><span class="line"><span class="built_in">string</span> fullPath = Path.Combine(Application.persistentDataPath, <span class="string">&quot;FileSystem.dat&quot;</span>);?</span><br><span class="line"><span class="comment">// 要创建的文件系统最大能容纳文件数量</span></span><br><span class="line"><span class="built_in">int</span> maxFileCount = <span class="number">16</span>;?</span><br><span class="line"><span class="comment">// 要创建的文件系统最大能容纳的块数据数量</span></span><br><span class="line"><span class="built_in">int</span> maxBlockCount = <span class="number">256</span>;?</span><br><span class="line"><span class="comment">// 创建文件系统（使用读写模式进行访问）</span></span><br><span class="line">IFileSystem fileSystem = fileSystemComponent.CreateFileSystem(fullPath, FileSystemAccess.ReadWrite, maxFileCount, maxBlockCount);?</span><br><span class="line"><span class="comment">// 创建文件系统（使用只写模式进行访问）</span></span><br><span class="line">IFileSystem fileSystem = fileSystemComponent.CreateFileSystem(fullPath, FileSystemAccess.Write, maxFileCount, maxBlockCount);</span><br></pre></td></tr></table></figure>
+
+
+<p>文件系统块数据（Block）是 Game Framework 文件系统中引入的一个数据结构，用于索引文件内容数据区在文件系统中的偏移、长度等信息。<br>即使文件从文件系统中被删除，文件系统块数据依然会保留，并将原先的文件内容数据区标记为文件系统碎片。<br><strong>文件系统当前已使用的块数据数量 = 文件系统当前文件数量 + 文件系统当前碎片数量。</strong><br>显然，一个文件系统最大能容纳的块数据数量不应少于最大能容纳的文件数量。当文件系统增加新文件时，会优先分配合适的文件系统碎片的空间用于存储新文件。</p>
+<p><strong>读取文件时考虑使用读取文件片段方法</strong><br>对于数据表、本地化字典表这类文本或二进制数据，在实际应用的多数情形下，将全部内容加载到内存中是非常浪费的，对于这类数据不妨在使用某条数据时再去读取这条数据，即所谓的懒加载或者延迟加载。<br>通过合理构造数据结构并利用文件系统能够读取文件片段的特性，即可做到这一点。<br>例如，先读取字典表的全部 key 值，并记录每个 value 值对应的偏移。在需要获取某个 key 的 value 值时，根据已经记录的偏移值利用读取文件片段的方法实时加载 value 值并缓存。</p>
+<hr>
+<h1 id="数据结点-Data-Node"><a href="#数据结点-Data-Node" class="headerlink" title="数据结点 (Data Node)"></a>数据结点 (Data Node)</h1><p>数据结点 (Data Node)-将任意类型的数据以树状结构的形式进行保存，用于管理游戏运行时的各种数据</p>
+<h2 id="通过绝对路径获取或设置数据"><a href="#通过绝对路径获取或设置数据" class="headerlink" title="通过绝对路径获取或设置数据"></a>通过绝对路径获取或设置数据</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">VarString varPlayerName = <span class="string">&quot;Ellan&quot;</span>;?</span><br><span class="line"><span class="comment">// 使用绝对路径设置数据结点的数据</span></span><br><span class="line">dataNodeComponent.SetData(<span class="string">&quot;Player.Name&quot;</span>, varPlayerName);?</span><br><span class="line"><span class="comment">// 可以使用绝对路径获取数据结点的数据变量</span></span><br><span class="line">Variable playerNameVariable = dataNodeComponent.GetData(<span class="string">&quot;Player.Name&quot;</span>);?</span><br><span class="line"><span class="comment">// 也可以使用绝对路径获取数据结点的数据值</span></span><br><span class="line"><span class="built_in">string</span> playerNameValue = dataNodeComponent.GetData&lt;VarString&gt;(<span class="string">&quot;Player.Name&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="自定义变量类"><a href="#自定义变量类" class="headerlink" title="自定义变量类"></a>自定义变量类</h2><p>使用者可以自定义所需的变量类型。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 构建信息类。</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">[<span class="meta">Serializable</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BuildInfo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> GameVersion = <span class="built_in">string</span>.Empty;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> InternalVersion = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若想把此类型的值用于数据结点中，需要定义相应的变量类 VarBuildInfo 后，即可使用了。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 构建信息变量类。</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">VarBuildInfo</span> : <span class="title">Variable</span>&lt;<span class="title">BuildInfo</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 初始化构建信息变量类的新实例。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">VarBuildInfo</span>(<span class="params"></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 初始化构建信息变量类的新实例。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;value&quot;&gt;</span>值。<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">VarBuildInfo</span>(<span class="params">BuildInfo <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function">        : <span class="title">base</span>(<span class="params"><span class="keyword">value</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 从构建信息类到构建信息变量类的隐式转换。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;value&quot;&gt;</span>值。<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">implicit</span> <span class="keyword">operator</span> <span class="title">VarBuildInfo</span>(<span class="params">BuildInfo <span class="keyword">value</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> VarBuildInfo(<span class="keyword">value</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 从构建信息变量类到构建信息类的隐式转换。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;value&quot;&gt;</span>值。<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">implicit</span> <span class="keyword">operator</span> <span class="title">BuildInfo</span>(<span class="params">VarBuildInfo <span class="keyword">value</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">value</span>.Value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="拓展知识"><a href="#拓展知识" class="headerlink" title="拓展知识"></a>拓展知识</h2><p>c#自定义类型的转换方式operator,implicit（隐式）和explicit （显示）声明<br>operator 关键字来重载内置运算符，或提供类或结构声明中的用户定义转换。它可以定义不同类型之间采用何种转化方式和转化的结果。</p>
+<hr>
+<h1 id="虚拟文件系统（VFS）"><a href="#虚拟文件系统（VFS）" class="headerlink" title="虚拟文件系统（VFS）"></a>虚拟文件系统（VFS）</h1><h2 id="烟雨大佬教程"><a href="#烟雨大佬教程" class="headerlink" title="烟雨大佬教程"></a>烟雨大佬教程</h2><p><a target="_blank" rel="noopener" href="https://www.lfzxb.top/gameframework-vfs/">https://www.lfzxb.top/gameframework-vfs/</a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>虚拟文件系统（VFS）使用类似磁盘的概念对零散文件进行集中管理，优化资源加载时产生的内存分配，甚至可以对资源进行局部片段加载，这些都将极大提升资源加载时的性能。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>通过将许多小文件集合成一个大文件的方式来集中管理零散资源，减少物理磁盘寻址次数从而得以提高性能，并且这个过程是我们自定义的，可以进行加密操作，提高安全性。</p>
+<p>–</p>
+<h1 id="网络-Network"><a href="#网络-Network" class="headerlink" title="网络 (Network)"></a>网络 (Network)</h1><p>网络 (Network)- 提供使用 Socket 长连接的功能，当前我们支持 TCP 协议，同时兼容 IPv4 和 IPv6 两个版本。用户可以同时建立多个连接与多个服务器同时进行通信，比如除了连接常规的游戏服务器，还可以连接语音聊天服务器。如果想接入 ProtoBuf 之类的协议库，只要派生自 Packet 类并实现自己的消息包类即可使用。</p>
+<h2 id="大致流程"><a href="#大致流程" class="headerlink" title="大致流程"></a>大致流程</h2><p>a.创建频道（NetworkChannel）<br>b.绑定频道辅助器（NetworkChannelHelper）<br>c.注册频道的消息监听类（PacketHandler），即服务端发送某类消息过来时，客户端有对应的类进行接收处理<br>d.频道连接服务端<br>e.使用频道辅助器（NetworkChannelHelper）序列化消息对象，通过频道发送消息<br>f.服务端接收消息并回应客户端f.消息监听类（PacketHandler）处理服务端回应的消息</p>
+<h2 id="创建频道"><a href="#创建频道" class="headerlink" title="创建频道"></a>创建频道</h2><p><img src="/img/GameFrameWork/1.png"><br>使用Network组件的CreateNetworkChannel函数即可创建频道，第一个参数是频道名称，第二个参数就是频道辅助器。</p>
+<h2 id="频道辅助器（NetworkChannelHelper）"><a href="#频道辅助器（NetworkChannelHelper）" class="headerlink" title="频道辅助器（NetworkChannelHelper）"></a>频道辅助器（NetworkChannelHelper）</h2><p>频道辅助器是可以自定义的，只要实现了INetworkChannelHelper接口即可。<br>NetworkChannelHelper有三个关键的函数：<br>Serialize函数：用于序列化消息。<br>DeserializePacketHeader函数：用于反序列化消息头。<br>DeserializePacket函数：用于反序列化消息内容（不含消息头）。</p>
+<h2 id="消息包（Packet）"><a href="#消息包（Packet）" class="headerlink" title="消息包（Packet）"></a>消息包（Packet）</h2><p>Packet类是框架的消息包抽象类，我们的消息包类都要继承它。</p>
+<hr>
+<h1 id="Web-请求-Web-Request"><a href="#Web-请求-Web-Request" class="headerlink" title="Web 请求 (Web Request)"></a>Web 请求 (Web Request)</h1><p>Web 请求 (Web Request)- 提供使用短连接的功能，可以用 Get 或者 Post 方法向服务器发送请求并获取响应数据，可指定允许几个 Web 请求器进行同时请求。</p>
+<h2 id="发送Web请求"><a href="#发送Web请求" class="headerlink" title="发送Web请求"></a>发送Web请求</h2><p><img src="/img/GameFrameWork/2.png"></p>
+<hr>
+<h1 id="实体-Entity"><a href="#实体-Entity" class="headerlink" title="实体(Entity)"></a>实体(Entity)</h1><p>实体 (Entity)- 我们将游戏场景中，动态创建的一切物体定义为实体。此模块提供管理实体和实体组的功能，如显示隐藏实体、挂接实体（如挂接武器、坐骑，或者抓起另一个实体）等。实体使用结束后可以不立刻销毁，从而等待下一次重新使用。</p>
+<h2 id="实体的创建"><a href="#实体的创建" class="headerlink" title="实体的创建"></a>实体的创建</h2><p><img src="/img/GameFrameWork/3.png"><br>设置Entity Groups<br><img src="/img/GameFrameWork/4.png"></p>
+<h2 id="Demo实体的创建"><a href="#Demo实体的创建" class="headerlink" title="Demo实体的创建"></a>Demo实体的创建</h2><p>UnityGameFramework.Runtime.GameEntry<br><img src="/img/GameFrameWork/5.png"></p>
+<h2 id="调用顺序"><a href="#调用顺序" class="headerlink" title="调用顺序"></a>调用顺序</h2><p><img src="/img/GameFrameWork/6.png"><br>ShowEntityInfo这个参数最终会传入实体对象的生命周期函数（OnInit）</p>
+<h3 id="IEntityManager"><a href="#IEntityManager" class="headerlink" title="IEntityManager"></a>IEntityManager</h3><p>EntityComponent有一个类型为IEntityManager的属性，m_entityManager。IEntityManager是一个接口，在EntityComponent的Awake里进行了初始化：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m_EntityManager = GameFrameworkEntry.GetModule&lt;IEntityManager&gt;();</span><br></pre></td></tr></table></figure>
+<p>IEntityManager接口的实现在GF内的EntityManager</p>
+<h3 id="EntityManager的ShowEnity函数"><a href="#EntityManager的ShowEnity函数" class="headerlink" title="EntityManager的ShowEnity函数"></a>EntityManager的ShowEnity函数</h3><p>于是，我们又回到ShowEntity函数，EntityManager的ShowEntity函数主要做了下面几件事情：<br>a.根据配置数据，创建实体（从预制体创建）<br>b.调用实体对象的OnInit、OnShow生命周期函数，这里会把第2步提到的最后一个参数（new ShowEntityInfo(entityLogicType, userData)）传递回来<br>c.剩余一系列操作……（TODO）</p>
+<h3 id="DefaultEntityHepler"><a href="#DefaultEntityHepler" class="headerlink" title="DefaultEntityHepler"></a>DefaultEntityHepler</h3><p>在EntityComponent的Awake函数初始化了m_EntityManager<br><img src="/img/GameFrameWork/7.png"><br>在Start函数里，还绑定了一个EntityHelper对象，这个EntityHelper对象就是实体管理器具体创建实体时要利用的工具类。<br><img src="/img/GameFrameWork/8.png"><br>EntityManage绑定的EntityHelper对象是DefaultEntityHelper。<br>DefaultEntityHelper是自定义的一个类，继承了EntityHelperBase。<br>EntityManager创建实体的时候会调用DefaultEntityHelper的CreateEntity函数即可。</p>
+<h3 id="DefaultEntityHelper的CreateEntity函数"><a href="#DefaultEntityHelper的CreateEntity函数" class="headerlink" title="DefaultEntityHelper的CreateEntity函数"></a>DefaultEntityHelper的CreateEntity函数</h3><p><img src="/img/GameFrameWork/9.png"><br>entityInstance即为实体对象</p>
+<h3 id="最后一个关键地方——Entity"><a href="#最后一个关键地方——Entity" class="headerlink" title="最后一个关键地方——Entity"></a>最后一个关键地方——Entity</h3><p>EnityManager的ShowEntity函数，会执行下面的代码：<br><img src="/img/GameFrameWork/10.png"><br>首先是调用了m_EntityHelper（在这里就是DefaultEntityHelper类）的CreateEntity函数，这个函数返回的并不是一个GameObject，而是一个IEntity类型，具体到DefaultEntityHelper的CreateEntity函数，就是返回Entity对象。<br>在EntityManage的ShowEntity执行的过程中，会调用Entity的生命周期函数。</p>
+<p>Entity的OnInit函数做了什么事情：（省略版）<br><img src="/img/GameFrameWork/11.png"><br>Entity的OnInit函数基本上就做一件事情——把逻辑处理类绑定到实体对象身上。<br>至于逻辑处理类的类型，是在一开始就通过参数传递的（EntityExtension的ShowMyAircraft函数）：<br><img src="/img/GameFrameWork/12.png"></p>
+<hr>
+<h1 id="数据表-Data-Table"><a href="#数据表-Data-Table" class="headerlink" title="数据表 (Data Table)"></a>数据表 (Data Table)</h1><p>数据表 (Data Table)- 可以将游戏数据以表格（如 Microsoft Excel）的形式进行配置后，使用此模块使用这些数据表。数据表的格式是可以自定义的。</p>
+<h2 id="Excel表模板"><a href="#Excel表模板" class="headerlink" title="Excel表模板"></a>Excel表模板</h2><p><img src="/img/GameFrameWork/13.png"><br>另存为txt文件(也可以转化为byte文件读取)(设置编码格式为UTF-8)<br><img src="/img/GameFrameWork/14.png"><br>加载配置表(异步加载，返回事件)<br><img src="/img/GameFrameWork/15.png"><br>dataTableName 配置表模板类名<br>dataTableAssetName 配置表路径<br>LoadDataTable 调用的是自定义静态类DataTableExtension的静态拓展函数<br><img src="/img/GameFrameWork/16.png"><br>DataRowClassPrefixName 命名空间</p>
+<h2 id="配置表类模板"><a href="#配置表类模板" class="headerlink" title="配置表类模板"></a>配置表类模板</h2><p><img src="/img/GameFrameWork/17.png"><br>两种不同的解析方式<br><img src="/img/GameFrameWork/18.png"><br>*TODO E大StarForce有自动生成配置表模板工具</p>
+<h2 id="读取配置表"><a href="#读取配置表" class="headerlink" title="读取配置表"></a>读取配置表</h2><p><img src="/img/GameFrameWork/19.png"></p>
+<hr>
+<h1 id="界面-UI"><a href="#界面-UI" class="headerlink" title="界面 (UI)"></a>界面 (UI)</h1><p>界面 (UI)- 提供管理界面和界面组的功能，如显示隐藏界面、激活界面、改变界面层级等。不论是 Unity 内置的 uGUI 还是其它类型的 UI 插件（如 NGUI），只要派生自 UIFormLogic 类并实现自己的界面类即可使用。界面使用结束后可以不立刻销毁，从而等待下一次重新使用。</p>
+<h2 id="加载一个UI"><a href="#加载一个UI" class="headerlink" title="加载一个UI"></a>加载一个UI</h2><p><img src="/img/GameFrameWork/20.png"><br><img src="/img/GameFrameWork/21.png"><br>添加对应<br><img src="/img/GameFrameWork/22.png"><br>添加对应界面组名称及深度</p>
+<hr>
+<h1 id="流程-Procedure"><a href="#流程-Procedure" class="headerlink" title="流程(Procedure)"></a>流程(Procedure)</h1><p>流程 (Procedure)– 是贯穿游戏运行时整个生命周期的有限状态机。通过流程，将不同的游戏状态进行解耦将是一个非常好的习惯。对于网络游戏，你可能需要如检查资源流程、更新资源流程、检查服务器列表流程、选择服务器流程、登录服务器流程、创建角色流程等流程，而对于单机游戏，你可能需要在游戏选择菜单流程和游戏实际玩法流程之间做切换。如果想增加流程，只要派生自 ProcedureBase 类并实现自己的流程类即可使用。</p>
+<p><img src="/img/GameFrameWork/23.png"><br>Entrance Procedure<br>入口流程</p>
+<h2 id="ProcedureBase"><a href="#ProcedureBase" class="headerlink" title="ProcedureBase"></a>ProcedureBase</h2><p>生命周期函数：<br><img src="/img/GameFrameWork/24.png"></p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><img src="/img/GameFrameWork/25.png"></p>
+<h2 id="查漏补缺"><a href="#查漏补缺" class="headerlink" title="查漏补缺"></a>查漏补缺</h2><p><img src="/img/GameFrameWork/26.png"></p>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">愚人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://afoolzwt.github.io/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/">https://afoolzwt.github.io/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://afoolzwt.github.io" target="_blank">愚人のblog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unity/">Unity</a><a class="post-meta__tags" href="/tags/GameFramework/">GameFramework</a></div><div class="post_share"><div class="social-share" data-image="/img/cover2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/25/CSharp%E8%BF%9B%E9%98%B6/"><img class="prev-cover" src="/img/CSharpBg.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CSharp进阶</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/25/Socket/"><img class="next-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Socket知识点</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/01/18/StarForce1/" title="GameFramework Demo StarForce详细解析(1)"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-18</div><div class="title">GameFramework Demo StarForce详细解析(1)</div></div></a></div><div><a href="/2022/01/18/StarForce2/" title="GameFramework Demo StarForce详细解析(2)"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-18</div><div class="title">GameFramework Demo StarForce详细解析(2)</div></div></a></div><div><a href="/2022/01/19/StarForce3/" title="GameFramework Demo StarForce详细解析(3)"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-19</div><div class="title">GameFramework Demo StarForce详细解析(3)</div></div></a></div><div><a href="/2022/02/07/ECS3/" title="ECS学习笔记（3）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（3）</div></div></a></div><div><a href="/2022/02/07/ECS1/" title="ECS学习笔记（1）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（1）</div></div></a></div><div><a href="/2022/02/07/ECS2/" title="ECS学习笔记（2）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（2）</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/headicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">愚人</div><div class="author-info__description">为做出理想游戏而不懈努力。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AFoolZWT"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Game-Framework-%E6%B1%87%E6%80%BB"><span class="toc-text">Game Framework 汇总</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F-File-System"><span class="toc-text">文件系统 (File System)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E7%82%B9-Data-Node"><span class="toc-text">数据结点 (Data Node)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E8%8E%B7%E5%8F%96%E6%88%96%E8%AE%BE%E7%BD%AE%E6%95%B0%E6%8D%AE"><span class="toc-text">通过绝对路径获取或设置数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F%E7%B1%BB"><span class="toc-text">自定义变量类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E7%9F%A5%E8%AF%86"><span class="toc-text">拓展知识</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%88VFS%EF%BC%89"><span class="toc-text">虚拟文件系统（VFS）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%83%9F%E9%9B%A8%E5%A4%A7%E4%BD%AC%E6%95%99%E7%A8%8B"><span class="toc-text">烟雨大佬教程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C-Network"><span class="toc-text">网络 (Network)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E8%87%B4%E6%B5%81%E7%A8%8B"><span class="toc-text">大致流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A2%91%E9%81%93"><span class="toc-text">创建频道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%91%E9%81%93%E8%BE%85%E5%8A%A9%E5%99%A8%EF%BC%88NetworkChannelHelper%EF%BC%89"><span class="toc-text">频道辅助器（NetworkChannelHelper）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E5%8C%85%EF%BC%88Packet%EF%BC%89"><span class="toc-text">消息包（Packet）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-%E8%AF%B7%E6%B1%82-Web-Request"><span class="toc-text">Web 请求 (Web Request)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E9%80%81Web%E8%AF%B7%E6%B1%82"><span class="toc-text">发送Web请求</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E4%BD%93-Entity"><span class="toc-text">实体(Entity)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BD%93%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">实体的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo%E5%AE%9E%E4%BD%93%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">Demo实体的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="toc-text">调用顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IEntityManager"><span class="toc-text">IEntityManager</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EntityManager%E7%9A%84ShowEnity%E5%87%BD%E6%95%B0"><span class="toc-text">EntityManager的ShowEnity函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DefaultEntityHepler"><span class="toc-text">DefaultEntityHepler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DefaultEntityHelper%E7%9A%84CreateEntity%E5%87%BD%E6%95%B0"><span class="toc-text">DefaultEntityHelper的CreateEntity函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%B3%E9%94%AE%E5%9C%B0%E6%96%B9%E2%80%94%E2%80%94Entity"><span class="toc-text">最后一个关键地方——Entity</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8-Data-Table"><span class="toc-text">数据表 (Data Table)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Excel%E8%A1%A8%E6%A8%A1%E6%9D%BF"><span class="toc-text">Excel表模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%A1%A8%E7%B1%BB%E6%A8%A1%E6%9D%BF"><span class="toc-text">配置表类模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E8%A1%A8"><span class="toc-text">读取配置表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%95%8C%E9%9D%A2-UI"><span class="toc-text">界面 (UI)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E4%B8%80%E4%B8%AAUI"><span class="toc-text">加载一个UI</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B-Procedure"><span class="toc-text">流程(Procedure)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ProcedureBase"><span class="toc-text">ProcedureBase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%87%E6%B3%A8"><span class="toc-text">备注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA"><span class="toc-text">查漏补缺</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》"><img src="/img/books/dhsjms.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话设计模式》"/></a><div class="content"><a class="title" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》">《大话设计模式》</a><time datetime="2023-03-21T16:00:00.000Z" title="发表于 2023-03-22 00:00:00">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（语言特性18-23）"/></a><div class="content"><a class="title" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）">Lua程序设计（语言特性18-23）</a><time datetime="2022-11-01T16:00:00.000Z" title="发表于 2022-11-02 00:00:00">2022-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（编程实操9-17）"/></a><div class="content"><a class="title" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）">Lua程序设计（编程实操9-17）</a><time datetime="2022-10-31T16:00:00.000Z" title="发表于 2022-11-01 00:00:00">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（Lua语言入门1-8）"/></a><div class="content"><a class="title" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）">Lua程序设计（Lua语言入门1-8）</a><time datetime="2022-10-30T16:00:00.000Z" title="发表于 2022-10-31 00:00:00">2022-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）"><img src="/img/books/DHSJJG.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话数据结构》（串）"/></a><div class="content"><a class="title" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）">《大话数据结构》（串）</a><time datetime="2022-07-20T16:00:00.000Z" title="发表于 2022-07-21 00:00:00">2022-07-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 愚人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '2L5WFGGosqmMsQkoWAORAVz8-gzGzoHsz',
+      appKey: 'Aw2OnjzWeYL9LYdqwpwuVuXI',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

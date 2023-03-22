@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ECS学习笔记（3） | 愚人のblog</title><meta name="keywords" content="Unity,ECS"><meta name="author" content="愚人"><meta name="copyright" content="愚人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="AttributesEntitas提供了各种属性在生成代码时提供特殊功能。代码生成器支持以下与类，接口和结构一起使用的属性： [Context]将组件添加到指定的Context,如果没有指定则会添加到默认Context中（Jenny 设置面板中定义的第一个Context）。例： 12345[Game]public class ViewComponent : IComponent&amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ECS学习笔记（3）">
+<meta property="og:url" content="https://afoolzwt.github.io/2022/02/07/ECS3/index.html">
+<meta property="og:site_name" content="愚人のblog">
+<meta property="og:description" content="AttributesEntitas提供了各种属性在生成代码时提供特殊功能。代码生成器支持以下与类，接口和结构一起使用的属性： [Context]将组件添加到指定的Context,如果没有指定则会添加到默认Context中（Jenny 设置面板中定义的第一个Context）。例： 12345[Game]public class ViewComponent : IComponent&amp;#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://afoolzwt.github.io/img/cover2.jpg">
+<meta property="article:published_time" content="2022-02-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-07T05:34:10.088Z">
+<meta property="article:author" content="愚人">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="ECS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afoolzwt.github.io/img/cover2.jpg"><link rel="shortcut icon" href="/img/webicon.png"><link rel="canonical" href="https://afoolzwt.github.io/2022/02/07/ECS3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-HqA81hlzlz&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ECS学习笔记（3）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-07 13:34:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="愚人のblog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/headicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: lightblue"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">愚人のblog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ECS学习笔记（3）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-06T16:00:00.000Z" title="发表于 2022-02-07 00:00:00">2022-02-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-07T05:34:10.088Z" title="更新于 2022-02-07 13:34:10">2022-02-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Unity/">Unity</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Unity/ECS/">ECS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ECS学习笔记（3）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Attributes"><a href="#Attributes" class="headerlink" title="Attributes"></a>Attributes</h1><p>Entitas提供了各种属性在生成代码时提供特殊功能。<br>代码生成器支持以下与类，接口和结构一起使用的属性：</p>
+<h2 id="Context"><a href="#Context" class="headerlink" title="[Context]"></a>[Context]</h2><p>将组件添加到指定的Context,如果没有指定则会添加到默认Context中（Jenny 设置面板中定义的第一个Context）。<br>例：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Game</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ViewComponent</span> : <span class="title">IComponent</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> GameObject gameObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将View组件添加到Game Context中，生成代码后会在Generated/Game/Components文件夹下生成GameViewComponent类。</li>
+<li>允许同时指定多个Context名称。<br>如果用于Class或者Struct上首先会在Generated/Components生成 {classname}Component的组件，然后同上<br>例：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Game</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ContextView</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> GameObject gameObject;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="meta">Game</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> ContextData &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Unique"><a href="#Unique" class="headerlink" title="[Unique]"></a>[Unique]</h2>将组件指定为单例模式，则每个Context中只存在唯一实例。<br>例：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Unique</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">UniqueTestComponent</span> : <span class="title">IComponent</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+而单例组件的调用方式和其他组件也有所不同：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Contexts _contexts = Contexts.sharedInstance;</span><br><span class="line"><span class="keyword">if</span> (!_contexts.game.hasUniqueTest) &#123;</span><br><span class="line">    _contexts.game.SetUniqueTest(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line">Debug.Log(_contexts.game.uniqueTest.<span class="keyword">value</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="FlagPrefix"><a href="#FlagPrefix" class="headerlink" title="[FlagPrefix]"></a>[FlagPrefix]</h2>只对标记组件有效（没有数据的组件）。对标记组件指定自定义前缀。<br>例:<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Game</span>]</span><br><span class="line">[<span class="meta">FlagPrefix(<span class="meta-string">&quot;Custom&quot;</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FlagComponent</span> : <span class="title">IComponent</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="meta">Game</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FlagTowComponent</span> : <span class="title">IComponent</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+生成带之后Entity访问两种组件的方式：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Contexts _contexts = Contexts.sharedInstance;</span><br><span class="line"><span class="keyword">var</span> entity = _contexts.game.CreateEntity();</span><br><span class="line"><span class="comment">//指定前缀</span></span><br><span class="line">entity.customFlag = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">//没有指定前缀则用默认前缀is</span></span><br><span class="line">entity.isFlagTow = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="PrimaryEntityIndex"><a href="#PrimaryEntityIndex" class="headerlink" title="[PrimaryEntityIndex]"></a>[PrimaryEntityIndex]</h2>在Context中添加索引器功能，可以用于快速查找Entity。注意同一Context下每个Entity的值不能相同。<br>例：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    [<span class="meta">Game</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PrimaryEntityIndexTestComponent</span> : <span class="title">IComponent</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">PrimaryEntityIndex</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------</span><br><span class="line">    _contexts.game.CreateEntity().AddPrimaryEntityIndexTest(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    _contexts.game.CreateEntity().AddPrimaryEntityIndexTest(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> entity2 = _contexts.game.GetEntityWithPrimaryEntityIndexTest(<span class="string">&quot;a&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="EntityIndex"><a href="#EntityIndex" class="headerlink" title="[EntityIndex]"></a>[EntityIndex]</h2>这个属性的功能和[PrimaryEntityIndex]类似，区别在于[PrimaryEntityIndex]查找的是指定的值的唯一Entity，而[EntityIndex]是查找具有指定值的多个Entity，也就是多个Entity的[EntityIndex]的值可以是相同的。<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    [<span class="meta">Game</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EntityIndexComponent</span> : <span class="title">IComponent</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">EntityIndex</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> name; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------</span><br><span class="line">    _contexts.game.CreateEntity().AddEntityIndex(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">    _contexts.game.CreateEntity().AddEntityIndex(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">    _contexts.game.GetEntitiesWithEntityIndex(<span class="string">&quot;c&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="CustomComponentName"><a href="#CustomComponentName" class="headerlink" title="[CustomComponentName]"></a>[CustomComponentName]</h2>为组件自定义名称且定义几个名称则生成几个具有相同数据但名称不同的组件。<br>例：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Game, ComponentName(<span class="meta-string">&quot;Speed&quot;</span>, <span class="meta-string">&quot;Position&quot;</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FloatVector</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> x;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+在Game Context下会生成GamePositionComponent组件和GameSpeedComponent组件，且两个组件都具有x，y两个值。<h2 id="DontGenerate"><a href="#DontGenerate" class="headerlink" title="[DontGenerate]"></a>[DontGenerate]</h2>生成代码时将跳过所有具有[DontGenerate]属性的组件。<br>例：我们之前需要有移动的功能所以定义了一个MoveComponent,并生成了代码，之后我们又不需要这个功能了所以想将这个组件移除。<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">DontGenerate(false)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CustomNameComponent</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+再只需加上[DontGenerate]然后重新生成，则Entitas会移除所有与MoveComponent相关的代码。<h2 id="Event"><a href="#Event" class="headerlink" title="[Event]"></a>[Event]</h2>为组件生成数据改变的事件。<br>例：我们需要监听某个Entity的位置变化<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Game, Event(EventTarget.Self)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PositionComponent</span> : <span class="title">IComponent</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="built_in">float</span> x;</span><br><span class="line">  <span class="keyword">public</span> <span class="built_in">float</span> y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GameView</span>: <span class="title">Monobehaviour</span>, <span class="title">IPositionListener</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 注册事件监听</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RegisterListeners</span>(<span class="params">Contexts contexts, GameEntity entity</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">    entity.AddGamePositionListener(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 事件回调响应函数</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnPosition</span>(<span class="params">GameEntity entity, <span class="built_in">float</span> x, <span class="built_in">float</span> y</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">    transform.position = <span class="keyword">new</span> Vector2(x,y);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GameController</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Systems <span class="title">CreateSystems</span>(<span class="params">Contexts contexts</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Feature(<span class="string">&quot;Systems&quot;</span>)</span><br><span class="line">        .Add(<span class="keyword">new</span> GameEventSystems(contexts));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+当Entity更改的位置时，生成的GameEventSystems将调用OnPosition(entity, x, y)的事件监听的回调。<br>参数：</li>
+<li>EventTarget<ul>
+<li>Any 任何Entity的Position发生变化都会调用OnPosition()。OnPosition()回调中第一个参数就是发生位置变化的Entity。</li>
+<li>Self 仅自身的Position发生变化时才会调用OnPosition()。</li>
+</ul>
+</li>
+<li>EventType<ul>
+<li>Added 生成IPositionListener。</li>
+<li>Removed 生成IPositionRemovedListener，当组件被移除时调用。</li>
+</ul>
+</li>
+<li>priority<ul>
+<li>生成的事件执行顺序，同一个Context中存在多个事件时值越小优先级越高。<h2 id="Cleanup"><a href="#Cleanup" class="headerlink" title="[Cleanup]"></a>[Cleanup]</h2></li>
+</ul>
+</li>
+<li>CleanupMode.DestroyEntity 将生成一个系统，该系统将销毁所有具有此组件的实体。</li>
+<li>CleanupMode.RemoveComponent 将生成一个系统，该系统将从具有此组件的所有实体中删除此组件。<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Cleanup(CleanupMode.DestroyEntity)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">DestroyedComponent</span> : <span class="title">IComponent</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">愚人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://afoolzwt.github.io/2022/02/07/ECS3/">https://afoolzwt.github.io/2022/02/07/ECS3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://afoolzwt.github.io" target="_blank">愚人のblog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unity/">Unity</a><a class="post-meta__tags" href="/tags/ECS/">ECS</a></div><div class="post_share"><div class="social-share" data-image="/img/cover2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/21/%E7%8C%8E%E5%A4%B4%E6%B8%B8%E6%88%8F/"><img class="prev-cover" src="/img/books/LTYX.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">《猎头游戏》</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/07/ECS1/"><img class="next-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ECS学习笔记（1）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/07/ECS1/" title="ECS学习笔记（1）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（1）</div></div></a></div><div><a href="/2022/02/07/ECS2/" title="ECS学习笔记（2）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（2）</div></div></a></div><div><a href="/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/" title="Game Framework 模块汇总"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-25</div><div class="title">Game Framework 模块汇总</div></div></a></div><div><a href="/2022/01/25/HQGXLua/" title="XLua项目使用-HQG"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">XLua项目使用-HQG</div></div></a></div><div><a href="/2022/01/25/ILR1/" title="ILRuntime学习笔记(1)"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">ILRuntime学习笔记(1)</div></div></a></div><div><a href="/2022/01/25/ILR2/" title="ILRuntime学习笔记(2)"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">ILRuntime学习笔记(2)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/headicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">愚人</div><div class="author-info__description">为做出理想游戏而不懈努力。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AFoolZWT"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Attributes"><span class="toc-text">Attributes</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Context"><span class="toc-text">[Context]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unique"><span class="toc-text">[Unique]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlagPrefix"><span class="toc-text">[FlagPrefix]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PrimaryEntityIndex"><span class="toc-text">[PrimaryEntityIndex]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EntityIndex"><span class="toc-text">[EntityIndex]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CustomComponentName"><span class="toc-text">[CustomComponentName]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DontGenerate"><span class="toc-text">[DontGenerate]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Event"><span class="toc-text">[Event]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cleanup"><span class="toc-text">[Cleanup]</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》"><img src="/img/books/dhsjms.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话设计模式》"/></a><div class="content"><a class="title" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》">《大话设计模式》</a><time datetime="2023-03-21T16:00:00.000Z" title="发表于 2023-03-22 00:00:00">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（语言特性18-23）"/></a><div class="content"><a class="title" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）">Lua程序设计（语言特性18-23）</a><time datetime="2022-11-01T16:00:00.000Z" title="发表于 2022-11-02 00:00:00">2022-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（编程实操9-17）"/></a><div class="content"><a class="title" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）">Lua程序设计（编程实操9-17）</a><time datetime="2022-10-31T16:00:00.000Z" title="发表于 2022-11-01 00:00:00">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（Lua语言入门1-8）"/></a><div class="content"><a class="title" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）">Lua程序设计（Lua语言入门1-8）</a><time datetime="2022-10-30T16:00:00.000Z" title="发表于 2022-10-31 00:00:00">2022-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）"><img src="/img/books/DHSJJG.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话数据结构》（串）"/></a><div class="content"><a class="title" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）">《大话数据结构》（串）</a><time datetime="2022-07-20T16:00:00.000Z" title="发表于 2022-07-21 00:00:00">2022-07-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 愚人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '2L5WFGGosqmMsQkoWAORAVz8-gzGzoHsz',
+      appKey: 'Aw2OnjzWeYL9LYdqwpwuVuXI',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

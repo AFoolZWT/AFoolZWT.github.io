@@ -1,0 +1,319 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Unity零碎知识点 | 愚人のblog</title><meta name="keywords" content="Unity"><meta name="author" content="愚人"><meta name="copyright" content="愚人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.Unity协程的原理协程不是多线程，协程还是在主线程里面（注：在Unity中非主线程是不可以访问Unity资源的） 线程、进程和协程的区别进程有自己独立的堆和栈，即不共享堆也不共享栈，进程由操作系统调度 线程拥有自己独立的栈和共享的堆，共享堆不共享栈，线程亦由操作系统调度（标准线程是这样的） 协程和线程一样共享堆不共享栈，协程由程序员在协程的代码里面显示调度 一个应用程序一般对应一个进程，一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity零碎知识点">
+<meta property="og:url" content="https://afoolzwt.github.io/2022/03/11/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="愚人のblog">
+<meta property="og:description" content="1.Unity协程的原理协程不是多线程，协程还是在主线程里面（注：在Unity中非主线程是不可以访问Unity资源的） 线程、进程和协程的区别进程有自己独立的堆和栈，即不共享堆也不共享栈，进程由操作系统调度 线程拥有自己独立的栈和共享的堆，共享堆不共享栈，线程亦由操作系统调度（标准线程是这样的） 协程和线程一样共享堆不共享栈，协程由程序员在协程的代码里面显示调度 一个应用程序一般对应一个进程，一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://afoolzwt.github.io/img/cover2.jpg">
+<meta property="article:published_time" content="2022-03-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-11T06:33:50.012Z">
+<meta property="article:author" content="愚人">
+<meta property="article:tag" content="Unity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afoolzwt.github.io/img/cover2.jpg"><link rel="shortcut icon" href="/img/webicon.png"><link rel="canonical" href="https://afoolzwt.github.io/2022/03/11/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-HqA81hlzlz&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Unity零碎知识点',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-11 14:33:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="愚人のblog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/headicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: lightblue"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">愚人のblog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Unity零碎知识点</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-10T16:00:00.000Z" title="发表于 2022-03-11 00:00:00">2022-03-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-11T06:33:50.012Z" title="更新于 2022-03-11 14:33:50">2022-03-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Unity/">Unity</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Unity零碎知识点"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-Unity协程的原理"><a href="#1-Unity协程的原理" class="headerlink" title="1.Unity协程的原理"></a>1.Unity协程的原理</h1><p>协程不是多线程，协程还是在主线程里面（注：在Unity中非主线程是不可以访问Unity资源的）</p>
+<h2 id="线程、进程和协程的区别"><a href="#线程、进程和协程的区别" class="headerlink" title="线程、进程和协程的区别"></a>线程、进程和协程的区别</h2><p>进程有自己独立的堆和栈，即不共享堆也不共享栈，进程由操作系统调度</p>
+<p>线程拥有自己独立的栈和共享的堆，共享堆不共享栈，线程亦由操作系统调度（标准线程是这样的）</p>
+<p>协程和线程一样共享堆不共享栈，协程由程序员在协程的代码里面显示调度</p>
+<p>一个应用程序一般对应一个进程，一个进程一般有一个主线程，还有若干个辅助线程，线程之间是平行的，在线程里面可以开启协程，让程序在特定的时间内运行。</p>
+<p>协程和线程的区别是：协程避免了无意义的调度，由此可以提高性能，但也因此，程序员必须自己承担调度的责任，同时，协程也失了标准线程使用多CPU的能力。</p>
+<h2 id="Unity中协程执行的原理"><a href="#Unity中协程执行的原理" class="headerlink" title="Unity中协程执行的原理"></a>Unity中协程执行的原理</h2><p>Unity生命周期函数：<br><img src="/img/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/1.png" alt="1.png"></p>
+<p>在Unity运行时，调用协程就是开启了一个IEnumerator（迭代器），协程开始执行，在执行到yield return之前和其他的正常的程序没有差别，但是当遇到yield return之后会立刻返回，并将该函数暂时挂起。在下一帧遇到FixedUpdate或者Update之后判断yield return 后边的条件是否满足，如果满足向下执行。</p>
+<p>根据unity主线的框架运行图我们知道，协同程序主要是在update()方法之后，lateUpdate()方法之前调用。</p>
+<h3 id="Unity生命周期对协程的影响"><a href="#Unity生命周期对协程的影响" class="headerlink" title="Unity生命周期对协程的影响"></a>Unity生命周期对协程的影响</h3><p>通过设置MonoBehaviour脚本的enabled对协程是没有影响的，但如果gameObject.SetActive(false) 则已经启动的协程则完全停止了，即使在Inspector把gameObject 激活还是没有继续执行。也就说协程虽然是在MonoBehvaviour启动的（StartCoroutine）但是协程函数的地位完全是跟MonoBehaviour是一个层次的，不受MonoBehaviour的状态影响，但跟MonoBehaviour脚本一样受gameObject 控制，也应该是和MonoBehaviour脚本一样每帧“轮询” yield 的条件是否满足。</p>
+<p>注：WaitForSends()受Time.timeScale影响，当Time.timeScale = 0f时，yieldreturn new WaitForSecond(X)将不会满足。</p>
+<h2 id="协程的主要应用"><a href="#协程的主要应用" class="headerlink" title="协程的主要应用"></a>协程的主要应用</h2><p>协程不是只能做一些简单的延迟，如果只是单纯的暂停几秒然后在执行就完全没有必要开启一个线程。</p>
+<p>协程的真正作用是分步做一些比较耗时的事情，比如加载游戏里的资源。</p>
+<h1 id="2-C-中的虚方法、抽象方法、抽象类以及接口"><a href="#2-C-中的虚方法、抽象方法、抽象类以及接口" class="headerlink" title="2.C#中的虚方法、抽象方法、抽象类以及接口"></a>2.C#中的虚方法、抽象方法、抽象类以及接口</h1><h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>C# OOP（面向对象）的三大原则：封装、继承、多态。</p>
+<p>在面向对象语言中，接口的多种不同的实现方式即为多态。引用Charlie Calverts对多态的描述——多态性是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作（摘自“Delphi4编程技术内幕”）。简单的说，就是一句话：允许将子类类型的指针赋值给父类类型的指针。多态性在Object Pascal和C++中都是通过虚函数实现的。</p>
+<p>用我自己的理解来说：多态就是在继承的前提下，不同对象调用相同方法却表现出不同的行为，此为多态。<br>关键性的一句话：多态性在C++中是通过虚函数实现的，这在C#中同样适用。但是在C#中有三种方法来体现：虚方法，抽象类，接口。</p>
+<h2 id="虚方法-Virtual"><a href="#虚方法-Virtual" class="headerlink" title="虚方法 Virtual"></a>虚方法 Virtual</h2><p>虚方法存在于相对于需要实现多态的子类的父类中，同时也是最基本的实现多态的方法。</p>
+<p>具体的语法是在父类中用virtual修饰，然后在子类中使用override进行重写。</p>
+<h2 id="抽象方法以及抽象类-Abstract"><a href="#抽象方法以及抽象类-Abstract" class="headerlink" title="抽象方法以及抽象类 Abstract"></a>抽象方法以及抽象类 Abstract</h2><p>存在于父类中的虚方法是有自己的方法体的，而且这些方法体是必要的，少了他们就无法完成逻辑，这种情况需要使用虚方法。</p>
+<p>抽象方法必须存在于抽象类中，抽象类的具体语法是类名前加上abstract。</p>
+<p>抽象方法没有方法体，且所有继承了抽象类的子类必须重写所有的抽象方法。</p>
+<p>抽象类中可以包括普通方法，并且抽象类不能被实例化。</p>
+<p>抽象类的使用场景：</p>
+<p>1.父类方法不知道如何去实现；</p>
+<p>2.父类没有默认实现且不需要实例化</p>
+<h2 id="接口-Interface"><a href="#接口-Interface" class="headerlink" title="接口 Interface"></a>接口 Interface</h2><p>接口是指定一组函数成员而不实现他们的引用类型。所以只能类和结构来实现接口，在继承该接口的类里面要实现接口的所有方法。</p>
+<p>接口的作用就是实现某些类的特殊功能。</p>
+<p>1.接口声明不能包含以下成员：<br>数据成员、静态成员。<br>2.接口声明只能包含如下类型的非静态成员函数的声明：<br>方法、属性、事件、索引器。<br>3.这些函数成员的声明不能包含任何实现代码，而在每一个成员声明的主体后必须使用分号。</p>
+<p><img src="/img/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/2.png" alt="2.png"></p>
+<h1 id="3-C-中值类型与引用类型的区别"><a href="#3-C-中值类型与引用类型的区别" class="headerlink" title="3.C#中值类型与引用类型的区别"></a>3.C#中值类型与引用类型的区别</h1><p>在C#中值类型的变量直接存储数据，而引用类型的变量持有的是数据的引用，数据存储在数据堆中。</p>
+<p>值类型（value type）：byte，short，int，long，float，double，decimal，char，bool 和 struct 统称为值类型。值类型变量声明后，不管是否已经赋值，编译器为其分配内存。<br>引用类型（reference type）：string 和 class 统称为引用类型。当声明一个类时，只在栈中分配一小片内存用于容纳一个地址，而此时并没有为其分配堆上的内存空间。当使用 new 创建一个类的实例时，分配堆上的空间，并把堆上空间的地址保存到栈上分配的小片空间中。</p>
+<p>值类型的实例通常是在线程栈上分配的（静态分配），但是在某些情形下可以存储在堆中。引用类型的对象总是在进程堆中分配（动态分配）。</p>
+<ul>
+<li>数据在哪里声明，就存储在哪里。<br>方法中声明：值类型数据存储在栈中，引用类型的引用存储在栈中，数据存储在堆中；方法在栈中执行，在方法内声明的变量都是在栈中存储，方法执行完毕后将这些数据清除，方法内部的值类型将直接被清除，引用类型将被清除引用，而存储在堆中的数据则等待GC自动回收。<br>类中：值类型数据存储在堆中，引用类型的引用和数据都存储在堆中。</li>
+<li>内存区域上的区别<br>值类型：数据存储在栈上，超出作用域就自动清理<br>引用类型：数据存储在托管堆上，引用地址在线程栈上，地址指向数据存放的堆上<br>托管堆会由GC来自动释放 ，线程栈数据在作用域结束后会被清理。</li>
+<li>拷贝策略：值类型是拷贝数据，引用类型是拷贝引用地址<br>如果值类型为传值参数，传值参数会在栈上新开辟一个副本，原先的值类型数据不会改变<br>如果引用类型是传值参数，传值参数会创建一个新的引用地址，两个引用地址会指向同一个对象实例的数据，实例数据会随着改变进行改变。（这种行为被称为副作用，一般实际项目不会这么操作，要么return返回参数，要么使用ref或者out修饰符）<br>【扩展Ref引用参数，Out输出参数可以利用这一副作用机制】<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Parameters</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Dowork();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Dowork</span>(<span class="params"></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> i = <span class="number">0</span>;  <span class="comment">// int 是值类型</span></span><br><span class="line">            Console.WriteLine(i);   <span class="comment">// i = 0</span></span><br><span class="line">            Pass.<span class="keyword">value</span>(i);          <span class="comment">// 值类型使用的是 i 的副本，i不变</span></span><br><span class="line">            Console.WriteLine(i);   <span class="comment">// i = 0</span></span><br><span class="line"> </span><br><span class="line">            WrappendInt wi = <span class="keyword">new</span> WrappendInt(); <span class="comment">// 创建类 WrappendInt 的另外一个实例</span></span><br><span class="line">            Console.WriteLine(wi.Number);   <span class="comment">// 0 // 被默认构造器初始化为 0</span></span><br><span class="line">            Pass.Reference(wi);     <span class="comment">// 调用方法，wi 和 param 将引用同一个对象</span></span><br><span class="line">            Console.WriteLine(wi.Number);   <span class="comment">// 42</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">class</span> <span class="title">Pass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">value</span>(<span class="params"><span class="built_in">int</span> param</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            param = <span class="number">42</span>; <span class="comment">// 赋值操作使用的是值类型参数的一个副本，原始参数不受影响</span></span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Reference</span>(<span class="params">WrappendInt param</span>) <span class="comment">// 创建类 WrappendInt 的一个实例</span></span></span><br><span class="line">        &#123;</span><br><span class="line">            param.Number = <span class="number">42</span>;  <span class="comment">// 此参数是引用类型的参数</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">class</span> <span class="title">WrappendInt</span>   <span class="comment">// 类是引用类型</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> Number;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*输出结果</span></span><br><span class="line"><span class="comment">*	0</span></span><br><span class="line"><span class="comment">*	0</span></span><br><span class="line"><span class="comment">*	0</span></span><br><span class="line"><span class="comment">*	42</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+值类型：包含了所有简单类型（整数、浮点、bool、char）、struct、enum。<br>继承自System.ValueTyoe<br>引用类型包含了string，object，class，interface，delegate，array<br>继承自System.Object</li>
+</ul>
+<h1 id="4-值类型和引用类型互相转换：拆箱和装箱"><a href="#4-值类型和引用类型互相转换：拆箱和装箱" class="headerlink" title="4.值类型和引用类型互相转换：拆箱和装箱"></a>4.值类型和引用类型互相转换：拆箱和装箱</h1><p>装箱：值类型====》引用类型object<br>1.分配内存堆<br>2.值类型数据拷贝到新的内存堆中<br>3.栈中分配一个新的引用地址指向内存堆</p>
+<p>拆箱：引用类型object====》值类型<br>1.检查确保对象是给定值类型的一个装箱值<br>2.将该值数据复制到栈中的值类型</p>
+<p>string是特殊的引用类型，如果传入参数是string，在方法里修改，原string数值不变。<br>原因是string的不变性，系统内部做了特殊处理。</p>
+<h1 id="5-Foreach遍历原理"><a href="#5-Foreach遍历原理" class="headerlink" title="5.Foreach遍历原理"></a>5.Foreach遍历原理</h1><p>任何集合类（Array）对象都有一个GetEnumerator()方法，该方法可以返回一个实现了 IEnumerator接口的对象。<br>这个返回的IEnumerator对象既不是集合类对象，也不是集合的元素类对象，它是一个独立的类对象。<br>通过这个实现了 IEnumerator接口对象A，可以遍历访问集合类对象中的每一个元素对象<br>对象A访问MoveNext方法，方法为真，就可以访问Current方法，读取到集合的元素。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  List&lt;<span class="built_in">string</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;() &#123; <span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;3&quot;</span>, <span class="string">&quot;4&quot;</span> &#125;;</span><br><span class="line">IEnumerator listEnumerator = list.GetEnumerator();</span><br><span class="line">     <span class="keyword">while</span> (listEnumerator.MoveNext())</span><br><span class="line">     &#123;</span><br><span class="line">         Console.WriteLine(listEnumerator.Current);</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="6-反射的实现原理"><a href="#6-反射的实现原理" class="headerlink" title="6.反射的实现原理"></a>6.反射的实现原理</h1><p>定义：运行时，动态获取类型信息,动态创建对象,动态访问成员的过程。<br>另一种定义：审查元数据并收集元数据的信息。<br>元数据：编译后的最基本数据单元，就是一堆表，反射就是解析这些元数据。<br>反射是在运行期间获取到类、对象、方法、数据的一种手段<br>主要使用类库System.Reflection<br>反射要点：如何获取类型，根据类型来动态创建对象，反射获取方法以及动态调用方法，动态创建委托<br>一、动态获取类型信息<br>1.System.Reflection.Assembly.Load(“XXXX.dll”) 动态加载程序集<br>2.System.Type.GetType(“XXXX类名”); //动态获取某程序集中某类信息<br>3.obj.GetType(); //已知对象获取类信息 ——或者——typeof(类型) //已知类类型<br>二、动态创建对象实例（上一步操作后获得类对象）<br>System.Activator.CreateInstance(Type type);<br>三、动态访问成员调用方法（上一步操作后已获取实例对象）<br>System.Reflection.MethodInfo method = type.GetMethod(“方法名”);//获得方法<br>System.Reflection.MethodInfo.Invoke(object , new object[]{参数}) //调用的类实例和实例参数</p>
+<p>核心类<br>System.Reflection.Assembly 描述程序集<br>System.Type 描述类<br>System.Reflection.FieldInfo 描述了类的字段<br>System.Reflection.ConstructorInfo 描述构造函数<br>System.Reflection.MethodInfo 描述类的方法<br>System.Reflection.PropertyInfo 描述类的属性</p>
+<p>反射耗性能，lua是动态语言，一种小巧的脚本语言，会使用反射机制。</p>
+<h1 id="Unity-GC垃圾回收"><a href="#Unity-GC垃圾回收" class="headerlink" title="Unity GC垃圾回收"></a>Unity GC垃圾回收</h1><p>英文原文：<a target="_blank" rel="noopener" href="https://unity3d.com/de/learn/tutorials/topics/performance-optimization/optimizing-garbage-collection-unity-games?playlist=44069">https://unity3d.com/de/learn/tutorials/topics/performance-optimization/optimizing-garbage-collection-unity-games?playlist=44069</a></p>
+<h2 id="GC-garbage-collection-简介"><a href="#GC-garbage-collection-简介" class="headerlink" title="GC (garbage collection)简介"></a>GC (garbage collection)简介</h2><p>在游戏运行的时候，数据主要存储在内存中，当游戏的数据在不需要的时候，存储当前数据的内存就可以被回收以再次使用。内存垃圾是指当前废弃数据所占用的内存，垃圾回收（GC）是指将废弃的内存重新回收再次使用的过程。<br>Unity中将垃圾回收当作内存管理的一部分，如果游戏中废弃数据占用内存较大，则游戏的性能会受到极大影响，此时垃圾回收会成为游戏性能的一大障碍点。</p>
+<h2 id="Unity内存管理机制简介"><a href="#Unity内存管理机制简介" class="headerlink" title="Unity内存管理机制简介"></a>Unity内存管理机制简介</h2><p>Unity主要采用自动内存管理的机制，开发时在代码中不需要详细地告诉unity如何进行内存管理，unity内部自身会进行内存管理。这和使用C++开发需要随时管理内存相比，有一定的优势，当然带来的劣势就是需要随时关注内存的增长。<br>unity的自动内存管理可以理解为以下几个部分：<br>1.unity内部有两个内存管理池：堆内存和堆栈内存。堆栈内存(stack)主要用来存储较小的和短暂的数据，堆内存(heap)主要用来存储较大的和存储时间较长的数据。<br>2.unity中的变量只会在堆栈或者堆内存上进行内存分配，值类型变量都在堆栈上进行内存分配，其他类型的变量都在堆内存上分配。<br>3.只要变量处于激活状态，则其占用的内存会被标记为使用状态，则该部分的内存处于被分配的状态。<br>4.一旦变量不再激活，则其所占用的内存不再需要，该部分内存可以被回收到内存池中被再次使用，这样的操作就是内存回收。处于堆栈上的内存回收及其快速，处于堆上的内存并不是及时回收的，此时其对应的内存依然会被标记为使用状态。<br>5.垃圾回收主要是指堆上的内存分配和回收，unity中会定时对堆内存进行GC操作。</p>
+<h2 id="栈内存分配和回收机制"><a href="#栈内存分配和回收机制" class="headerlink" title="栈内存分配和回收机制"></a>栈内存分配和回收机制</h2><p>堆栈上的内存分配和回收十分快捷简单，因为堆栈上只会存储短暂的或者较小的变量。内存分配和回收都会以一种顺序和大小可控制的形式进行。</p>
+<p>堆栈的运行方式就像stack: 其本质只是一个数据的集合，数据的进出都以一种固定的方式运行。正是这种简洁性和固定性使得堆栈的操作十分快捷。当数据被存储在堆栈上的时候，只需要简单地在其后进行扩展。当数据失效的时候，只需要将其从堆栈上移除。</p>
+<h2 id="堆内存分配和回收机制"><a href="#堆内存分配和回收机制" class="headerlink" title="堆内存分配和回收机制"></a>堆内存分配和回收机制</h2><p>堆内存上的内存分配和存储相对而言更加复杂，主要是堆内存上可以存储短期较小的数据，也可以存储各种类型和大小的数据。其上的内存分配和回收顺序并不可控，可能会要求分配不同大小的内存单元来存储数据。</p>
+<p>堆上的变量在存储的时候，</p>
+<p>1.首先unity会先检测是否有足够的闲置内存单元用来存储数据，如果有，则分配对应大小的内存单元；</p>
+<p>2.如果没有，就触发垃圾回收（GC）来释放不再被使用的堆内存（缓慢的操作），如果垃圾回收后有足够大小的内存单元，则进行内存分配。</p>
+<p>3.如果还不够，则会扩展堆内存的大小（缓慢的操作），最后分配对应大小的内存单元给变量。</p>
+<p>堆内存的分配有可能会变得十分缓慢，特别是在需要垃圾回收和堆内存需要扩展的情况下，通常需要减少这样的操作次数。</p>
+<h2 id="GC相关的一些信息"><a href="#GC相关的一些信息" class="headerlink" title="GC相关的一些信息"></a>GC相关的一些信息</h2><h3 id="GC的操作过程："><a href="#GC的操作过程：" class="headerlink" title="GC的操作过程："></a>GC的操作过程：</h3><p>当堆内存上一个变量不再处于激活状态的时候，其所占用的内存并不会立刻被回收，不再使用的内存只会在GC的时候才会被回收。其操作如下<br>1.GC会检查堆内存上的每个存储变量；<br>2.对每个变量会检测其引用是否处于激活状态；<br>3.如果变量的引用不再处于激活状态，则会被标记为可回收；<br>4.被标记的变量会被移除，其所占有的内存会被回收到堆内存上。<br>GC操作是一个极其耗费的操作，堆内存上的变量或者引用越多则其运行的操作会更多，耗费的时间越长。</p>
+<h3 id="何时触发GC："><a href="#何时触发GC：" class="headerlink" title="何时触发GC："></a>何时触发GC：</h3><p>主要有三个操作会触发垃圾回收：<br>1.在堆内存上进行内存分配操作而内存不够的时候都会触发垃圾回收来利用闲置的内存；<br>2.GC会自动的触发，不同平台运行频率不一样；<br>3.GC可以被强制执行。<br>特别是在堆内存上进行内存分配时内存单元不足够的时候，GC会被频繁触发，这就意味着频繁在堆内存上进行内存分配和回收会触发频繁的GC操作。</p>
+<h3 id="GC操作带来的问题："><a href="#GC操作带来的问题：" class="headerlink" title="GC操作带来的问题："></a>GC操作带来的问题：</h3><p>1.需要大量的时间来运行，可能会使得游戏运行缓慢。其次GC可能会在关键时候运行，例如在CPU处于游戏的性能运行关键时刻，此时任何一个额外的操作都可能会带来极大的影响，使得游戏帧率下降。<br>2.堆内存的碎片划。当一个内存单元从堆内存上分配出来，其大小取决于其存储的变量的大小。当该内存被回收到堆内存上的时候，有可能使得堆内存被分割成碎片化的单元。也就是说堆内存总体可以使用的内存单元较大，但是单独的内存单元较小，在下次内存分配的时候不能找到合适大小的存储单元，这也会触发GC操作或者堆内存扩展操作。</p>
+<p>堆内存碎片会造成两个结果，一个是游戏占用的内存会越来越大，一个是GC会更加频繁地被触发。</p>
+<h3 id="利用profiler-window-来检测堆内存分配（unity工具栏Window-gt-Profiler打开）："><a href="#利用profiler-window-来检测堆内存分配（unity工具栏Window-gt-Profiler打开）：" class="headerlink" title="利用profiler window 来检测堆内存分配（unity工具栏Window-&gt;Profiler打开）："></a>利用profiler window 来检测堆内存分配（unity工具栏Window-&gt;Profiler打开）：</h3><p>在CPU usage分析窗口中，我们可以检测任何一帧cpu的内存分配情况。其中一个列是GC Alloc，通过分析其来定位是什么函数造成大量的堆内存分配操作。一旦定位该函数，我们就可以分析解决其造成问题的原因从而减少内存垃圾的产生。现在Unity5.5的版本，还提供了deep profiler的方式深度分析GC垃圾的产生。</p>
+<h2 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h2><h3 id="降低GC影响的方法"><a href="#降低GC影响的方法" class="headerlink" title="降低GC影响的方法"></a>降低GC影响的方法</h3><p>1.减少GC的运行次数；</p>
+<p>2.减少单次GC的运行时间；</p>
+<p>3.将GC的运行时间延迟，避免在关键时候触发，比如可以在场景加载的时候调用GC。</p>
+<h3 id="主要策略为："><a href="#主要策略为：" class="headerlink" title="主要策略为："></a>主要策略为：</h3><p>1.对游戏进行重构，减少堆内存的分配和引用的分配。更少的变量和引用会减少GC操作中的检测个数从而提高GC的运行效率。</p>
+<p>2.降低堆内存分配和回收的频率，尤其是在关键时刻。也就是说更少的事件触发GC操作，同时也降低堆内存的碎片化。</p>
+<p>3.我们可以试着测量GC和堆内存扩展的时间，使其按照可预测的顺序执行。当然这样操作的难度极大，但是这会大大降低GC的影响。</p>
+<p>具体如下：</p>
+<h4 id="减少内存垃圾的数量"><a href="#减少内存垃圾的数量" class="headerlink" title="减少内存垃圾的数量"></a>减少内存垃圾的数量</h4><ul>
+<li>1.缓存<br>如果在代码中反复调用某些造成堆内存分配的函数但是其返回结果并没有使用，这就会造成不必要的内存垃圾，我们可以缓存这些变量来重复利用，这就是缓存。<br>例如下面的代码每次调用的时候就会造成堆内存分配，主要是每次都会分配一个新的数组：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">OnTriggerEnter</span>(<span class="params">Collider other</span>)</span> &#123;</span><br><span class="line">     Renderer[] allRenderers = FindObjectsOfType&lt;Renderer&gt;();</span><br><span class="line">     ExampleFunction(allRenderers);      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+对比下面的代码，只会生产一个数组用来缓存数据，实现反复利用而不需要造成更多的内存垃圾：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Renderer[] allRenderers;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">   allRenderers = FindObjectsOfType&lt;Renderer&gt;();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">OnTriggerEnter</span>(<span class="params">Collider other</span>)</span> &#123;</span><br><span class="line">    ExampleFunction(allRenderers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>2.不要在频繁调用的函数中反复进行堆内存分配<br>在MonoBehaviour中，如果我们需要进行堆内存分配，最坏的情况就是在其反复调用的函数中进行堆内存分配，例如Update()和LateUpdate()函数这种每帧都调用的函数，这会造成大量的内存垃圾。我们可以考虑在Start()或者Awake()函数中进行内存分配，这样可以减少内存垃圾。<br>下面的例子中，update函数会多次触发内存垃圾的产生：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    ExampleGarbageGenerationFunction(transform.position.x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+通过一个简单的改变，我们可以确保每次在x改变的时候才触发函数调用，这样避免每帧都进行堆内存分配：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">float</span> previousTransformPositionX;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">float</span> transformPositionX = transform.position.x;</span><br><span class="line">    <span class="keyword">if</span>(transfromPositionX != previousTransformPositionX) &#123;</span><br><span class="line">        ExampleGarbageGenerationFunction(transformPositionX);    </span><br><span class="line">        previousTransformPositionX = trasnformPositionX;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+另外的一种方法是在update中采用计时器，特别是在运行有规律但是不需要每帧都运行的代码中，例如：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">float</span> timeSinceLastCalled;</span><br><span class="line"><span class="built_in">float</span> delay = <span class="number">1f</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    timSinceLastCalled += Time.deltaTime;</span><br><span class="line">    <span class="keyword">if</span>(timeSinceLastCalled &gt; delay) &#123;</span><br><span class="line">         ExampleGarbageGenerationFunction();</span><br><span class="line">         timeSinceLastCalled = <span class="number">0f</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>3.清除链表<br>在堆内存上进行链表的分配的时候，如果该链表需要多次反复的分配，我们可以采用链表的clear函数来清空链表从而替代反复多次的创建分配链表。<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    List myList = <span class="keyword">new</span> List();</span><br><span class="line">    PopulateList(myList);       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+通过改进，我们可以将该链表只在第一次创建或者该链表必须重新设置的时候才进行堆内存分配，从而大大减少内存垃圾的产生：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List myList = <span class="keyword">new</span> List();</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    myList.Clear();</span><br><span class="line">    PopulateList(myList);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>4.对象池<br>即便我们在代码中尽可能地减少堆内存的分配行为，但是如果游戏有大量的对象需要产生和销毁依然会造成GC。对象池技术可以通过重复使用对象来降低堆内存的分配和回收频率。对象池在游戏中广泛的使用，特别是在游戏中需要频繁的创建和销毁相同的游戏对象的时候，例如枪的子弹这种会频繁生成和销毁的对象。<h4 id="造成不必要的堆内存分配的因素"><a href="#造成不必要的堆内存分配的因素" class="headerlink" title="造成不必要的堆内存分配的因素"></a>造成不必要的堆内存分配的因素</h4></li>
+<li>1.字符串</li>
+</ul>
+<p>在c#中，字符串是引用类型变量而不是值类型变量，即使看起来它是存储字符串的值的。这就意味着字符串会造成一定的内存垃圾，由于代码中经常使用字符串，所以我们需要对其格外小心。</p>
+<p>c#中的字符串是不可变更的，也就是说其内部的值在创建后是不可被变更的。每次在对字符串进行操作的时候（例如运用字符串的”+”操作），unity会新建一个字符串用来存储新的字符串，使得旧的字符串被废弃，这样就会造成内存垃圾。</p>
+<p>我们可以采用以下的一些方法来最小化字符串的影响：</p>
+<p>1.减少不必要的字符串的创建，如果一个字符串的值被多次利用，我们可以创建并缓存该字符串。（实际上因为驻留机制，相同值的字符串，指针是一样的，可见最后的补充1）</p>
+<p>2.减少不必要的字符串操作，例如如果在Text组件中，有一部分字符串需要经常改变，但是其他部分不会，则我们可以将其分为两个Text组件，对于不变的部分就设置为类似常量字符串即可。</p>
+<p>3.如果我们需要实时的创建字符串，我们可以采用StringBuilderClass来代替，StringBuilder专为不需要进行内存分配而设计，从而减少字符串产生的内存垃圾。</p>
+<p>4.移除游戏中的Debug.Log()函数的代码，尽管该函数可能输出为空，对该函数的调用依然会执行，该函数</p>
+<ul>
+<li>2.Unity函数调用</li>
+</ul>
+<p>在代码编程中，当我们调用不是我们自己编写的代码，无论是Unity自带的还是插件中的，我们都可能会产生内存垃圾。Unity的某些函数调用会产生内存垃圾，我们在使用的时候需要注意它的使用。</p>
+<p>这儿没有明确的列表指出哪些函数需要注意，每个函数在不同的情况下有不同的使用，所以最好仔细地分析游戏，定位内存垃圾的产生原因以及如何解决问题。有时候缓存是一种有效的办法，有时候尽量降低函数的调用频率是一种办法，有时候用其他函数来重构代码是一种办法。现在来分析unity中常见的造成堆内存分配的函数调用。</p>
+<p>在Unity中如果函数需要返回一个数组，则一个新的数组会被分配出来用作结果返回，这不容易被注意到，特别是如果该函数含有迭代器，下面的代码中对于每个迭代器都会产生一个新的数组：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ExampleFunction</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; myMesh.normals.Length; i++) &#123;</span><br><span class="line">        Vector3 normal = myMesh.normals[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于这样的问题，我们可以缓存一个数组的引用，这样只需要分配一个数组就可以实现相同的功能，从而减少内存垃圾的产生：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ExampleFunction</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    Vector3[] meshNormals = myMesh.normals;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; meshNormals.Length; i++) &#123;</span><br><span class="line">        Vector3 normal = meshNormals[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外另外的一个函数调用GameObject.name 或者 GameObject.tag也会造成预想不到的堆内存分配，这两个函数都会将结果存为新的字符串返回，这就会造成不必要的内存垃圾，对结果进行缓存是一种有效的办法，但是在Unity中都对应的有相关的函数来替代。对于比较gameObject的tag，可以采用GameObject.CompareTag()来替代。除此之外我们还可以用Input.GetTouch()和Input.touchCount()来代替Input.touches，或者用Physics.SphereCastNonAlloc()来代替Physics.SphereCastAll()。</p>
+<ul>
+<li>3.装箱拆箱操作</li>
+</ul>
+<p>装箱操作是指一个值类型变量被用作引用类型变量时候的内部变换过程，如果我们向带有对象类型参数的函数传入值类型，这就会触发装箱操作。比如String.Format()函数需要传入字符串和对象类型参数，如果传入字符串和int类型数据，就会触发装箱操作。</p>
+<ul>
+<li>4.协程</li>
+</ul>
+<p>调用 StartCoroutine()会产生少量的内存垃圾，因为unity会生成实体来管理协程。所以在游戏的关键时刻应该限制该函数的调用。基于此，任何在游戏关键时刻调用的协程都需要特别的注意，特别是包含延迟回调的协程。<br>yield在协程中不会产生堆内存分配，但是如果yield带有参数返回，则会造成不必要的内存垃圾，例如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">yield</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>由于需要返回0，引发了装箱操作，所以会产生内存垃圾。这种情况下，为了避免内存垃圾，我们可以这样返回：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">yield</span> <span class="keyword">return</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<p>另外一种对协程的错误使用是每次返回的时候都new同一个变量，例如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!isComplete) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">yield</span> <span class="keyword">return</span> <span class="keyword">new</span> <span class="title">WaitForSeconds</span>(<span class="params"><span class="number">1f</span></span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以采用缓存来避免这样的内存垃圾产生：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">WaitForSeconds delay = <span class="keyword">new</span> WaiForSeconds(<span class="number">1f</span>);</span><br><span class="line"><span class="keyword">while</span>(!isComplete) &#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> delay;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果游戏中的协程产生了内存垃圾，我们可以考虑用其他的方式来替代协程。重构代码对于游戏而言十分复杂，但是对于协程而言我们也可以注意一些常见的操作，比如如果用协程来管理时间，最好在update函数中保持对时间的记录。如果用协程来控制游戏中事件的发生顺序，最好对于不同事件之间有一定的信息通信的方式。对于协程而言没有适合各种情况的方法，只有根据具体的代码来选择最好的解决办法。</p>
+<ul>
+<li>5.函数引用</li>
+</ul>
+<p>函数的引用，无论是指向匿名函数还是显式函数，在unity中都是引用类型变量，这都会在堆内存上进行分配。匿名函数的调用完成后都会增加内存的使用和堆内存的分配。具体函数的引用和终止都取决于操作平台和编译器设置，但是如果想减少GC最好减少函数的引用。</p>
+<ul>
+<li>6.LINQ和常量表达式</li>
+</ul>
+<p>由于LINQ和常量表达式以装箱的方式实现，所以在使用的时候最好进行性能测试。</p>
+<h3 id="重构代码来减小GC的影响"><a href="#重构代码来减小GC的影响" class="headerlink" title="重构代码来减小GC的影响"></a>重构代码来减小GC的影响</h3><p>即使我们减小了代码在堆内存上的分配操作，代码也会增加GC的工作量。最常见的增加GC工作量的方式是让其检查它不必检查的对象。struct是值类型的变量，但是如果struct中包含有引用类型的变量，那么GC就必须检测整个struct。如果这样的操作很多，那么GC的工作量就大大增加。在下面的例子中struct包含一个string，那么整个struct都必须在GC中被检查：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> ItemData &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> cost;</span><br><span class="line">    <span class="keyword">public</span> Vector3 position;</span><br><span class="line">&#125;</span><br><span class="line">ItemData[] itemData;</span><br></pre></td></tr></table></figure>
+<p>我们可以将该struct拆分为多个数组的形式，从而减小GC的工作量：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>[] itemNames;</span><br><span class="line"><span class="built_in">int</span>[] itemCosts;</span><br><span class="line">Vector3[] itemPositions;</span><br></pre></td></tr></table></figure>
+<p>另外一种在代码中增加GC工作量的方式是保存不必要的Object引用，在进行GC操作的时候会对堆内存上的object引用进行检查，越少的引用就意味着越少的检查工作量。在下面的例子中，当前的对话框中包含一个对下一个对话框引用，这就使得GC的时候会去检查下一个对象框：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DialogData</span> &#123;</span><br><span class="line">     DialogData nextDialog;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> DialogData <span class="title">GetNextDialog</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> nextDialog;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过重构代码，我们可以返回下一个对话框实体的标记，而不是对话框实体本身，这样就没有多余的object引用，从而减少GC的工作量：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DialogData</span> &#123;</span><br><span class="line">    <span class="built_in">int</span> nextDialogID;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">GetNextDialogID</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> nextDialogID;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="定时执行GC操作"><a href="#定时执行GC操作" class="headerlink" title="定时执行GC操作"></a>定时执行GC操作</h3><p>如果我们知道堆内存在被分配后并没有被使用，我们希望可以主动地调用GC操作，或者在GC操作并不影响游戏体验的时候（例如场景切换的时候），我们可以主动的调用GC操作：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.GC.Collect()</span><br></pre></td></tr></table></figure>
+<h2 id="托管堆"><a href="#托管堆" class="headerlink" title="托管堆"></a>托管堆</h2><p>在开发过程中，我们总会遇到托管堆内存意外的增长的情况。在Unity中，托管堆的增长速度总是大于它收缩的速度。因此，Unity的GC（Garbage Collection）回收策略更趋向于内存片段的回收。</p>
+<h3 id="托管堆的工作原理"><a href="#托管堆的工作原理" class="headerlink" title="托管堆的工作原理"></a>托管堆的工作原理</h3><p>“托管堆”是由项目的脚本运行时（Scripting Runtime）——Mono或者IL2CPP内存管理器管理的 一个内存片段。所有托管代码中被创建的对象必须被分配到托管堆上（提示：严格意义上说，所有不为空的引用类型对象和所有被封装的值类型对象必须被分配到托管堆上）。<br><img src="/img/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/5.png"><br>上图中，白色部分是一部分的已经分配的托管堆，有颜色的部分代表内存空间上存储的数据。当创建新的对象时，堆上就会被分配更多的空间。</p>
+<p>Unity的GC会周期性的执行（执行的周期与平台有关）。它会遍历堆上的所有对象，并且标记那些没有被引用的对象，然后删除它们，释放内存。</p>
+<p>Unity的GC机制，使用了Boehm GC算法（可以参考：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Boehm_garbage_collector">维基百科</a>），是非分代（non-generational）和非压缩（non-compacting）的。”非分代”是指GC执行清理操作时，必须遍历整个内存，并且随着内存的增长，它的性能就会降低。“非压缩”意味着内存中的对象不会被重新定位，去缩小对象之间的内存空隙。<br><img src="/img/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/6.png"><br>上图中展示了一个内存分配的例子。当内存被释放时，内存是空的。然而，这部分未被分配的内存并没有与其他未分配的内存合并，它的两边的内存可能仍然在使用。因此，这部分未被分配的内存空间就成了内存片段中的“间隙（Gap）”（图中红色的圆圈表示了这个间隙）。因此，只有当被存储对象的大小小于或者等于被释放内存大小时，才能被存储。</p>
+<p>当给对象分配内存时，记住对象总是占据了一块连续的内存。</p>
+<p>这就导致了内存片段的核心问题：尽管堆中可用的空间总量可能是巨大的，但有可能很多或者所有的空间都位于已经分配对象之间的小“间隙”中。在这种情况下，尽管总共有足够大的空间来分配，但托管堆找不到足够大的连续空间来分配内存。<br><img src="/img/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/7.png"><br>上图中，一个大的对象正在被分配，但是没有足够大的连续内存空间，这时，Unity内存管理器就会执行两个步骤：</p>
+<p>第一步，启动垃圾收集器，释放足够大的空间来满足分配需要。</p>
+<p>第二部，如果GC启动了，但任然没有足够的空间，托管堆就会扩张。堆扩张的大小是由平台决定的，但是Unity上的大多数平台都会让托管堆增长一倍。</p>
+<h4 id="托管堆的核心问题："><a href="#托管堆的核心问题：" class="headerlink" title="托管堆的核心问题："></a>托管堆的核心问题：</h4><p>托管堆增长带来的主要问题：</p>
+<ul>
+<li>当托管堆扩张的时候，为了尽量避免不被再次扩张，Unity没有经常释放堆上的内存页。</li>
+<li>大多数平台上，Unity最终会将托管堆的空部分返回给操作系统。发生这个的时间间隔是不确定的，所以我们不能依赖这种情况。</li>
+<li>被托管堆使用的地址空间永远不会返回给操作系统。</li>
+<li>对于32位程序来说，托管堆增长和缩小多次，会导致地址空间不够用。如果一个程序的可用地址空间用完了，那么操作系统将会结束这个程序。但对于64位程序来说，有足够大的地址空间，不会出现地址空间用完的情况。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">愚人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://afoolzwt.github.io/2022/03/11/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/">https://afoolzwt.github.io/2022/03/11/Unity%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://afoolzwt.github.io" target="_blank">愚人のblog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unity/">Unity</a></div><div class="post_share"><div class="social-share" data-image="/img/cover2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/03/11/Unity%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><img class="prev-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Unity性能优化</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/25/CSharp%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/"><img class="next-cover" src="/img/CSharpBg.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CSharp零碎知识点</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/07/ECS3/" title="ECS学习笔记（3）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（3）</div></div></a></div><div><a href="/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/" title="Game Framework 模块汇总"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-25</div><div class="title">Game Framework 模块汇总</div></div></a></div><div><a href="/2022/02/07/ECS1/" title="ECS学习笔记（1）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（1）</div></div></a></div><div><a href="/2022/02/07/ECS2/" title="ECS学习笔记（2）"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">ECS学习笔记（2）</div></div></a></div><div><a href="/2022/01/25/HQGXLua/" title="XLua项目使用-HQG"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">XLua项目使用-HQG</div></div></a></div><div><a href="/2022/01/25/ILR1/" title="ILRuntime学习笔记(1)"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">ILRuntime学习笔记(1)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/headicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">愚人</div><div class="author-info__description">为做出理想游戏而不懈努力。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AFoolZWT"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Unity%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">1.Unity协程的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E3%80%81%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">线程、进程和协程的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unity%E4%B8%AD%E5%8D%8F%E7%A8%8B%E6%89%A7%E8%A1%8C%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">Unity中协程执行的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%AF%B9%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">Unity生命周期对协程的影响</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E4%B8%BB%E8%A6%81%E5%BA%94%E7%94%A8"><span class="toc-text">协程的主要应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-C-%E4%B8%AD%E7%9A%84%E8%99%9A%E6%96%B9%E6%B3%95%E3%80%81%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95%E3%80%81%E6%8A%BD%E8%B1%A1%E7%B1%BB%E4%BB%A5%E5%8F%8A%E6%8E%A5%E5%8F%A3"><span class="toc-text">2.C#中的虚方法、抽象方法、抽象类以及接口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-text">多态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%96%B9%E6%B3%95-Virtual"><span class="toc-text">虚方法 Virtual</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E6%8A%BD%E8%B1%A1%E7%B1%BB-Abstract"><span class="toc-text">抽象方法以及抽象类 Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3-Interface"><span class="toc-text">接口 Interface</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-C-%E4%B8%AD%E5%80%BC%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">3.C#中值类型与引用类型的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2%EF%BC%9A%E6%8B%86%E7%AE%B1%E5%92%8C%E8%A3%85%E7%AE%B1"><span class="toc-text">4.值类型和引用类型互相转换：拆箱和装箱</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Foreach%E9%81%8D%E5%8E%86%E5%8E%9F%E7%90%86"><span class="toc-text">5.Foreach遍历原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E5%8F%8D%E5%B0%84%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">6.反射的实现原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unity-GC%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-text">Unity GC垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#GC-garbage-collection-%E7%AE%80%E4%BB%8B"><span class="toc-text">GC (garbage collection)简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unity%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6%E7%AE%80%E4%BB%8B"><span class="toc-text">Unity内存管理机制简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%92%8C%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="toc-text">栈内存分配和回收机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%92%8C%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="toc-text">堆内存分配和回收机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BF%A1%E6%81%AF"><span class="toc-text">GC相关的一些信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GC%E7%9A%84%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-text">GC的操作过程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E6%97%B6%E8%A7%A6%E5%8F%91GC%EF%BC%9A"><span class="toc-text">何时触发GC：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GC%E6%93%8D%E4%BD%9C%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-text">GC操作带来的问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8profiler-window-%E6%9D%A5%E6%A3%80%E6%B5%8B%E5%A0%86%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%EF%BC%88unity%E5%B7%A5%E5%85%B7%E6%A0%8FWindow-gt-Profiler%E6%89%93%E5%BC%80%EF%BC%89%EF%BC%9A"><span class="toc-text">利用profiler window 来检测堆内存分配（unity工具栏Window-&gt;Profiler打开）：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="toc-text">优化方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%8D%E4%BD%8EGC%E5%BD%B1%E5%93%8D%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">降低GC影响的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%AD%96%E7%95%A5%E4%B8%BA%EF%BC%9A"><span class="toc-text">主要策略为：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%8F%E5%B0%91%E5%86%85%E5%AD%98%E5%9E%83%E5%9C%BE%E7%9A%84%E6%95%B0%E9%87%8F"><span class="toc-text">减少内存垃圾的数量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%A0%E6%88%90%E4%B8%8D%E5%BF%85%E8%A6%81%E7%9A%84%E5%A0%86%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="toc-text">造成不必要的堆内存分配的因素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81%E6%9D%A5%E5%87%8F%E5%B0%8FGC%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">重构代码来减小GC的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8CGC%E6%93%8D%E4%BD%9C"><span class="toc-text">定时执行GC操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%98%E7%AE%A1%E5%A0%86"><span class="toc-text">托管堆</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%98%E7%AE%A1%E5%A0%86%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">托管堆的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%98%E7%AE%A1%E5%A0%86%E7%9A%84%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-text">托管堆的核心问题：</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》"><img src="/img/books/dhsjms.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话设计模式》"/></a><div class="content"><a class="title" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》">《大话设计模式》</a><time datetime="2023-03-21T16:00:00.000Z" title="发表于 2023-03-22 00:00:00">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（语言特性18-23）"/></a><div class="content"><a class="title" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）">Lua程序设计（语言特性18-23）</a><time datetime="2022-11-01T16:00:00.000Z" title="发表于 2022-11-02 00:00:00">2022-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（编程实操9-17）"/></a><div class="content"><a class="title" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）">Lua程序设计（编程实操9-17）</a><time datetime="2022-10-31T16:00:00.000Z" title="发表于 2022-11-01 00:00:00">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（Lua语言入门1-8）"/></a><div class="content"><a class="title" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）">Lua程序设计（Lua语言入门1-8）</a><time datetime="2022-10-30T16:00:00.000Z" title="发表于 2022-10-31 00:00:00">2022-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）"><img src="/img/books/DHSJJG.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话数据结构》（串）"/></a><div class="content"><a class="title" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）">《大话数据结构》（串）</a><time datetime="2022-07-20T16:00:00.000Z" title="发表于 2022-07-21 00:00:00">2022-07-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 愚人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '2L5WFGGosqmMsQkoWAORAVz8-gzGzoHsz',
+      appKey: 'Aw2OnjzWeYL9LYdqwpwuVuXI',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

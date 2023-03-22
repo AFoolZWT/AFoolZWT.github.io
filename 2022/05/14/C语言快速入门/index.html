@@ -1,0 +1,573 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>C语言快速入门 | 愚人のblog</title><meta name="keywords" content="C"><meta name="author" content="愚人"><meta name="copyright" content="愚人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C 基本语法关键字下表列出了 C 中的保留字。这些保留字不能作为常量名、变量名或其他标识符名称。    关键字 说明    auto 声明自动变量   break 跳出当前循环   case 开关语句分支   char 声明字符型变量或函数返回值类型   const 定义常量，如果一个变量被 const 修饰，那么它的值就不能再被改变   continue 结束当前循环，开始下一轮循环   def">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言快速入门">
+<meta property="og:url" content="https://afoolzwt.github.io/2022/05/14/C%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="愚人のblog">
+<meta property="og:description" content="C 基本语法关键字下表列出了 C 中的保留字。这些保留字不能作为常量名、变量名或其他标识符名称。    关键字 说明    auto 声明自动变量   break 跳出当前循环   case 开关语句分支   char 声明字符型变量或函数返回值类型   const 定义常量，如果一个变量被 const 修饰，那么它的值就不能再被改变   continue 结束当前循环，开始下一轮循环   def">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://afoolzwt.github.io/img/CBg.webp">
+<meta property="article:published_time" content="2022-05-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-14T08:13:46.821Z">
+<meta property="article:author" content="愚人">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afoolzwt.github.io/img/CBg.webp"><link rel="shortcut icon" href="/img/webicon.png"><link rel="canonical" href="https://afoolzwt.github.io/2022/05/14/C%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-HqA81hlzlz&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C语言快速入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-14 16:13:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="愚人のblog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/headicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: lightblue"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">愚人のblog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C语言快速入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-13T16:00:00.000Z" title="发表于 2022-05-14 00:00:00">2022-05-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-14T08:13:46.821Z" title="更新于 2022-05-14 16:13:46">2022-05-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/C%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">C语言快速入门</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C语言快速入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="C-基本语法"><a href="#C-基本语法" class="headerlink" title="C 基本语法"></a>C 基本语法</h1><h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><p>下表列出了 C 中的保留字。这些保留字不能作为常量名、变量名或其他标识符名称。</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>auto</td>
+<td>声明自动变量</td>
+</tr>
+<tr>
+<td>break</td>
+<td>跳出当前循环</td>
+</tr>
+<tr>
+<td>case</td>
+<td>开关语句分支</td>
+</tr>
+<tr>
+<td>char</td>
+<td>声明字符型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td>const</td>
+<td>定义常量，如果一个变量被 const 修饰，那么它的值就不能再被改变</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>结束当前循环，开始下一轮循环</td>
+</tr>
+<tr>
+<td>default</td>
+<td>开关语句中的”其它”分支</td>
+</tr>
+<tr>
+<td>do</td>
+<td>循环语句的循环体</td>
+</tr>
+<tr>
+<td>double</td>
+<td>声明双精度浮点型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td>else</td>
+<td>条件语句否定分支（与 if 连用）</td>
+</tr>
+<tr>
+<td>enum</td>
+<td>声明枚举类型</td>
+</tr>
+<tr>
+<td>extern</td>
+<td>声明变量或函数是在其它文件或本文件的其他位置定义</td>
+</tr>
+<tr>
+<td>float</td>
+<td>声明浮点型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td>for</td>
+<td>一种循环语句</td>
+</tr>
+<tr>
+<td>goto</td>
+<td>无条件跳转语句</td>
+</tr>
+<tr>
+<td>if</td>
+<td>条件语句</td>
+</tr>
+<tr>
+<td>int</td>
+<td>声明整型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td>long</td>
+<td>声明长整型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td>register</td>
+<td>声明寄存器变量</td>
+</tr>
+<tr>
+<td>return</td>
+<td>子程序返回语句（可以带参数，也可不带参数）</td>
+</tr>
+<tr>
+<td>short</td>
+<td>声明短整型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td>signed</td>
+<td>声明有符号类型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td>sizeof</td>
+<td>计算数据类型或变量长度（即所占字节数）</td>
+</tr>
+<tr>
+<td>static</td>
+<td>声明静态变量</td>
+</tr>
+<tr>
+<td>struct</td>
+<td>声明结构体类型</td>
+</tr>
+<tr>
+<td>switch</td>
+<td>用于开关语句</td>
+</tr>
+<tr>
+<td>typedef</td>
+<td>用以给数据类型取别名</td>
+</tr>
+<tr>
+<td>unsigned</td>
+<td>声明无符号类型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td>union</td>
+<td>声明共用体类型</td>
+</tr>
+<tr>
+<td>void</td>
+<td>声明函数无返回值或无参数，声明无类型指针</td>
+</tr>
+<tr>
+<td>volatile</td>
+<td>说明变量在程序执行中可被隐含地改变</td>
+</tr>
+<tr>
+<td>while</td>
+<td>循环语句的循环条件</td>
+</tr>
+</tbody></table>
+<h1 id="C-数据类型"><a href="#C-数据类型" class="headerlink" title="C 数据类型"></a>C 数据类型</h1><p>在 C 语言中，数据类型指的是用于声明不同类型的变量或函数的一个广泛的系统。变量的类型决定了变量存储占用的空间，以及如何解释存储的位模式。<br>C 中的类型可分为以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型与描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>基本类型：它们是算术类型，包括两种类型：整数类型和浮点类型。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>枚举类型：它们也是算术类型，被用来定义在程序中只能赋予其一定的离散整数值的变量。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>void 类型：类型说明符 void 表明没有可用的值。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>派生类型：它们包括：指针类型、数组类型、结构类型、共用体类型和函数类型。</td>
+</tr>
+</tbody></table>
+<h2 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h2><p>下表列出了关于标准整数类型的存储大小和值范围的细节：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储大小</th>
+<th>值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>char</td>
+<td>1 字节</td>
+<td>-128 到 127 或 0 到 255</td>
+</tr>
+<tr>
+<td>unsigned char</td>
+<td>1 字节</td>
+<td>0 到 255</td>
+</tr>
+<tr>
+<td>signed char</td>
+<td>1 字节</td>
+<td>-128 到 127</td>
+</tr>
+<tr>
+<td>int</td>
+<td>2 或 4 字节</td>
+<td>-32,768 到 32,767 或 -2,147,483,648 到 2,147,483,647</td>
+</tr>
+<tr>
+<td>unsigned int</td>
+<td>2 或 4 字节</td>
+<td>0 到 65,535 或 0 到 4,294,967,295</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2 字节</td>
+<td>-32,768 到 32,767</td>
+</tr>
+<tr>
+<td>unsigned short</td>
+<td>2字节</td>
+<td>0 到 65,535</td>
+</tr>
+<tr>
+<td>long</td>
+<td>4 字节</td>
+<td>-2,147,483,648 到 2,147,483,647</td>
+</tr>
+<tr>
+<td>unsigned long</td>
+<td>4 字节</td>
+<td>0 到 4,294,967,295</td>
+</tr>
+</tbody></table>
+<h2 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h2><p>下表列出了关于标准浮点类型的存储大小、值范围和精度的细节：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储大小</th>
+<th>值范围</th>
+<th>精度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float</td>
+<td>4 字节</td>
+<td>1.2E-38 到 3.4E+38</td>
+<td>6 位有效位</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8 字节</td>
+<td>2.3E-308 到 1.7E+308</td>
+<td>15 位有效位</td>
+</tr>
+<tr>
+<td>long double</td>
+<td>16 字节</td>
+<td>3.4E-4932 到 1.1E+4932</td>
+<td>19 位有效位</td>
+</tr>
+</tbody></table>
+<h2 id="void-类型"><a href="#void-类型" class="headerlink" title="void 类型"></a>void 类型</h2><p>void 类型指定没有可用的值。它通常用于以下三种情况下：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型与描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>函数返回为空:    C 中有各种函数都不返回值，或者您可以说它们返回空。不返回值的函数的返回类型为空。例如 void exit (int status);</td>
+</tr>
+<tr>
+<td>2</td>
+<td>函数参数为空:    C 中有各种函数不接受任何参数。不带参数的函数可以接受一个 void。例如 int rand(void);</td>
+</tr>
+<tr>
+<td>3</td>
+<td>指针指向 void:    类型为 void * 的指针代表对象的地址，而不是类型。例如，内存分配函数 void *malloc( size_t size ); 返回指向 void 的指针，可以转换为任何数据类型。</td>
+</tr>
+</tbody></table>
+<h1 id="C-变量"><a href="#C-变量" class="headerlink" title="C 变量"></a>C 变量</h1><p>变量其实只不过是程序可操作的存储区的名称。C 中每个变量都有特定的类型，类型决定了变量存储的大小和布局，该范围内的值都可以存储在内存中，运算符可应用于变量上。<br>变量的名称可以由字母、数字和下划线字符组成。它必须以字母或下划线开头。大写字母和小写字母是不同的，因为 C 是大小写敏感的。基于前一章讲解的基本类型，有以下几种基本的变量类型：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>char</td>
+<td>通常是一个字节（八位）, 这是一个整数类型。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>整型，4 个字节，取值范围 -2147483648 到 2147483647。</td>
+</tr>
+<tr>
+<td>float</td>
+<td>单精度浮点值。单精度是1位符号，8位指数，23位小数。</td>
+</tr>
+<tr>
+<td>double</td>
+<td>双精度浮点值。双精度是1位符号，11位指数，52位小数。</td>
+</tr>
+<tr>
+<td>void</td>
+<td>表示类型的缺失。</td>
+</tr>
+</tbody></table>
+<p>C 语言也允许定义各种其他类型的变量，比如枚举、指针、数组、结构、共用体等。</p>
+<h2 id="C-中的变量定义"><a href="#C-中的变量定义" class="headerlink" title="C 中的变量定义"></a>C 中的变量定义</h2><p>不带初始化的定义：带有静态存储持续时间的变量会被隐式初始化为 NULL（所有字节的值都是 0），其他所有变量的初始值是未定义的。</p>
+<h2 id="C-中的变量声明"><a href="#C-中的变量声明" class="headerlink" title="C 中的变量声明"></a>C 中的变量声明</h2><p>变量声明向编译器保证变量以指定的类型和名称存在，这样编译器在不需要知道变量完整细节的情况下也能继续进一步的编译。变量声明只在编译时有它的意义，在程序连接时编译器需要实际的变量声明。<br>变量的声明有两种情况：</p>
+<ul>
+<li>1、一种是需要建立存储空间的。例如：int a 在声明的时候就已经建立了存储空间。</li>
+<li>2、另一种是不需要建立存储空间的，通过使用extern关键字声明变量名而不定义它。 例如：extern int a 其中变量 a 可以在别的文件中定义的。</li>
+<li>除非有extern关键字，否则都是变量的定义。<h2 id="C-中的左值（Lvalues）和右值（Rvalues）"><a href="#C-中的左值（Lvalues）和右值（Rvalues）" class="headerlink" title="C 中的左值（Lvalues）和右值（Rvalues）"></a>C 中的左值（Lvalues）和右值（Rvalues）</h2>C 中有两种类型的表达式：</li>
+<li>左值（lvalue）：指向内存位置的表达式被称为左值（lvalue）表达式。左值可以出现在赋值号的左边或右边。</li>
+<li>右值（rvalue）：术语右值（rvalue）指的是存储在内存中某些地址的数值。右值是不能对其进行赋值的表达式，也就是说，右值可以出现在赋值号的右边，但不能出现在赋值号的左边。<br>变量是左值，因此可以出现在赋值号的左边。数值型的字面值是右值，因此不能被赋值，不能出现在赋值号的左边。<h1 id="C-常量"><a href="#C-常量" class="headerlink" title="C 常量"></a>C 常量</h1>常量是固定值，在程序执行期间不会改变。这些固定的值，又叫做字面量。<br>常量可以是任何的基本数据类型，比如整数常量、浮点常量、字符常量，或字符串字面值，也有枚举常量。<br>常量就像是常规的变量，只不过常量的值在定义后不能进行修改。<h2 id="定义常量"><a href="#定义常量" class="headerlink" title="定义常量"></a>定义常量</h2>在 C 中，有两种简单的定义常量的方式：</li>
+<li>使用 #define 预处理器。</li>
+<li>使用 const 关键字。<h1 id="C-储存类"><a href="#C-储存类" class="headerlink" title="C 储存类"></a>C 储存类</h1>存储类定义 C 程序中变量/函数的范围（可见性）和生命周期。这些说明符放置在它们所修饰的类型之前。下面列出 C 程序中可用的存储类：</li>
+<li>auto</li>
+<li>register</li>
+<li>static</li>
+<li>extern<h2 id="auto-存储类"><a href="#auto-存储类" class="headerlink" title="auto 存储类"></a>auto 存储类</h2>auto 存储类是所有局部变量默认的存储类。<h2 id="register-存储类"><a href="#register-存储类" class="headerlink" title="register 存储类"></a>register 存储类</h2>register 存储类用于定义存储在寄存器中而不是 RAM 中的局部变量。这意味着变量的最大尺寸等于寄存器的大小（通常是一个字），且不能对它应用一元的 ‘&amp;’ 运算符（因为它没有内存位置）。<br>寄存器只用于需要快速访问的变量，比如计数器。还应注意的是，定义 ‘register’ 并不意味着变量将被存储在寄存器中，它意味着变量可能存储在寄存器中，这取决于硬件和实现的限制。</li>
+<li>寄存器：寄存器的功能是存储二进制代码，它是由具有存储功能的触发器组合起来构成的。寄存器是CPU内部用来存放数据的一些小型存储区域，用来暂时存放参与运算的数据和运算结果。其实寄存器就是一种常用的时序逻辑电路，但这种时序逻辑电路只包含存储电路。</li>
+<li>RAM：随机存取存储器（英语：Random Access Memory，缩写：RAM），也叫主存，是与CPU直接交换数据的内部存储器。它可以随时读写（刷新时除外），而且速度很快，通常作为操作系统或其他正在运行中的程序的临时数据存储介质。RAM工作时可以随时从任何一个指定的地址写入（存入）或读出（取出）信息。它与ROM的最大区别是数据的易失性，即一旦断电所存储的数据将随之丢失。RAM在计算机和数字系统中用来暂时存储程序、数据和中间结果。</li>
+<li>ROM：只读存储器（Read-Only Memory，ROM）以非破坏性读出方式工作，只能读出无法写入信息。信息一旦写入后就固定下来，即使切断电源，信息也不会丢失，所以又称为固定存储器。ROM所存数据通常是装入整机前写入的，整机工作过程中只能读出，不像随机存储器能快速方便地改写存储内容。ROM所存数据稳定 ，断电后所存数据也不会改变，并且结构较简单，使用方便，因而常用于存储各种固定程序和数据。<h2 id="static-存储类"><a href="#static-存储类" class="headerlink" title="static 存储类"></a>static 存储类</h2>static 存储类指示编译器在程序的生命周期内保持局部变量的存在，而不需要在每次它进入和离开作用域时进行创建和销毁。因此，使用 static 修饰局部变量可以在函数调用之间保持局部变量的值。<br>static 修饰符也可以应用于全局变量。当 static 修饰全局变量时，会使变量的作用域限制在声明它的文件内。<br>全局声明的一个 static 变量或方法可以被任何函数或方法调用，只要这些方法出现在跟 static 变量或方法同一个文件中。<h2 id="extern-存储类"><a href="#extern-存储类" class="headerlink" title="extern 存储类"></a>extern 存储类</h2>extern 存储类用于提供一个全局变量的引用，全局变量对所有的程序文件都是可见的。当您使用 extern 时，对于无法初始化的变量，会把变量名指向一个之前定义过的存储位置。<br>当您有多个文件且定义了一个可以在其他文件中使用的全局变量或函数时，可以在其他文件中使用 extern 来得到已定义的变量或函数的引用。可以这么理解，extern 是用来在另一个文件中声明一个全局变量或函数。<br>extern 修饰符通常用于当有两个或多个文件共享相同的全局变量或函数的时候。<h1 id="C-运算符"><a href="#C-运算符" class="headerlink" title="C 运算符"></a>C 运算符</h1>运算符是一种告诉编译器执行特定的数学或逻辑操作的符号。C 语言内置了丰富的运算符，并提供了以下类型的运算符：</li>
+<li>算术运算符</li>
+<li>关系运算符</li>
+<li>逻辑运算符</li>
+<li>位运算符</li>
+<li>赋值运算符</li>
+<li>杂项运算符<h2 id="杂项运算符"><a href="#杂项运算符" class="headerlink" title="杂项运算符"></a>杂项运算符</h2><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sizeof()</td>
+<td>返回变量的大小</td>
+<td>sizeof(a) 将返回 4，其中 a 是整数</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>返回变量的地址</td>
+<td>&a; 将给出变量的实际地址</td>
+</tr>
+<tr>
+<td>*</td>
+<td>指向一个变量</td>
+<td>*a; 将指向一个变量</td>
+</tr>
+<tr>
+<td>?</td>
+<td>条件表达式</td>
+<td>如果条件为真 ? 则值为 X : 否则值为 Y</td>
+</tr>
+</tbody></table>
+<h1 id="C-判断"><a href="#C-判断" class="headerlink" title="C 判断"></a>C 判断</h1>判断结构要求程序员指定一个或多个要评估或测试的条件，以及条件为真时要执行的语句（必需的）和条件为假时要执行的语句（可选的）。<br>C 语言把任何非零和非空的值假定为 true，把零或 null 假定为 false。<h1 id="C-循环"><a href="#C-循环" class="headerlink" title="C 循环"></a>C 循环</h1>有的时候，我们可能需要多次执行同一块代码。一般情况下，语句是按顺序执行的：函数中的第一个语句先执行，接着是第二个语句，依此类推。<br>编程语言提供了更为复杂执行路径的多种控制结构。循环语句允许我们多次执行一个语句或语句组。<h1 id="C-函数"><a href="#C-函数" class="headerlink" title="C 函数"></a>C 函数</h1>函数是一组一起执行一个任务的语句。每个 C 程序都至少有一个函数，即主函数 main() ，所有简单的程序都可以定义其他额外的函数。<br>您可以把代码划分到不同的函数中。如何划分代码到不同的函数中是由您来决定的，但在逻辑上，划分通常是根据每个函数执行一个特定的任务来进行的。<br>函数声明告诉编译器函数的名称、返回类型和参数。函数定义提供了函数的实际主体。<br>C 标准库提供了大量的程序可以调用的内置函数。例如，函数 strcat() 用来连接两个字符串，函数 memcpy() 用来复制内存到另一个位置。<br>函数还有很多叫法，比如方法、子例程或程序，等等。<h2 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h2>函数声明会告诉编译器函数名称及如何调用函数。函数的实际主体可以单独定义。<br>当您在一个源文件中定义函数且在另一个文件中调用函数时，函数声明是必需的。在这种情况下，您应该在调用函数的文件顶部声明函数。<h1 id="C-作用域规则"><a href="#C-作用域规则" class="headerlink" title="C 作用域规则"></a>C 作用域规则</h1>任何一种编程中，作用域是程序中定义的变量所存在的区域，超过该区域变量就不能被访问。C 语言中有三个地方可以声明变量：</li>
+<li>在函数或块内部的局部变量</li>
+<li>在所有函数外部的全局变量</li>
+<li>在形式参数的函数参数定义中<h2 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h2>在某个函数或块的内部声明的变量称为局部变量。它们只能被该函数或该代码块内部的语句使用。局部变量在函数外部是不可知的。<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2>全局变量是定义在函数外部，通常是在程序的顶部。全局变量在整个程序生命周期内都是有效的，在任意的函数内部能访问全局变量。<br>全局变量可以被任何函数访问。也就是说，全局变量在声明后整个程序中都是可用的。<br>在程序中，局部变量和全局变量的名称可以相同，但是在函数内，如果两个名字相同，会使用局部变量值，全局变量不会被使用。<h2 id="形式参数"><a href="#形式参数" class="headerlink" title="形式参数"></a>形式参数</h2>函数的参数，形式参数，被当作该函数内的局部变量，如果与全局变量同名它们会优先使用。<h2 id="全局变量与局部变量在内存中的区别："><a href="#全局变量与局部变量在内存中的区别：" class="headerlink" title="全局变量与局部变量在内存中的区别："></a>全局变量与局部变量在内存中的区别：</h2>全局变量保存在内存的全局存储区中，占用静态的存储单元。<br>局部变量保存在栈中，只有在所在函数被调用时才动态地为变量分配存储单元。<h1 id="C-数组"><a href="#C-数组" class="headerlink" title="C 数组"></a>C 数组</h1>C 语言支持数组数据结构，它可以存储一个固定大小的相同类型元素的顺序集合。数组是用来存储一系列数据，但它往往被认为是一系列相同类型的变量。<br>所有的数组都是由连续的内存位置组成。最低的地址对应第一个元素，最高的地址对应最后一个元素。<h1 id="C-enum-枚举"><a href="#C-enum-枚举" class="headerlink" title="C enum(枚举)"></a>C enum(枚举)</h1>枚举是 C 语言中的一种基本数据类型，它可以让数据更简洁，更易读。<h1 id="C-指针"><a href="#C-指针" class="headerlink" title="C 指针"></a>C 指针</h1><img src="/img/CLearn/1.png"><h2 id="什么是指针？"><a href="#什么是指针？" class="headerlink" title="什么是指针？"></a>什么是指针？</h2>指针也就是内存地址，指针变量是用来存放内存地址的变量。就像其他变量或常量一样，您必须在使用指针存储其他变量地址之前，对其进行声明。<br>所有实际数据类型，不管是整型、浮点型、字符型，还是其他的数据类型，对应指针的值的类型都是一样的，都是一个代表内存地址的长的十六进制数。<br>不同数据类型的指针之间唯一的不同是，指针所指向的变量或常量的数据类型不同。<h2 id="如何使用指针？"><a href="#如何使用指针？" class="headerlink" title="如何使用指针？"></a>如何使用指针？</h2>使用指针时会频繁进行以下几个操作：定义一个指针变量、把变量地址赋值给指针、访问指针变量中可用地址的值。这些是通过使用一元运算符 * 来返回位于操作数所指定地址的变量的值。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span>  var = <span class="number">20</span>;   <span class="comment">/* 实际变量的声明 */</span></span><br><span class="line">   <span class="keyword">int</span>  *ip;        <span class="comment">/* 指针变量的声明 */</span></span><br><span class="line"> </span><br><span class="line">   ip = &amp;var;  <span class="comment">/* 在指针变量中存储 var 的地址 */</span></span><br><span class="line"> </span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;var 变量的地址: %p\n&quot;</span>, &amp;var  );</span><br><span class="line"> </span><br><span class="line">   <span class="comment">/* 在指针变量中存储的地址 */</span></span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;ip 变量存储的地址: %p\n&quot;</span>, ip );</span><br><span class="line"> </span><br><span class="line">   <span class="comment">/* 使用指针访问值 */</span></span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;*ip 变量的值: %d\n&quot;</span>, *ip );</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">var 变量的地址: <span class="number">0x7ffeeef168d8</span></span><br><span class="line">ip 变量存储的地址: <span class="number">0x7ffeeef168d8</span></span><br><span class="line">*ip 变量的值: <span class="number">20</span></span><br></pre></td></tr></table></figure>
+<h2 id="C-中的-NULL-指针"><a href="#C-中的-NULL-指针" class="headerlink" title="C 中的 NULL 指针"></a>C 中的 NULL 指针</h2>在变量声明的时候，如果没有确切的地址可以赋值，为指针变量赋一个 NULL 值是一个良好的编程习惯。赋为 NULL 值的指针被称为空指针。<br>NULL 指针是一个定义在标准库中的值为零的常量。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span>  *ptr = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;ptr 的地址是 %p\n&quot;</span>, ptr  );</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">ptr 的地址是 <span class="number">0x0</span></span><br></pre></td></tr></table></figure>
+在大多数的操作系统上，程序不允许访问地址为 0 的内存，因为该内存是操作系统保留的。然而，内存地址 0 有特别重要的意义，它表明该指针不指向一个可访问的内存位置。但按照惯例，如果指针包含空值（零值），则假定它不指向任何东西。<h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2>函数指针是指向函数的指针变量。<br>通常我们说的指针变量是指向一个整型、字符型或数组等变量，而函数指针是指向函数。<br>函数指针可以像一般函数一样，用于调用函数、传递参数。<br>函数指针变量的声明：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*fun_ptr)</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>; <span class="comment">// 声明一个指向同样参数、返回值的函数指针类型</span></span><br></pre></td></tr></table></figure>
+实例：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &gt; y ? x : y;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* p 是函数指针 */</span></span><br><span class="line">    <span class="keyword">int</span> (* p)(<span class="keyword">int</span>, <span class="keyword">int</span>) = &amp; max; <span class="comment">// &amp;可以省略</span></span><br><span class="line">    <span class="keyword">int</span> a, b, c, d;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入三个数字:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>, &amp; a, &amp; b, &amp; c);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/* 与直接调用函数等价，d = max(max(a, b), c) */</span></span><br><span class="line">    d = p(p(a, b), c); </span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;最大的数字是: %d\n&quot;</span>, d);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">请输入三个数字:<span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">最大的数字是: <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2>函数指针作为某个函数的参数。<br>函数指针变量可以作为某个函数的参数来使用的，回调函数就是一个通过函数指针调用的函数。<br>简单讲：回调函数是由别人的函数执行时调用你实现的函数。<h1 id="C-字符串"><a href="#C-字符串" class="headerlink" title="C 字符串"></a>C 字符串</h1>在 C 语言中，字符串实际上是使用空字符 \0 结尾的一维字符数组。因此，\0 是用于标记字符串的结束。<br>空字符（Null character）又称结束符，缩写 NUL，是一个数值为 0 的控制字符，\0 是转义字符，意思是告诉编译器，这不是字符 0，而是空字符。<h1 id="C-结构体"><a href="#C-结构体" class="headerlink" title="C 结构体"></a>C 结构体</h1>C 数组允许定义可存储相同类型数据项的变量，结构是 C 编程中另一种用户自定义的可用的数据类型，它允许您存储不同类型的数据项。<h2 id="指向结构的指针"><a href="#指向结构的指针" class="headerlink" title="指向结构的指针"></a>指向结构的指针</h2>您可以定义指向结构的指针，方式与定义指向其他类型变量的指针相似，如下所示：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Books</span> *<span class="title">struct_pointer</span>;</span></span><br></pre></td></tr></table></figure>
+现在，您可以在上述定义的指针变量中存储结构变量的地址。为了查找结构变量的地址，请把 &amp; 运算符放在结构名称的前面，如下所示：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct_pointer = &amp;Book1;</span><br></pre></td></tr></table></figure>
+为了使用指向该结构的指针访问结构的成员，您必须使用 -&gt; 运算符，如下所示：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct_pointer-&gt;title;</span><br></pre></td></tr></table></figure>
+<h1 id="C-共用体"><a href="#C-共用体" class="headerlink" title="C 共用体"></a>C 共用体</h1>共用体是一种特殊的数据类型，允许您在相同的内存位置存储不同的数据类型。您可以定义一个带有多成员的共用体，但是任何时候只能有一个成员带有值。共用体提供了一种使用相同的内存位置的有效方式。<h2 id="定义共用体"><a href="#定义共用体" class="headerlink" title="定义共用体"></a>定义共用体</h2>为了定义共用体，您必须使用 union 语句，方式与定义结构类似。union 语句定义了一个新的数据类型，带有多个成员。union 语句的格式如下：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> [<span class="title">union</span> <span class="title">tag</span>]</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   member definition;</span><br><span class="line">   member definition;</span><br><span class="line">   ...</span><br><span class="line">   member definition;</span><br><span class="line">&#125; [one <span class="keyword">or</span> more <span class="class"><span class="keyword">union</span> <span class="title">variables</span>];</span></span><br></pre></td></tr></table></figure>
+union tag 是可选的，每个 member definition 是标准的变量定义，比如 int i; 或者 float f; 或者其他有效的变量定义。在共用体定义的末尾，最后一个分号之前，您可以指定一个或多个共用体变量，这是可选的。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">Data</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="keyword">int</span> i;</span><br><span class="line">   <span class="keyword">float</span> f;</span><br><span class="line">   <span class="keyword">char</span>  str[<span class="number">20</span>];</span><br><span class="line">&#125; data;</span><br></pre></td></tr></table></figure>
+现在，Data 类型的变量可以存储一个整数、一个浮点数，或者一个字符串。这意味着一个变量（相同的内存位置）可以存储多个多种类型的数据。您可以根据需要在一个共用体内使用任何内置的或者用户自定义的数据类型。<br>共用体占用的内存应足够存储共用体中最大的成员。例如，在上面的实例中，Data 将占用 20 个字节的内存空间，因为在各个成员中，字符串所占用的空间是最大的。<h2 id="访问共用体成员"><a href="#访问共用体成员" class="headerlink" title="访问共用体成员"></a>访问共用体成员</h2>为了访问共用体的成员，我们使用成员访问运算符（.）。成员访问运算符是共用体变量名称和我们要访问的共用体成员之间的一个句号。您可以使用 union 关键字来定义共用体类型的变量。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">Data</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="keyword">int</span> i;</span><br><span class="line">   <span class="keyword">float</span> f;</span><br><span class="line">   <span class="keyword">char</span>  str[<span class="number">20</span>];</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="class"><span class="keyword">union</span> <span class="title">Data</span> <span class="title">data</span>;</span>        </span><br><span class="line"> </span><br><span class="line">   data.i = <span class="number">10</span>;</span><br><span class="line">   data.f = <span class="number">220.5</span>;</span><br><span class="line">   <span class="built_in">strcpy</span>( data.str, <span class="string">&quot;C Programming&quot;</span>);</span><br><span class="line"> </span><br><span class="line">   <span class="built_in">printf</span>( <span class="string">&quot;data.i : %d\n&quot;</span>, data.i);</span><br><span class="line">   <span class="built_in">printf</span>( <span class="string">&quot;data.f : %f\n&quot;</span>, data.f);</span><br><span class="line">   <span class="built_in">printf</span>( <span class="string">&quot;data.str : %s\n&quot;</span>, data.str);</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">data.i : <span class="number">1917853763</span></span><br><span class="line">data.f : <span class="number">4122360580327794860452759994368.000000</span></span><br><span class="line">data.str : C Programming</span><br></pre></td></tr></table></figure>
+在这里，我们可以看到共用体的 i 和 f 成员的值有损坏，因为最后赋给变量的值占用了内存位置，这也是 str 成员能够完好输出的原因。现在让我们再来看一个相同的实例，这次我们在同一时间只使用一个变量，这也演示了使用共用体的主要目的：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">Data</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="keyword">int</span> i;</span><br><span class="line">   <span class="keyword">float</span> f;</span><br><span class="line">   <span class="keyword">char</span>  str[<span class="number">20</span>];</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="class"><span class="keyword">union</span> <span class="title">Data</span> <span class="title">data</span>;</span>        </span><br><span class="line"> </span><br><span class="line">   data.i = <span class="number">10</span>;</span><br><span class="line">   <span class="built_in">printf</span>( <span class="string">&quot;data.i : %d\n&quot;</span>, data.i);</span><br><span class="line">   </span><br><span class="line">   data.f = <span class="number">220.5</span>;</span><br><span class="line">   <span class="built_in">printf</span>( <span class="string">&quot;data.f : %f\n&quot;</span>, data.f);</span><br><span class="line">   </span><br><span class="line">   <span class="built_in">strcpy</span>( data.str, <span class="string">&quot;C Programming&quot;</span>);</span><br><span class="line">   <span class="built_in">printf</span>( <span class="string">&quot;data.str : %s\n&quot;</span>, data.str);</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">data.i : <span class="number">10</span></span><br><span class="line">data.f : <span class="number">220.500000</span></span><br><span class="line">data.str : C Programming</span><br></pre></td></tr></table></figure>
+<h1 id="C-位域"><a href="#C-位域" class="headerlink" title="C 位域"></a>C 位域</h1>如果程序的结构中包含多个开关量，只有 TRUE/FALSE 变量，如下：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> widthValidated;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> heightValidated;</span><br><span class="line">&#125; status;</span><br></pre></td></tr></table></figure>
+这种结构需要 8 字节的内存空间，但在实际上，在每个变量中，我们只存储 0 或 1。在这种情况下，C 语言提供了一种更好的利用内存空间的方式。如果您在结构内使用这样的变量，您可以定义变量的宽度来告诉编译器，您将只使用这些字节。例如，上面的结构可以重写成：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> widthValidated : <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> heightValidated : <span class="number">1</span>;</span><br><span class="line">&#125; status;</span><br></pre></td></tr></table></figure>
+现在，上面的结构中，status 变量将占用 4 个字节的内存空间，但是只有 2 位被用来存储值。如果您用了 32 个变量，每一个变量宽度为 1 位，那么 status 结构将使用 4 个字节，但只要您再多用一个变量，如果使用了 33 个变量，那么它将分配内存的下一段来存储第 33 个变量，这个时候就开始使用 8 个字节。<h2 id="位域声明"><a href="#位域声明" class="headerlink" title="位域声明"></a>位域声明</h2>有些信息在存储时，并不需要占用一个完整的字节，而只需占几个或一个二进制位。例如在存放一个开关量时，只有 0 和 1 两种状态，用 1 位二进位即可。为了节省存储空间，并使处理简便，C 语言又提供了一种数据结构，称为”位域”或”位段”。<br>所谓”位域”是把一个字节中的二进位划分为几个不同的区域，并说明每个区域的位数。每个域有一个域名，允许在程序中按域名进行操作。这样就可以把几个不同的对象用一个字节的二进制位域来表示。<br>典型的实例：</li>
+<li>用 1 位二进位存放一个开关量时，只有 0 和 1 两种状态。</li>
+<li>读取外部文件格式——可以读取非标准的文件格式。例如：9 位的整数。<h3 id="位域的定义和位域变量的说明"><a href="#位域的定义和位域变量的说明" class="headerlink" title="位域的定义和位域变量的说明"></a>位域的定义和位域变量的说明</h3>位域定义与结构定义相仿，其形式为：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> 位域结构名 </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"> 位域列表</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+其中位域列表的形式为：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type [member_name] : width ;</span><br></pre></td></tr></table></figure>
+下面是有关位域中变量元素的描述：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>只能为 int(整型)，unsigned int(无符号整型)，signed int(有符号整型) 三种类型，决定了如何解释位域的值。</td>
+</tr>
+<tr>
+<td>member_name</td>
+<td>位域的名称。</td>
+</tr>
+<tr>
+<td>width</td>
+<td>位域中位的数量。宽度必须小于或等于指定类型的位宽度。</td>
+</tr>
+</tbody></table>
+<p>带有预定义宽度的变量被称为位域。位域可以存储多于 1 位的数，例如，需要一个变量来存储从 0 到 7 的值，您可以定义一个宽度为 3 位的位域，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> age : <span class="number">3</span>;</span><br><span class="line">&#125; Age;</span><br></pre></td></tr></table></figure>
+<h1 id="C-typedef"><a href="#C-typedef" class="headerlink" title="C typedef"></a>C typedef</h1><p>C 语言提供了 typedef 关键字，您可以使用它来为类型取一个新的名字。下面的实例为单字节数字定义了一个术语 BYTE：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> BYTE;</span><br></pre></td></tr></table></figure>
+<p>在这个类型定义之后，标识符 BYTE 可作为类型 unsigned char 的缩写，例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BYTE  b1, b2;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/CLearn/2.jpg"><br>*是申明时标记是指针变量</p>
+<h2 id="typedef-vs-define"><a href="#typedef-vs-define" class="headerlink" title="typedef vs #define"></a>typedef vs #define</h2><p>#define 是 C 指令，用于为各种数据类型定义别名，与 typedef 类似，但是它们有以下几点不同：</p>
+<ul>
+<li>typedef 仅限于为类型定义符号名称，#define 不仅可以为类型定义别名，也能为数值定义别名，比如您可以定义 1 为 ONE。</li>
+<li>typedef 是由编译器执行解释的，#define 语句是由预编译器进行处理的。<h1 id="C-输入-amp-输出"><a href="#C-输入-amp-输出" class="headerlink" title="C 输入 &amp; 输出"></a>C 输入 &amp; 输出</h1>当我们提到输入时，这意味着要向程序填充一些数据。输入可以是以文件的形式或从命令行中进行。C 语言提供了一系列内置的函数来读取给定的输入，并根据需要填充到程序中。<br>当我们提到输出时，这意味着要在屏幕上、打印机上或任意文件中显示一些数据。C 语言提供了一系列内置的函数来输出数据到计算机屏幕上和保存数据到文本文件或二进制文件中。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">愚人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://afoolzwt.github.io/2022/05/14/C%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">https://afoolzwt.github.io/2022/05/14/C%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://afoolzwt.github.io" target="_blank">愚人のblog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C</a></div><div class="post_share"><div class="social-share" data-image="/img/CBg.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/07/21/CSDataStructure/DataStructure6(%E6%8E%92%E5%BA%8F)/"><img class="prev-cover" src="/img/books/DHSJJG.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">《大话数据结构》（排序）</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/14/Leetcode%E6%97%A5%E8%AE%B0/"><img class="next-cover" src="/img/CSharpBg.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">LeetCode日记</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/headicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">愚人</div><div class="author-info__description">为做出理想游戏而不懈努力。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AFoolZWT"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-text">C 基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">关键字</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">C 数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E7%B1%BB%E5%9E%8B"><span class="toc-text">浮点类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#void-%E7%B1%BB%E5%9E%8B"><span class="toc-text">void 类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%8F%98%E9%87%8F"><span class="toc-text">C 变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89"><span class="toc-text">C 中的变量定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-text">C 中的变量声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E4%B8%AD%E7%9A%84%E5%B7%A6%E5%80%BC%EF%BC%88Lvalues%EF%BC%89%E5%92%8C%E5%8F%B3%E5%80%BC%EF%BC%88Rvalues%EF%BC%89"><span class="toc-text">C 中的左值（Lvalues）和右值（Rvalues）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%B8%B8%E9%87%8F"><span class="toc-text">C 常量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%B8%B8%E9%87%8F"><span class="toc-text">定义常量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%82%A8%E5%AD%98%E7%B1%BB"><span class="toc-text">C 储存类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#auto-%E5%AD%98%E5%82%A8%E7%B1%BB"><span class="toc-text">auto 存储类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#register-%E5%AD%98%E5%82%A8%E7%B1%BB"><span class="toc-text">register 存储类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static-%E5%AD%98%E5%82%A8%E7%B1%BB"><span class="toc-text">static 存储类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#extern-%E5%AD%98%E5%82%A8%E7%B1%BB"><span class="toc-text">extern 存储类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">C 运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">杂项运算符</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%88%A4%E6%96%AD"><span class="toc-text">C 判断</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%BE%AA%E7%8E%AF"><span class="toc-text">C 循环</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%87%BD%E6%95%B0"><span class="toc-text">C 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E"><span class="toc-text">函数声明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%A7%84%E5%88%99"><span class="toc-text">C 作用域规则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-text">局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">全局变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%A2%E5%BC%8F%E5%8F%82%E6%95%B0"><span class="toc-text">形式参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="toc-text">全局变量与局部变量在内存中的区别：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E6%95%B0%E7%BB%84"><span class="toc-text">C 数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-enum-%E6%9E%9A%E4%B8%BE"><span class="toc-text">C enum(枚举)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E6%8C%87%E9%92%88"><span class="toc-text">C 指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E9%92%88%EF%BC%9F"><span class="toc-text">什么是指针？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%EF%BC%9F"><span class="toc-text">如何使用指针？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E4%B8%AD%E7%9A%84-NULL-%E6%8C%87%E9%92%88"><span class="toc-text">C 中的 NULL 指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="toc-text">函数指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-text">回调函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">C 字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">C 结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%90%91%E7%BB%93%E6%9E%84%E7%9A%84%E6%8C%87%E9%92%88"><span class="toc-text">指向结构的指针</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%85%B1%E7%94%A8%E4%BD%93"><span class="toc-text">C 共用体</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%85%B1%E7%94%A8%E4%BD%93"><span class="toc-text">定义共用体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E5%85%B1%E7%94%A8%E4%BD%93%E6%88%90%E5%91%98"><span class="toc-text">访问共用体成员</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E4%BD%8D%E5%9F%9F"><span class="toc-text">C 位域</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E5%9F%9F%E5%A3%B0%E6%98%8E"><span class="toc-text">位域声明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E5%9F%9F%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E4%BD%8D%E5%9F%9F%E5%8F%98%E9%87%8F%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="toc-text">位域的定义和位域变量的说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-typedef"><span class="toc-text">C typedef</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#typedef-vs-define"><span class="toc-text">typedef vs #define</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E8%BE%93%E5%85%A5-amp-%E8%BE%93%E5%87%BA"><span class="toc-text">C 输入 &amp; 输出</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》"><img src="/img/books/dhsjms.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话设计模式》"/></a><div class="content"><a class="title" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》">《大话设计模式》</a><time datetime="2023-03-21T16:00:00.000Z" title="发表于 2023-03-22 00:00:00">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（语言特性18-23）"/></a><div class="content"><a class="title" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）">Lua程序设计（语言特性18-23）</a><time datetime="2022-11-01T16:00:00.000Z" title="发表于 2022-11-02 00:00:00">2022-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（编程实操9-17）"/></a><div class="content"><a class="title" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）">Lua程序设计（编程实操9-17）</a><time datetime="2022-10-31T16:00:00.000Z" title="发表于 2022-11-01 00:00:00">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（Lua语言入门1-8）"/></a><div class="content"><a class="title" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）">Lua程序设计（Lua语言入门1-8）</a><time datetime="2022-10-30T16:00:00.000Z" title="发表于 2022-10-31 00:00:00">2022-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）"><img src="/img/books/DHSJJG.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话数据结构》（串）"/></a><div class="content"><a class="title" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）">《大话数据结构》（串）</a><time datetime="2022-07-20T16:00:00.000Z" title="发表于 2022-07-21 00:00:00">2022-07-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 愚人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '2L5WFGGosqmMsQkoWAORAVz8-gzGzoHsz',
+      appKey: 'Aw2OnjzWeYL9LYdqwpwuVuXI',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

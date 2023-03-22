@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CSharp进阶 | 愚人のblog</title><meta name="keywords" content="C#"><meta name="author" content="愚人"><meta name="copyright" content="愚人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="List 底层源码剖析List 继承于IList，IReadOnlyList，IList是提供了主要的接口，IReadOnlyList提供了迭代接口。 看构造部分，我们明确了，List内部是用数组实现的，而不是链表，并且当没有给予指定容量时，初始的容量为0。 Add上述List源代码中的Add函数，每次增加一个元素的数据，Add接口都会首先检查的是容量还够不，如果不够则用EnsureCapacit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSharp进阶">
+<meta property="og:url" content="https://afoolzwt.github.io/2022/02/25/CSharp%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="愚人のblog">
+<meta property="og:description" content="List 底层源码剖析List 继承于IList，IReadOnlyList，IList是提供了主要的接口，IReadOnlyList提供了迭代接口。 看构造部分，我们明确了，List内部是用数组实现的，而不是链表，并且当没有给予指定容量时，初始的容量为0。 Add上述List源代码中的Add函数，每次增加一个元素的数据，Add接口都会首先检查的是容量还够不，如果不够则用EnsureCapacit">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://afoolzwt.github.io/img/CSharpBg.webp">
+<meta property="article:published_time" content="2022-02-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-14T08:12:17.973Z">
+<meta property="article:author" content="愚人">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afoolzwt.github.io/img/CSharpBg.webp"><link rel="shortcut icon" href="/img/webicon.png"><link rel="canonical" href="https://afoolzwt.github.io/2022/02/25/CSharp%E8%BF%9B%E9%98%B6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-HqA81hlzlz&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSharp进阶',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-14 16:12:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="愚人のblog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/headicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: lightblue"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">愚人のblog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CSharp进阶</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-24T16:00:00.000Z" title="发表于 2022-02-25 00:00:00">2022-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-14T08:12:17.973Z" title="更新于 2022-05-14 16:12:17">2022-05-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C#</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/C-%E8%BF%9B%E9%98%B6/">C#进阶</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CSharp进阶"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="List-底层源码剖析"><a href="#List-底层源码剖析" class="headerlink" title="List 底层源码剖析"></a>List 底层源码剖析</h1><p>List 继承于IList，IReadOnlyList，IList是提供了主要的接口，IReadOnlyList提供了迭代接口。</p>
+<p>看构造部分，我们明确了，List内部是用数组实现的，而不是链表，并且当没有给予指定容量时，初始的容量为0。</p>
+<h2 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h2><p>上述List源代码中的Add函数，每次增加一个元素的数据，Add接口都会首先检查的是容量还够不，如果不够则用EnsureCapacity 来增加容量。每次容量不够的时候，整个数组的容量都会扩充一倍，_defaultCapacity 是容量的默认值为4。因此整个扩充的路线为4，8，16，32，64，128，256，512，1024…依次类推。</p>
+<p>List使用数组形式作为底层数据结构，好处是使用索引方式提取元素很快，但在扩容的时候就会很糟糕，每次new数组都会造成内存垃圾，这给垃圾回收GC带来了很多负担。</p>
+<h2 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a>Remove</h2><p>Remove接口中包含了 IndexOf 和 RemoveAt，其中用 IndexOf 函数是位了找到元素的索引位置，用 RemoveAt 可以删除指定位置的元素。</p>
+<p>从源码中我们可以看到，元素删除的原理其实就是用 Array.Copy 对数组进行覆盖。IndexOf 启用的是 Array.IndexOf 接口来查找元素的索引位置，这个接口本身内部实现是就是按索引顺序从0到n对每个位置的比较，复杂度为O(n)。</p>
+<h2 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h2><p>与Add接口一样，先检查容量是否足够，不足则扩容。从源码中获悉，Insert插入元素时，使用的用拷贝数组的形式，将数组里的指定元素后面的元素向后移动一个位置。</p>
+<h2 id="Clear"><a href="#Clear" class="headerlink" title="Clear"></a>Clear</h2><p>Clear接口在调用时并不会删除数组，而只是将数组中的元素清零，并设置 _size 为 0 而已，用于虚拟地表明当前容量为0。</p>
+<h2 id="Contains"><a href="#Contains" class="headerlink" title="Contains"></a>Contains</h2><p>从源代码中我们可以看到，Contains 接口使用的是线性查找方式比较元素，对数组进行迭代，比较每个元素与参数的实例是否一致，如果一致则返回true，全部比较结束还没有找到，则认为查找失败。</p>
+<h2 id="ToArray"><a href="#ToArray" class="headerlink" title="ToArray"></a>ToArray</h2><p>ToArray接口中，重新new了一个指定大小的数组，再将本身数组上的内容考别到新数组上，再返回出来。</p>
+<h2 id="Find"><a href="#Find" class="headerlink" title="Find"></a>Find</h2><p>Find接口使用的同样是线性查找，对每个元素都进行了比较，复杂度为O(n)。</p>
+<h2 id="Enumerator"><a href="#Enumerator" class="headerlink" title="Enumerator"></a>Enumerator</h2><p>其中我们需要注意 Enumerator 这个结构，每次获取迭代器时，Enumerator 每次都是被new出来，如果大量使用迭代器的话，比如foreach就会造成大量的垃圾对象，这也是为什么我们常常告诫程序员们，尽量不要用foreach，因为 List 的 foreach 会增加有新的 Enumerator 实例，最后由GC垃圾回收掉。</p>
+<h2 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h2><p>它使用了 Array.Sort接口进行排序。<br>Array.Sort 使用的是快速排序方式进行排序，从而我们明白了 List 的 Sort 排序的效率为O(nlogn)。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们把大部分的接口都列了出来，差不多把所有的源码都分析了一遍，我们可以看到 List 的效率并不高，只是通用性强而已，大部分的算法都使用的是线性复杂度的算法，这种线性算法当遇到规模比较大的计算量级时就会导致CPU的大量损耗。<br>我们可以自己改进它，比如不再使用有线性算法的接口，自己重写一套，但凡要优化List 中的线性算法的地方都使用，我们自己制作的工具类。<br>List的内存分配方式也极为不合理，当List里的元素不断增加时，会多次重新new数组，导致原来的数组被抛弃，最后当GC被调用时造成回收的压力。<br>我们可以提前告知 List 对象最多会有多少元素在里面，这样的话 List 就不会因为空间不够而抛弃原有的数组，去重新申请数组了。<br>List源码<br>另外我们也可以从源码上看得出，代码是线程不安全的，它并没有对多线程下做任何锁或其他同步操作。并发情况下，无法判断 _size++ 的执行顺序，因此当我们在多线程间使用 List 时加上安全机制。<br>最后List 并不是高效的组件，真实情况是，他比数组的效率还要差的多，他只是个兼容性比较强得组件而已，好用，但效率差。</p>
+<hr>
+<h1 id="Dictionary底层源码剖析"><a href="#Dictionary底层源码剖析" class="headerlink" title="Dictionary底层源码剖析"></a>Dictionary底层源码剖析</h1><h2 id="关键字Key是如何映射到内存"><a href="#关键字Key是如何映射到内存" class="headerlink" title="关键字Key是如何映射到内存"></a>关键字Key是如何映射到内存</h2><p>这种映射关系可以用一个Hash函数来建立，Dictionary 也确实是这样做的。这个Hash函数也并非神秘，我们可以简单的认为它只是做了一个模(Mod余)的操作，Dictionary 将每个Key加入容器的元素都要进行一次Hash哈希的运算操作，从而找到自己的位置。<br>Hash函数可以有很多种算法，最简单的可以认为是余操作。</p>
+<h2 id="处理Hash哈希冲突"><a href="#处理Hash哈希冲突" class="headerlink" title="处理Hash哈希冲突"></a>处理Hash哈希冲突</h2><p>在处理Hash哈希冲突的方法中通常有：开放定址法、再哈希法、链地址法、建立一个公共溢出区等。Dictionary使用的解决冲突方法是拉链法，又称链地址法。</p>
+<h3 id="拉链法的原理"><a href="#拉链法的原理" class="headerlink" title="拉链法的原理"></a>拉链法的原理</h3><p>将所有关键字为同义词的结点链接在同一个单链表中。若选定的散列表长度为n，则可将散列表定义为一个由n个头指针组成的指针数 组T[0..n-1]。凡是散列地址为i的结点，均插入到以T[i]为头指针的单链表中。T中各分量的初值均应为空指针。<br>在哈希表上进行查找的过程，和，在哈希表构建的过程是基本一致的。<br>给定Key值，根据造表时设定的哈希函数求得哈希地址，若表中此位置没有记录，则查找不成功；否则比较关键字，若和给定值相等，则查找成功；否则根据处理冲突的方法寻找“下一地址”，直到哈希表中某个位置为空或者表中所填记录的关键字等于给定值时为止。</p>
+<h2 id="Dictionary"><a href="#Dictionary" class="headerlink" title="Dictionary"></a>Dictionary</h2><p>从继承的类和接口看，Dictionary 主要继承了 IDictionary 接口，和 ISerializable 接口。IDictionary 和 ISerializable 在使用过程中，其主要的接口为，Add, Remove, ContainsKey, Clear, TryGetValue, Keys, Values, 以及[]数组符号形式作为返回值的接口。也包括了常用库 Collection 中的接口，Count, Contains等。</p>
+<p>从 Dictionary 的定义变量中可以看出，Dictionary 是以数组为底层数据结构的类。当我们实例化 new Dictionary() 后，内部的数组是0个数组的状态。与 List 组件一样，Dictionary 也是需要扩容的，会随着元素数量的增加而不断扩容。</p>
+<h2 id="Add-1"><a href="#Add-1" class="headerlink" title="Add"></a>Add</h2><p>调用函数获得Hash哈希值后，还需要对哈希地址做余操作，以确定地址落在 Dictionary 数组长度范围内不会溢出。<br>紧接着对指定数组单元格内的链表元素做遍历操作，找出空出来的位置将值填入。</p>
+<h2 id="Remove-1"><a href="#Remove-1" class="headerlink" title="Remove"></a>Remove</h2><p>同样用哈希函数 comparer.GetHashCode 再除余后得到范围内的地址索引，再做余操作确定地址落在数组范围内，从哈希索引地址开始，查找冲突的元素的Key是否与需要移除的Key值相同，相同则进行移除操作并退出。<br>注意源码中，Remove 的移除操作并没有对内存进行删减，而只是将其单元格置空，这是位了减少了内存的频繁操作。</p>
+<h2 id="ContainsKey"><a href="#ContainsKey" class="headerlink" title="ContainsKey"></a>ContainsKey</h2><p>它调用了 FindEntry 函数，FindEntry 查找Key值位置的方法跟我们前面提到的相同。从用Key值得到的哈希值地址开始查找，查看所有冲突链表中，是否有与Key值相同的值，找到即刻返回该索引地址。</p>
+<h2 id="Dictionary-同List一样并不是线程安全的组件"><a href="#Dictionary-同List一样并不是线程安全的组件" class="headerlink" title="Dictionary 同List一样并不是线程安全的组件"></a>Dictionary 同List一样并不是线程安全的组件</h2><p>Hashtable在多线程读写中是线程安全的，而 Dictionary 不是。如果要在多个线程中共享Dictionaray的读写操作，就要自己写lock以保证线程安全。</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>他是由数组构成，并且由哈希函数完成地址构建，由拉链法冲突解决方式来解决冲突。<br>从效率上看，同List一样最好在 实例化对象时，即 new 时尽量确定大致数量会更加高效，另外用数值方式做Key比用类实例方式作为Key值更加高效率。<br>从内存操作上看，大小以3-&gt;7-&gt;17-&gt;37-&gt;….的速度，每次增加2倍多的顺序进行，删除时，并不缩减内存。<br>如果想在多线程中，共享 Dictionary 则需要进行我们自己进行lock操作。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">愚人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://afoolzwt.github.io/2022/02/25/CSharp%E8%BF%9B%E9%98%B6/">https://afoolzwt.github.io/2022/02/25/CSharp%E8%BF%9B%E9%98%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://afoolzwt.github.io" target="_blank">愚人のblog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C#</a></div><div class="post_share"><div class="social-share" data-image="/img/CSharpBg.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/25/CSharp%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/"><img class="prev-cover" src="/img/CSharpBg.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CSharp零碎知识点</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/25/GameFrameWork%E6%A8%A1%E5%9D%97/"><img class="next-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Game Framework 模块汇总</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/11/CSharp%E7%AE%97%E6%B3%95/" title="CSharp算法"><img class="cover" src="/img/CSharpBg.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-11</div><div class="title">CSharp算法</div></div></a></div><div><a href="/2022/02/25/CSharp%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9/" title="CSharp零碎知识点"><img class="cover" src="/img/CSharpBg.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-25</div><div class="title">CSharp零碎知识点</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/headicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">愚人</div><div class="author-info__description">为做出理想游戏而不懈努力。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AFoolZWT"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#List-%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90"><span class="toc-text">List 底层源码剖析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Add"><span class="toc-text">Add</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Remove"><span class="toc-text">Remove</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Insert"><span class="toc-text">Insert</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Clear"><span class="toc-text">Clear</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Contains"><span class="toc-text">Contains</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ToArray"><span class="toc-text">ToArray</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Find"><span class="toc-text">Find</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enumerator"><span class="toc-text">Enumerator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sort"><span class="toc-text">Sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dictionary%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90"><span class="toc-text">Dictionary底层源码剖析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97Key%E6%98%AF%E5%A6%82%E4%BD%95%E6%98%A0%E5%B0%84%E5%88%B0%E5%86%85%E5%AD%98"><span class="toc-text">关键字Key是如何映射到内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86Hash%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81"><span class="toc-text">处理Hash哈希冲突</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E9%93%BE%E6%B3%95%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">拉链法的原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dictionary"><span class="toc-text">Dictionary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Add-1"><span class="toc-text">Add</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Remove-1"><span class="toc-text">Remove</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ContainsKey"><span class="toc-text">ContainsKey</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dictionary-%E5%90%8CList%E4%B8%80%E6%A0%B7%E5%B9%B6%E4%B8%8D%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E7%BB%84%E4%BB%B6"><span class="toc-text">Dictionary 同List一样并不是线程安全的组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》"><img src="/img/books/dhsjms.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话设计模式》"/></a><div class="content"><a class="title" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》">《大话设计模式》</a><time datetime="2023-03-21T16:00:00.000Z" title="发表于 2023-03-22 00:00:00">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（语言特性18-23）"/></a><div class="content"><a class="title" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）">Lua程序设计（语言特性18-23）</a><time datetime="2022-11-01T16:00:00.000Z" title="发表于 2022-11-02 00:00:00">2022-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（编程实操9-17）"/></a><div class="content"><a class="title" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）">Lua程序设计（编程实操9-17）</a><time datetime="2022-10-31T16:00:00.000Z" title="发表于 2022-11-01 00:00:00">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（Lua语言入门1-8）"/></a><div class="content"><a class="title" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）">Lua程序设计（Lua语言入门1-8）</a><time datetime="2022-10-30T16:00:00.000Z" title="发表于 2022-10-31 00:00:00">2022-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）"><img src="/img/books/DHSJJG.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话数据结构》（串）"/></a><div class="content"><a class="title" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）">《大话数据结构》（串）</a><time datetime="2022-07-20T16:00:00.000Z" title="发表于 2022-07-21 00:00:00">2022-07-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 愚人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '2L5WFGGosqmMsQkoWAORAVz8-gzGzoHsz',
+      appKey: 'Aw2OnjzWeYL9LYdqwpwuVuXI',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

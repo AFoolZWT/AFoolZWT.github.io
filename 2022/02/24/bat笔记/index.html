@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>bat命令总结 | 愚人のblog</title><meta name="keywords" content="Windows,bat"><meta name="author" content="愚人"><meta name="copyright" content="愚人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Winodws命令行1，echo 显示内容echo 内容（类似log）echo on&#x2F;off  （关闭或开启回显）@echo off  内容  pause（暂停） @  符号  表示@后面的命令不显示 2，cd  进入目录cd 内容（path路径，进入到对应的文件夹下面，如果不是在当前盘符，需要执行 盘符：（e:））cd .. (进入父目录)cd &#x2F;d d:\ (进入盘符根目录)cd e: (显示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bat命令总结">
+<meta property="og:url" content="https://afoolzwt.github.io/2022/02/24/bat%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="愚人のblog">
+<meta property="og:description" content="Winodws命令行1，echo 显示内容echo 内容（类似log）echo on&#x2F;off  （关闭或开启回显）@echo off  内容  pause（暂停） @  符号  表示@后面的命令不显示 2，cd  进入目录cd 内容（path路径，进入到对应的文件夹下面，如果不是在当前盘符，需要执行 盘符：（e:））cd .. (进入父目录)cd &#x2F;d d:\ (进入盘符根目录)cd e: (显示">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://afoolzwt.github.io/img/cover2.jpg">
+<meta property="article:published_time" content="2022-02-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-24T09:48:12.445Z">
+<meta property="article:author" content="愚人">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="bat">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afoolzwt.github.io/img/cover2.jpg"><link rel="shortcut icon" href="/img/webicon.png"><link rel="canonical" href="https://afoolzwt.github.io/2022/02/24/bat%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-HqA81hlzlz&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'bat命令总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-24 17:48:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="愚人のblog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/headicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: lightblue"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">愚人のblog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">bat命令总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-23T16:00:00.000Z" title="发表于 2022-02-24 00:00:00">2022-02-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-24T09:48:12.445Z" title="更新于 2022-02-24 17:48:12">2022-02-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Windows/">Windows</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Windows/bat/">bat</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="bat命令总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Winodws命令行"><a href="#Winodws命令行" class="headerlink" title="Winodws命令行"></a>Winodws命令行</h1><h2 id="1，echo-显示内容"><a href="#1，echo-显示内容" class="headerlink" title="1，echo 显示内容"></a>1，echo 显示内容</h2><p>echo 内容（类似log）<br>echo on/off  （关闭或开启回显）<br>@echo off  内容  pause（暂停）</p>
+<p>@  符号  表示@后面的命令不显示</p>
+<h2 id="2，cd-进入目录"><a href="#2，cd-进入目录" class="headerlink" title="2，cd  进入目录"></a>2，cd  进入目录</h2><p>cd 内容（path路径，进入到对应的文件夹下面，如果不是在当前盘符，需要执行 盘符：（e:））<br>cd .. (进入父目录)<br>cd /d d:\ (进入盘符根目录)<br>cd e: (显示之前盘符所在目录)<br>d:  (盘符：表示进入某个盘（记录上次进入这个盘的目录，直接进入到对应目录）)  ==  cd /d d:</p>
+<h2 id="3，-dir-显示目录中的内容"><a href="#3，-dir-显示目录中的内容" class="headerlink" title="3， dir  显示目录中的内容"></a>3， dir  显示目录中的内容</h2><p>dir (显示当前目录中字文件夹和文件  包含文件信息)<br>dir /b (只显示当前目录中的子文件夹与文件的文件名)<br>dir /p （分页显示当前目录中的子文件夹与文件）<br>dir /ad (显示当前目录中的子文件夹)<br>dir /ad (显示当前目录中的文件)<br>dir ttt.txt  (显示ttt.txt文件的信息)<br>dir 文件夹 （显示该文件夹下面子文件夹和文件  包含文件信息）</p>
+<h2 id="4-，tree-显示目录结构"><a href="#4-，tree-显示目录结构" class="headerlink" title="4 ，tree  显示目录结构"></a>4 ，tree  显示目录结构</h2><p>tree 路径 （显示对应文件夹里面的目录结构）</p>
+<h2 id="5，-ren-文件夹或文件改名"><a href="#5，-ren-文件夹或文件改名" class="headerlink" title="5， ren  文件夹或文件改名"></a>5， ren  文件夹或文件改名</h2><p>ren ttt.txt 测试.txt   (将当前目录下的ttt.txt改名为测试.txt)<br>ren e:\Work\测试.txt 测试2.txt  (直接改对应目录下面的文件夹名)</p>
+<h2 id="6，-md-创建目录"><a href="#6，-md-创建目录" class="headerlink" title="6， md  创建目录"></a>6， md  创建目录</h2><p>md 文件夹名   （在当前目录中创建文件夹）<br>md e:\work\测试123  （直接在对应目录创建文件夹）</p>
+<h2 id="7，-rd-删除目录"><a href="#7，-rd-删除目录" class="headerlink" title="7， rd 删除目录"></a>7， rd 删除目录</h2><p>rd 文件夹名  （在当前目录中删除文件夹）<br>rd e:\work\测试123 （直接在对应目录删除文件夹）<br>rd 测试 /s /q  (删除当前目录中的文件夹，包括子文件夹和子文件  /s表示删除子文件夹与子文件  /q表示不需要删除请求，安静模式)</p>
+<h2 id="8，copy-拷贝文件"><a href="#8，copy-拷贝文件" class="headerlink" title="8，copy 拷贝文件"></a>8，copy 拷贝文件</h2><p>copy 测试2.txt  e:\  （将测试2文件拷贝到e盘目录下）<br>copy 测试2.txt 路径+文件名  （将文件拷贝到对应路径下，并且重命名）<br>copy /y 测试2.txt  e:(不需要询问是否覆盖)<br>copy /y  文件夹 e:\ (拷贝文件夹下面所有文件到对应目录，不包括子目录)<br>copy 测试2.txt + (复制文件到自己，实际修改了文件日期)<br>copy /y 测试2.txt+新建文本文档.txt 新.txt  （将当前目录下的测试2.txt与新建文本文档.txt合并写入新.txt ）</p>
+<h2 id="9，xcopy-更强大的复制命令"><a href="#9，xcopy-更强大的复制命令" class="headerlink" title="9，xcopy 更强大的复制命令"></a>9，xcopy 更强大的复制命令</h2><p>xcopy 文件夹路径  目标文件夹 （将文件夹里面的所有内容拷贝到目标文件夹里面 直接执行不包含子目录）<br>xcopy 文件夹路径  目标文件夹  /s  (将文件夹里面的所有内容拷贝到目标文件夹里面,包含子目录)<br>xcopy 文件夹路径  目标文件夹  /d:月-日-年  /s  /y (将文件夹里面这个时间改变之后的文件拷贝到目标文件夹里面,包含子目录)</p>
+<h2 id="10-move-移动文件"><a href="#10-move-移动文件" class="headerlink" title="10,move 移动文件"></a>10,move 移动文件</h2><p>move 测试2.txt e:\  （移动测试2.txt到e盘）  /y<br>move *.txt e:\  （移动所有后缀为txt到e盘）  /y<br>move 测试文件夹 e:\new  (移动文件夹到new文件夹，如果存在new文件夹，那么直接移到到该目录下面，如果不存在，则将移动的文件夹移动到对应目录后，改名为new)</p>
+<h2 id="11-del-删除文件-不会删除目录及子目录"><a href="#11-del-删除文件-不会删除目录及子目录" class="headerlink" title="11,del 删除文件  不会删除目录及子目录"></a>11,del 删除文件  不会删除目录及子目录</h2><p>del 文件夹 （删除当前目录下的文件夹中所有非只读文件，子目录下的文件不删除，并且还会进行删除前确认 ==  del new* ）<br>del /f 文件夹 （含只读文件，子目录下的文件不删除，并且还会进行删除前确认 ==  del /f new* ）<br>del /f /s /q 文件夹 （含只读文件，含子目录下的文件）<br>del /ar <em>.</em> (删除当前目录下所有只读文件)<br>del /a-s <em>.</em> (删除当前目录下除系统文件以外的所有文件)</p>
+<h2 id="12，replace-替换文件"><a href="#12，replace-替换文件" class="headerlink" title="12，replace 替换文件"></a>12，replace 替换文件</h2><p>replace e:\work\测试2.txt e:\q  （使用e:\work\测试2.txt 去替换 e盘下面q文件夹下面的测试2.txt）</p>
+<h2 id="13，bat窗口"><a href="#13，bat窗口" class="headerlink" title="13，bat窗口"></a>13，bat窗口</h2><p>@echo off<br>title 测试bat<br>color 03<br>mode con cols=50 lines=100<br>pause</p>
+<hr>
+<pre><code> 0 = 黑色                     8 = 灰色
+ 1 = 蓝色                     9 = 淡蓝色
+ 2 = 绿色                     A = 淡绿色
+ 3 = 湖蓝色                  B = 淡浅绿色
+ 4 = 红色                     C = 淡红色
+ 5 = 紫色                     D = 淡紫色
+ 6 = 黄色                     E = 淡黄色
+ 7 = 白色                     F = 亮白色
+</code></pre>
+<hr>
+<h2 id="14，文件写入内容"><a href="#14，文件写入内容" class="headerlink" title="14，文件写入内容"></a>14，文件写入内容</h2><p>e:<br>cd e:\Work<br>echo bat测试命令 &gt;&gt; 测试2.txt   （&gt;&gt;直接写入到原来的尾部）  （&gt; 表示覆盖写入）</p>
+<h2 id="15，type-显示文本内容"><a href="#15，type-显示文本内容" class="headerlink" title="15，type 显示文本内容"></a>15，type 显示文本内容</h2><p>type 测试2.txt</p>
+<h2 id="16，find-文件中搜索字符-findstr"><a href="#16，find-文件中搜索字符-findstr" class="headerlink" title="16，find 文件中搜索字符(findstr)"></a>16，find 文件中搜索字符(findstr)</h2><p>find /n /i “测试” 测试2.txt  （/n 显示行号  /i忽略大小写）</p>
+<h2 id="17-参数-1-9"><a href="#17-参数-1-9" class="headerlink" title="17,参数 %1 - %9"></a>17,参数 %1 - %9</h2><h2 id="18，rem-注释"><a href="#18，rem-注释" class="headerlink" title="18，rem 注释"></a>18，rem 注释</h2><h2 id="19，if语句-goto语句"><a href="#19，if语句-goto语句" class="headerlink" title="19，if语句  goto语句"></a>19，if语句  goto语句</h2><p>if “%1” == “qwer”  （”参数” == “参数”）<br>goto 名称  （查找是根据 :名称 进行匹配）</p>
+<p>@echo off<br>if “%1” == “qwer” (<br> echo 包含qwer<br> echo 111<br>) else (<br> echo 不包含qwer<br>)<br>pause<br>（注意 1，括号所在位置  2，括号与关键字中间的空格）</p>
+<p>if “%1” == “qwer”   正常的字符串判断<br>if </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">愚人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://afoolzwt.github.io/2022/02/24/bat%E7%AC%94%E8%AE%B0/">https://afoolzwt.github.io/2022/02/24/bat%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://afoolzwt.github.io" target="_blank">愚人のblog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Windows/">Windows</a><a class="post-meta__tags" href="/tags/bat/">bat</a></div><div class="post_share"><div class="social-share" data-image="/img/cover2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/24/Lua%E6%89%8B%E5%86%8C/"><img class="prev-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lua手册</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/24/Unity%E5%AE%9E%E7%8E%B0%E6%88%98%E4%BA%89%E8%BF%B7%E9%9B%BE/"><img class="next-cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Unity实现战争迷雾</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/headicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">愚人</div><div class="author-info__description">为做出理想游戏而不懈努力。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AFoolZWT"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Winodws%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text">Winodws命令行</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EF%BC%8Cecho-%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9"><span class="toc-text">1，echo 显示内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%EF%BC%8Ccd-%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95"><span class="toc-text">2，cd  进入目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%EF%BC%8C-dir-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%BD%95%E4%B8%AD%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">3， dir  显示目录中的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%EF%BC%8Ctree-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">4 ，tree  显示目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%EF%BC%8C-ren-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%88%96%E6%96%87%E4%BB%B6%E6%94%B9%E5%90%8D"><span class="toc-text">5， ren  文件夹或文件改名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%EF%BC%8C-md-%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95"><span class="toc-text">6， md  创建目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%EF%BC%8C-rd-%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95"><span class="toc-text">7， rd 删除目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%EF%BC%8Ccopy-%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6"><span class="toc-text">8，copy 拷贝文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%EF%BC%8Cxcopy-%E6%9B%B4%E5%BC%BA%E5%A4%A7%E7%9A%84%E5%A4%8D%E5%88%B6%E5%91%BD%E4%BB%A4"><span class="toc-text">9，xcopy 更强大的复制命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-move-%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="toc-text">10,move 移动文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-del-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6-%E4%B8%8D%E4%BC%9A%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95%E5%8F%8A%E5%AD%90%E7%9B%AE%E5%BD%95"><span class="toc-text">11,del 删除文件  不会删除目录及子目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12%EF%BC%8Creplace-%E6%9B%BF%E6%8D%A2%E6%96%87%E4%BB%B6"><span class="toc-text">12，replace 替换文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13%EF%BC%8Cbat%E7%AA%97%E5%8F%A3"><span class="toc-text">13，bat窗口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14%EF%BC%8C%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5%E5%86%85%E5%AE%B9"><span class="toc-text">14，文件写入内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15%EF%BC%8Ctype-%E6%98%BE%E7%A4%BA%E6%96%87%E6%9C%AC%E5%86%85%E5%AE%B9"><span class="toc-text">15，type 显示文本内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16%EF%BC%8Cfind-%E6%96%87%E4%BB%B6%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%AD%97%E7%AC%A6-findstr"><span class="toc-text">16，find 文件中搜索字符(findstr)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-%E5%8F%82%E6%95%B0-1-9"><span class="toc-text">17,参数 %1 - %9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18%EF%BC%8Crem-%E6%B3%A8%E9%87%8A"><span class="toc-text">18，rem 注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19%EF%BC%8Cif%E8%AF%AD%E5%8F%A5-goto%E8%AF%AD%E5%8F%A5"><span class="toc-text">19，if语句  goto语句</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》"><img src="/img/books/dhsjms.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话设计模式》"/></a><div class="content"><a class="title" href="/2023/03/22/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="《大话设计模式》">《大话设计模式》</a><time datetime="2023-03-21T16:00:00.000Z" title="发表于 2023-03-22 00:00:00">2023-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（语言特性18-23）"/></a><div class="content"><a class="title" href="/2022/11/02/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A718-23%EF%BC%89/" title="Lua程序设计（语言特性18-23）">Lua程序设计（语言特性18-23）</a><time datetime="2022-11-01T16:00:00.000Z" title="发表于 2022-11-02 00:00:00">2022-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（编程实操9-17）"/></a><div class="content"><a class="title" href="/2022/11/01/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%93%8D9-17%EF%BC%89/" title="Lua程序设计（编程实操9-17）">Lua程序设计（编程实操9-17）</a><time datetime="2022-10-31T16:00:00.000Z" title="发表于 2022-11-01 00:00:00">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）"><img src="/img/Lua.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua程序设计（Lua语言入门1-8）"/></a><div class="content"><a class="title" href="/2022/10/31/Lua/Lua%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%88Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A81-8%EF%BC%89/" title="Lua程序设计（Lua语言入门1-8）">Lua程序设计（Lua语言入门1-8）</a><time datetime="2022-10-30T16:00:00.000Z" title="发表于 2022-10-31 00:00:00">2022-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）"><img src="/img/books/DHSJJG.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《大话数据结构》（串）"/></a><div class="content"><a class="title" href="/2022/07/21/CSDataStructure/DataStructure2(%E4%B8%B2)/" title="《大话数据结构》（串）">《大话数据结构》（串）</a><time datetime="2022-07-20T16:00:00.000Z" title="发表于 2022-07-21 00:00:00">2022-07-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 愚人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '2L5WFGGosqmMsQkoWAORAVz8-gzGzoHsz',
+      appKey: 'Aw2OnjzWeYL9LYdqwpwuVuXI',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
